@@ -269,7 +269,28 @@ import { disponibilite } from '../config/dispo.js';
         <a href="/clients#noe" style="font-size: 0.8rem; color: var(--color-accent); letter-spacing: 0.05em;">Voir la mission →</a>
       </div>
 
-      <!-- Carte mission 2 -->
+      <!-- Carte mission 2 — SNCF -->
+      <div style="
+        min-width: 360px;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 2px;
+        padding: 2rem;
+        flex-shrink: 0;
+        transition: border-color 0.3s ease;
+      " class="mission-card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+          <span class="tag">Conseil</span>
+          <span style="font-size: 0.75rem; color: var(--color-muted);">2025–2026</span>
+        </div>
+        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">SNCF</h3>
+        <p style="font-size: 0.88rem; color: var(--color-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+          Migration du bilan carbone IT vers le logiciel SaaS Sweep.
+        </p>
+        <a href="/clients#sncf" style="font-size: 0.8rem; color: var(--color-accent); letter-spacing: 0.05em;">Voir la mission →</a>
+      </div>
+
+      <!-- Carte mission 3 -->
       <div style="
         min-width: 360px;
         background: var(--color-surface);
@@ -355,6 +376,7 @@ import { disponibilite } from '../config/dispo.js';
       flex-wrap: nowrap;
       gap: 0 4rem;
     " id="logos-grid">
+      <img src="/logos/sncf.png" alt="SNCF" style="height: 45px; width: auto; opacity: 0.5; filter: grayscale(100%); transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'" />
       <img src="/logos/alexia.png" alt="Alexia" style="height: 45px; width: auto; opacity: 0.45; filter: grayscale(100%) brightness(2); transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.45'" />
       <img src="/logos/geev.png" alt="Geev" style="height: 45px; width: auto; opacity: 0.45; filter: grayscale(100%) brightness(2); transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.45'" />
       <img src="/logos/noe.png" alt="Noé" style="height: 45px; width: auto; opacity: 0.45; filter: grayscale(100%) brightness(2); transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.45'" />
