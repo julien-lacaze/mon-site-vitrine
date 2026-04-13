@@ -1,0 +1,169 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Julien Lacaze — CMO Freelance B2B, Bordeaux" } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <title>{title} — Julien Lacaze</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- Navigation -->
+  <nav style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease, background 0.3s ease;
+  " id="navbar">
+    <a href="/" style="display: flex; align-items: center;">
+      <svg width="44" height="44" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="40" cy="40" r="40" fill="#EDE8DF"/>
+        <circle cx="40" cy="40" r="40" fill="none" stroke="#D9D2C5" stroke-width="1"/>
+        <rect x="8" y="71" width="28" height="3" fill="#8B6F47" rx="0"/>
+        <text x="40" y="55" text-anchor="middle" font-family="Georgia, serif" font-size="36" font-weight="400" fill="#1C1916">JL</text>
+      </svg>
+    </a>
+
+    <div style="display: flex; gap: 2.5rem; align-items: center;">
+      <a href="/clients" class="hover-accent" style="
+        font-size: 0.85rem;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        color: ${currentPath === '/clients' ? 'var(--color-accent)' : 'var(--color-muted)'};
+        transition: color 0.2s ease;
+      ">Clients</a>
+      <a href="/experimentations" class="hover-accent" style="
+        font-size: 0.85rem;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        color: ${currentPath === '/experimentations' ? 'var(--color-accent)' : 'var(--color-muted)'};
+        transition: color 0.2s ease;
+      ">Expérimentations</a>
+      <a href="#contact" style="
+        font-size: 0.82rem;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--color-bg);
+        background: var(--color-accent);
+        padding: 0.5rem 1.2rem;
+        border-radius: 8px;
+        transition: opacity 0.2s ease;
+      ">Me contacter</a>
+    </div>
+  </nav>
+
+  <!-- Page content -->
+  <main>
+    <slot />
+  </main>
+
+  <!-- Footer -->
+  <footer style="
+    border-top: 1px solid var(--color-border);
+    padding: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 6rem;
+  ">
+    <p style="font-size: 0.8rem; color: var(--color-muted);">
+      © 2026 Julien Lacaze · Bordeaux
+    </p>
+    <p style="
+      font-size: 0.72rem;
+      color: var(--color-muted);
+      text-align: center;
+      opacity: 0.7;
+      margin: 0 auto;
+      max-width: 600px;
+    ">
+      Ce site a été développé avec Claude — empreinte carbone estimée au 12 avril 2026 : ~100g CO₂e
+      (≈ 150 requêtes LLM · ~0,3 kWh · mix énergétique mondial 2026).
+      Estimation indicative, incertitude ±50%.
+    </p>
+    <div style="display: flex; gap: 2rem;">
+      <a href="https://www.linkedin.com/in/julien-lacaze/" target="_blank" style="font-size: 0.8rem; color: var(--color-muted);" class="hover-accent">LinkedIn</a>
+      <a href="https://www.malt.fr/profile/julienlacaze" target="_blank" style="font-size: 0.8rem; color: var(--color-muted);" class="hover-accent">Malt</a>
+    </div>
+  </footer>
+
+  <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursor-ring');
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (cursor) {
+        cursor.style.left = mouseX - 5 + 'px';
+        cursor.style.top = mouseY - 5 + 'px';
+      }
+    });
+
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      if (ring) {
+        ring.style.left = ringX - 18 + 'px';
+        ring.style.top = ringY - 18 + 'px';
+      }
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (navbar) {
+        if (window.scrollY > 60) {
+          navbar.style.borderBottomColor = 'var(--color-border)';
+          navbar.style.background = 'rgba(245, 240, 232, 0.92)';
+          navbar.style.backdropFilter = 'blur(12px)';
+        } else {
+          navbar.style.borderBottomColor = 'transparent';
+          navbar.style.background = 'transparent';
+          navbar.style.backdropFilter = 'none';
+        }
+      }
+    });
+
+    // Active nav link
+    const path = window.location.pathname;
+    document.querySelectorAll('nav a').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href && href !== '#contact' && path === href) {
+        (link as HTMLElement).style.color = 'var(--color-accent)';
+      }
+    });
+  </script>
+
+</body>
+</html>

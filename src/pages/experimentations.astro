@@ -1,0 +1,202 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const experiments = [
+  {
+    id: 'site-vitrine',
+    number: '01',
+    title: 'Ce site web',
+    subtitle: 'Site vitrine codé avec Claude',
+    tag: 'Astro · Tailwind · Claude',
+    status: 'En ligne',
+    year: '2026',
+    description: "Ce que vous lisez en ce moment. Un site vitrine entièrement pensé, architecturé et codé avec Claude — sans toucher à une ligne de code manuellement. Architecture Astro + Tailwind, hébergé sur Netlify, formulaire Tally. Une façon de montrer ce qu'on peut faire en no code / low code avec les bons outils.",
+    learnings: [
+      'Astro comme framework de choix pour les sites statiques en 2026',
+      'La collaboration Claude Code + terminal rend le dev accessible sans être dev',
+      'Le design system CSS variables > frameworks lourds pour des sites vitrines',
+    ],
+    link: null,
+    mockup: null,
+  },
+  {
+    id: 'cursus',
+    number: '02',
+    title: 'Cursus',
+    subtitle: 'App de running B2C',
+    tag: 'SaaS · B2C · Claude Code',
+    status: 'En développement',
+    year: '2026',
+    description: "Application mobile de running en développement — de l'idée au produit, construit avec Claude Code. L'objectif : aller le plus loin possible dans le développement d'un produit réel sans équipe tech, en utilisant l'IA comme partenaire de développement.",
+    learnings: [
+      'Claude Code permet de prototyper des idées produit en quelques sessions',
+      'Les mockups et la définition UX se font dans le même environnement',
+      'La limite n\'est plus technique — elle est dans la clarté du brief',
+    ],
+    link: null,
+    mockup: null, // Ajoute le chemin de ton mockup ici : '/mockups/cursus.png'
+  },
+];
+---
+
+<Layout title="Expérimentations" description="Ce que je construis avec Claude — Julien Lacaze">
+
+  <!-- Header -->
+  <section style="
+    padding: 12rem 3rem 6rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--color-border);
+  ">
+    <span class="tag">En construction permanente</span>
+    <h1 style="
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      margin-top: 1.5rem;
+      max-width: 800px;
+      line-height: 1.05;
+    ">
+      Ce que je construis<br/>
+      <em style="color: var(--color-accent); font-style: italic;">avec l'IA.</em>
+    </h1>
+    <p style="
+      color: var(--color-muted);
+      max-width: 560px;
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      line-height: 1.8;
+    ">
+      Je ne fais pas que conseiller l'usage de l'IA à mes clients — je l'expérimente en direct.
+      Sites, applications, automatisations. Voilà ce que ça donne.
+    </p>
+  </section>
+
+  <!-- Expérimentations -->
+  <section style="
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 3rem;
+  ">
+
+    {experiments.map((exp) => (
+      <article id={exp.id} style="
+        padding: 6rem 0;
+        border-bottom: 1px solid var(--color-border);
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 6rem;
+        align-items: start;
+      ">
+        <!-- Left -->
+        <div style="position: sticky; top: 8rem;">
+          <div style="
+            font-family: var(--font-display);
+            font-size: 4rem;
+            color: var(--color-border);
+            margin-bottom: 2rem;
+            line-height: 1;
+          ">{exp.number}</div>
+          <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">{exp.title}</h2>
+          <p style="color: var(--color-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">{exp.subtitle}</p>
+          <span class="tag">{exp.tag}</span>
+
+          <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--color-border);">
+            <p style="font-size: 0.75rem; color: var(--color-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem;">Statut</p>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style={`width: 7px; height: 7px; border-radius: 50%; background: ${exp.status === 'En ligne' ? '#4ade80' : 'var(--color-accent)'}; display: inline-block;`}></span>
+              <p style="font-size: 0.9rem;">{exp.status}</p>
+            </div>
+          </div>
+
+          {exp.link && (
+            <div style="margin-top: 1.5rem;">
+              <a href={exp.link} target="_blank" style="font-size: 0.8rem; color: var(--color-accent); letter-spacing: 0.05em;">
+                Voir le projet →
+              </a>
+            </div>
+          )}
+        </div>
+
+        <!-- Right -->
+        <div>
+          {exp.mockup && (
+            <div style="
+              margin-bottom: 3rem;
+              border: 1px solid var(--color-border);
+              border-radius: 2px;
+              overflow: hidden;
+            ">
+              <img src={exp.mockup} alt={`Mockup ${exp.title}`} style="width: 100%; display: block;" />
+            </div>
+          )}
+
+          {!exp.mockup && (
+            <div style="
+              margin-bottom: 3rem;
+              background: var(--color-surface);
+              border: 1px solid var(--color-border);
+              border-radius: 2px;
+              height: 240px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: var(--color-muted);
+              font-size: 0.8rem;
+              text-align: center;
+              padding: 2rem;
+            ">
+              Mockup à venir<br/>
+              <span style="font-size: 0.75rem; margin-top: 0.5rem; display: block; opacity: 0.6;">
+                Ajoute une image dans <code>/public/mockups/</code> et mets à jour le fichier
+              </span>
+            </div>
+          )}
+
+          <div style="margin-bottom: 3rem;">
+            <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">Le projet</p>
+            <p style="font-size: 1.05rem; line-height: 1.8; color: var(--color-muted);">{exp.description}</p>
+          </div>
+
+          <div>
+            <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.25rem;">Ce que j'en retiens</p>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem;">
+              {exp.learnings.map((l) => (
+                <li style="display: flex; gap: 1rem; align-items: flex-start; font-size: 0.95rem; line-height: 1.7; color: var(--color-muted);">
+                  <span style="color: var(--color-accent); flex-shrink: 0; margin-top: 0.1rem;">—</span>
+                  {l}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </article>
+    ))}
+
+  </section>
+
+  <!-- CTA -->
+  <section style="
+    padding: 8rem 3rem;
+    text-align: center;
+    border-top: 1px solid var(--color-border);
+  ">
+    <p style="font-size: 0.75rem; color: var(--color-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.5rem;">
+      Vous voulez faire la même chose ?
+    </p>
+    <h2 style="font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 1.5rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+      Je peux vous accompagner<br/>sur l'usage de l'IA.
+    </h2>
+    <a href="/#contact" style="
+      display: inline-block;
+      background: var(--color-accent);
+      color: var(--color-bg);
+      padding: 1rem 2.5rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: 1px;
+      margin-top: 1rem;
+    ">On en parle</a>
+  </section>
+
+</Layout>
