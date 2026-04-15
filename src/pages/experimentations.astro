@@ -129,7 +129,7 @@ const experiments = [
             </div>
           )}
 
-          {!exp.mockup && (
+          {!exp.mockup && exp.id !== 'cursus' && (
             <div class="mockup-placeholder" style="
               margin-bottom: 3rem;
               background: var(--color-surface);
@@ -148,6 +148,101 @@ const experiments = [
               <span style="font-size: 0.75rem; margin-top: 0.5rem; display: block; opacity: 0.6;">
                 Ajoute une image dans <code>/public/mockups/</code> et mets à jour le fichier
               </span>
+            </div>
+          )}
+
+          {exp.id === 'cursus' && (
+            <div style="margin-bottom: 3rem;">
+              <div id="cursus-carousel" style="
+                position: relative;
+                border: 1px solid var(--color-border);
+                border-radius: 2px;
+                overflow: hidden;
+              ">
+                <!-- Slides -->
+                <div class="cursus-slide" style="display: block;">
+                  <img src="/mockups/cursus-classement.png" alt="Classement Cursus"
+                    style="width: 100%; display: block; border-radius: 2px;" />
+                  <div style="
+                    padding: 1rem 1.5rem;
+                    background: var(--color-surface);
+                    border-top: 1px solid var(--color-border);
+                  ">
+                    <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.25rem;">01 / 03</p>
+                    <p style="font-size: 0.9rem; color: var(--color-text);">Classement — Monument Legend</p>
+                    <p style="font-size: 0.82rem; color: var(--color-muted); margin-top: 0.25rem;">Un système de classement mensuel par monument, avec podium et points. La gamification au service de la régularité.</p>
+                  </div>
+                </div>
+
+                <div class="cursus-slide" style="display: none;">
+                  <img src="/mockups/cursus-segments.png" alt="Segments Cursus"
+                    style="width: 100%; display: block; border-radius: 2px;" />
+                  <div style="
+                    padding: 1rem 1.5rem;
+                    background: var(--color-surface);
+                    border-top: 1px solid var(--color-border);
+                  ">
+                    <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.25rem;">02 / 03</p>
+                    <p style="font-size: 0.9rem; color: var(--color-text);">Segments — Courses autour des monuments</p>
+                    <p style="font-size: 0.82rem; color: var(--color-muted); margin-top: 0.25rem;">Des segments de course géolocalisés autour de monuments historiques. Strava rencontre le patrimoine français.</p>
+                  </div>
+                </div>
+
+                <div class="cursus-slide" style="display: none;">
+                  <img src="/mockups/cursus-profil.png" alt="Profil Cursus"
+                    style="width: 100%; display: block; border-radius: 2px;" />
+                  <div style="
+                    padding: 1rem 1.5rem;
+                    background: var(--color-surface);
+                    border-top: 1px solid var(--color-border);
+                  ">
+                    <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.25rem;">03 / 03</p>
+                    <p style="font-size: 0.9rem; color: var(--color-text);">Profil — Badges et statistiques</p>
+                    <p style="font-size: 0.82rem; color: var(--color-muted); margin-top: 0.25rem;">Un profil coureur avec badges, records personnels et réseau d'amis. La progression visible et partageable.</p>
+                  </div>
+                </div>
+
+                <!-- Contrôles -->
+                <button id="cursus-prev" style="
+                  position: absolute;
+                  left: 1rem;
+                  top: 45%;
+                  transform: translateY(-50%);
+                  background: var(--color-bg);
+                  border: 1px solid var(--color-border);
+                  color: var(--color-text);
+                  width: 36px;
+                  height: 36px;
+                  border-radius: 50%;
+                  font-size: 1rem;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                ">←</button>
+                <button id="cursus-next" style="
+                  position: absolute;
+                  right: 1rem;
+                  top: 45%;
+                  transform: translateY(-50%);
+                  background: var(--color-bg);
+                  border: 1px solid var(--color-border);
+                  color: var(--color-text);
+                  width: 36px;
+                  height: 36px;
+                  border-radius: 50%;
+                  font-size: 1rem;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                ">→</button>
+              </div>
+
+              <!-- Indicateurs -->
+              <div style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem;">
+                <span class="cursus-dot" style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-accent);"></span>
+                <span class="cursus-dot" style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-border);"></span>
+                <span class="cursus-dot" style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-border);"></span>
+              </div>
             </div>
           )}
 
@@ -198,5 +293,22 @@ const experiments = [
       margin-top: 1rem;
     ">On en parle</a>
   </section>
+
+<script>
+  const slides = document.querySelectorAll('.cursus-slide');
+  const dots = document.querySelectorAll('.cursus-dot');
+  let current = 0;
+
+  function goTo(index: number) {
+    (slides[current] as HTMLElement).style.display = 'none';
+    (dots[current] as HTMLElement).style.background = 'var(--color-border)';
+    current = (index + slides.length) % slides.length;
+    (slides[current] as HTMLElement).style.display = 'block';
+    (dots[current] as HTMLElement).style.background = 'var(--color-accent)';
+  }
+
+  document.getElementById('cursus-prev')?.addEventListener('click', () => goTo(current - 1));
+  document.getElementById('cursus-next')?.addEventListener('click', () => goTo(current + 1));
+</script>
 
 </Layout>
