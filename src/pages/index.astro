@@ -8,7 +8,7 @@ import { disponibilite } from '../config/dispo.js';
   <!-- ═══════════════════════════════════════
        HERO
   ═══════════════════════════════════════ -->
-  <section style="
+  <section id="hero-section" style="
     min-height: 100vh;
     padding: 10rem 3rem 6rem;
     display: grid;
@@ -67,7 +67,8 @@ import { disponibilite } from '../config/dispo.js';
       <!-- Chiffres clés -->
       <div class="fade-up fade-up-delay-4" style="
         display: flex;
-        gap: 1rem;
+        flex-wrap: wrap;
+        gap: 1.5rem;
         margin-top: 4rem;
         padding-top: 2rem;
         border-top: 1px solid var(--color-border);
@@ -88,7 +89,7 @@ import { disponibilite } from '../config/dispo.js';
     </div>
 
     <!-- Right: photo -->
-    <div style="
+    <div id="hero-photo" style="
       position: relative;
       display: flex;
       justify-content: flex-end;
@@ -155,7 +156,7 @@ import { disponibilite } from '../config/dispo.js';
     width: 100%;
     box-sizing: border-box;
   ">
-    <div style="margin-bottom: 4rem;">
+    <div class="reveal" style="margin-bottom: 4rem;">
       <div class="sep"></div>
       <h2 style="font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: 1rem;">Ce que j'apporte</h2>
       <p style="color: var(--color-muted); max-width: 500px;">
@@ -166,12 +167,12 @@ import { disponibilite } from '../config/dispo.js';
 
     <div style="
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 1.5rem;
     ">
 
       <!-- Service 1 -->
-      <div class="card">
+      <div class="card reveal reveal-delay-1">
         <div style="color: var(--color-accent); font-size: 1.5rem; margin-bottom: 1.2rem;">01</div>
         <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">CMO Part-time</h3>
         <p style="color: var(--color-muted); font-size: 0.9rem; line-height: 1.7;">
@@ -181,7 +182,7 @@ import { disponibilite } from '../config/dispo.js';
       </div>
 
       <!-- Service 2 -->
-      <div class="card">
+      <div class="card reveal reveal-delay-2">
         <div style="color: var(--color-accent); font-size: 1.5rem; margin-bottom: 1.2rem;">02</div>
         <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">Stratégie Go-to-Market</h3>
         <p style="color: var(--color-muted); font-size: 0.9rem; line-height: 1.7;">
@@ -191,7 +192,7 @@ import { disponibilite } from '../config/dispo.js';
       </div>
 
       <!-- Service 3 -->
-      <div class="card">
+      <div class="card reveal reveal-delay-3">
         <div style="color: var(--color-accent); font-size: 1.5rem; margin-bottom: 1.2rem;">03</div>
         <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">Acquisition digitale</h3>
         <p style="color: var(--color-muted); font-size: 0.9rem; line-height: 1.7;">
@@ -201,7 +202,7 @@ import { disponibilite } from '../config/dispo.js';
       </div>
 
       <!-- Service 4 -->
-      <div class="card" style="background: var(--color-accent-dim); border-color: rgba(212, 168, 83, 0.2);">
+      <div class="card reveal reveal-delay-4" style="background: var(--color-accent-dim); border-color: rgba(212, 168, 83, 0.2);">
         <div style="color: var(--color-accent); font-size: 1.5rem; margin-bottom: 1.2rem;">04</div>
         <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">No code</h3>
         <p style="color: var(--color-muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem;">
@@ -232,31 +233,28 @@ import { disponibilite } from '../config/dispo.js';
     border-bottom: 1px solid var(--color-border);
     overflow: hidden;
   ">
-    <div style="padding: 0 3rem; margin-bottom: 3rem;">
+    <div class="reveal" style="padding: 0 3rem; margin-bottom: 3rem;">
       <div class="sep"></div>
       <h2 style="font-size: clamp(2rem, 4vw, 3.2rem);">Missions récentes</h2>
     </div>
 
-    <!-- Carrousel -->
+    <!-- Grille missions -->
     <div id="carousel-track" style="
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1.5rem;
       padding: 0 3rem;
-      overflow-x: auto;
-      scrollbar-width: none;
-      cursor: grab;
     ">
 
       <!-- Carte mission 1 — à personnaliser -->
       <div style="
-        min-width: 360px;
+        width: 100%;
         background: var(--color-surface);
         border: 1px solid var(--color-border);
         border-radius: 2px;
         padding: 2rem;
-        flex-shrink: 0;
         transition: border-color 0.3s ease;
-      " class="mission-card">
+      " class="mission-card reveal reveal-delay-1">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
           <span class="tag">CMO Part-time</span>
           <span style="font-size: 0.75rem; color: var(--color-muted);">2025–2026</span>
@@ -271,14 +269,13 @@ import { disponibilite } from '../config/dispo.js';
 
       <!-- Carte mission 2 — SNCF -->
       <div style="
-        min-width: 360px;
+        width: 100%;
         background: var(--color-surface);
         border: 1px solid var(--color-border);
         border-radius: 2px;
         padding: 2rem;
-        flex-shrink: 0;
         transition: border-color 0.3s ease;
-      " class="mission-card">
+      " class="mission-card reveal reveal-delay-2">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
           <span class="tag">Conseil</span>
           <span style="font-size: 0.75rem; color: var(--color-muted);">2025–2026</span>
@@ -292,14 +289,13 @@ import { disponibilite } from '../config/dispo.js';
 
       <!-- Carte mission 3 -->
       <div style="
-        min-width: 360px;
+        width: 100%;
         background: var(--color-surface);
         border: 1px solid var(--color-border);
         border-radius: 2px;
         padding: 2rem;
-        flex-shrink: 0;
         transition: border-color 0.3s ease;
-      " class="mission-card">
+      " class="mission-card reveal reveal-delay-3">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
           <span class="tag">Email marketing</span>
           <span style="font-size: 0.75rem; color: var(--color-muted);">2026</span>
@@ -313,12 +309,11 @@ import { disponibilite } from '../config/dispo.js';
 
       <!-- Carte mission 3 — Alexia.fr -->
       <div style="
-        min-width: 360px;
+        width: 100%;
         background: var(--color-surface);
         border: 1px solid var(--color-border);
         border-radius: 2px;
         padding: 2rem;
-        flex-shrink: 0;
         transition: border-color 0.3s ease;
       " class="mission-card">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
@@ -334,12 +329,11 @@ import { disponibilite } from '../config/dispo.js';
 
       <!-- Carte mission 4 — Geev -->
       <div style="
-        min-width: 360px;
+        width: 100%;
         background: var(--color-surface);
         border: 1px solid var(--color-border);
         border-radius: 2px;
         padding: 2rem;
-        flex-shrink: 0;
         transition: border-color 0.3s ease;
       " class="mission-card">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
@@ -360,7 +354,7 @@ import { disponibilite } from '../config/dispo.js';
   <!-- ═══════════════════════════════════════
        CLIENTS / LOGOS
   ═══════════════════════════════════════ -->
-  <section style="
+  <section class="reveal" style="
     padding: 6rem 3rem;
     max-width: 1400px;
     margin: 0 auto;
@@ -373,8 +367,8 @@ import { disponibilite } from '../config/dispo.js';
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-wrap: nowrap;
-      gap: 0 4rem;
+      flex-wrap: wrap;
+      gap: 1.5rem 2.5rem;
     " id="logos-grid">
       <img src="/logos/sncf.png" alt="SNCF" style="height: 45px; width: auto; opacity: 0.85; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.85'" />
       <img src="/logos/alexia.png" alt="Alexia" style="height: 45px; width: auto; opacity: 0.85; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.85'" />
@@ -389,7 +383,7 @@ import { disponibilite } from '../config/dispo.js';
   <!-- ═══════════════════════════════════════
        2 TONNES
   ═══════════════════════════════════════ -->
-  <section style="
+  <section id="section-2tonnes" style="
     padding: 6rem 3rem;
     max-width: 1400px;
     margin: 0 auto;
@@ -399,7 +393,7 @@ import { disponibilite } from '../config/dispo.js';
     align-items: center;
     border-top: 1px solid var(--color-border);
   ">
-    <div>
+    <div class="reveal-left">
       <div class="sep"></div>
       <h2 style="font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: 1.5rem;">
         Au-delà du marketing
@@ -415,7 +409,7 @@ import { disponibilite } from '../config/dispo.js';
       </p>
     </div>
 
-    <div style="
+    <div class="reveal-right" style="
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: 2px;
@@ -470,7 +464,7 @@ import { disponibilite } from '../config/dispo.js';
     gap: 6rem;
     align-items: start;
   ">
-    <div>
+    <div class="reveal-left">
       <div class="sep"></div>
       <h2 style="font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: 1.5rem;">
         On en parle ?
@@ -500,7 +494,7 @@ import { disponibilite } from '../config/dispo.js';
     </div>
 
     <!-- Calendly inline widget -->
-    <div class="calendly-inline-widget"
+    <div class="calendly-inline-widget reveal-right"
       data-url="https://calendly.com/julien-lacaze-pro/rdv-business?hide_event_type_details=1&hide_gdpr_banner=1&background_color=EDE8DF&text_color=1C1916&primary_color=8B6F47"
       style="min-width:320px;height:700px;">
     </div>
@@ -508,30 +502,6 @@ import { disponibilite } from '../config/dispo.js';
   </section>
 
   <script>
-    // Carrousel drag to scroll
-    const track = document.getElementById('carousel-track');
-    if (track) {
-      let isDown = false;
-      let startX: number;
-      let scrollLeft: number;
-
-      track.addEventListener('mousedown', (e) => {
-        isDown = true;
-        track.style.cursor = 'grabbing';
-        startX = e.pageX - track.offsetLeft;
-        scrollLeft = track.scrollLeft;
-      });
-      track.addEventListener('mouseleave', () => { isDown = false; track.style.cursor = 'grab'; });
-      track.addEventListener('mouseup', () => { isDown = false; track.style.cursor = 'grab'; });
-      track.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - track.offsetLeft;
-        const walk = (x - startX) * 1.5;
-        track.scrollLeft = scrollLeft - walk;
-      });
-    }
-
     // Mission card hover
     document.querySelectorAll('.mission-card').forEach(card => {
       card.addEventListener('mouseenter', () => {

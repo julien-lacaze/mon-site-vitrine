@@ -159,3 +159,71 @@ a {
 
 a:hover ~ #cursor,
 button:hover ~ #cursor { transform: scale(2); }
+
+/* ═══ SCROLL REVEAL ═══ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.45s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-right {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  #menu-toggle { display: flex !important; }
+  nav > div { display: none !important; }
+  #hero-photo { display: none; }
+  #hero-section { grid-template-columns: 1fr !important; padding: 7rem 1.5rem 4rem !important; }
+  #section-2tonnes { grid-template-columns: 1fr !important; gap: 3rem !important; }
+  #contact { grid-template-columns: 1fr !important; gap: 3rem !important; }
+  section { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+  #clients-header { padding: 8rem 1.5rem 3rem !important; }
+  .case-study { grid-template-columns: 1fr !important; gap: 2rem !important; padding: 3rem 0 !important; }
+  .case-study-left { position: relative !important; top: auto !important; }
+  #clients-cta { padding: 4rem 1.5rem !important; }
+  #experimentations-header { padding: 8rem 1.5rem 3rem !important; }
+  .mockup-placeholder { height: 180px !important; }
+  #experimentations-cta { padding: 4rem 1.5rem !important; }
+  #carousel-track { grid-template-columns: 1fr !important; padding: 0 1.5rem !important; }
+}

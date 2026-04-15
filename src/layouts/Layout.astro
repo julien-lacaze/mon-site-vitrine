@@ -32,7 +32,7 @@ const currentPath = Astro.url.pathname;
     left: 0;
     right: 0;
     z-index: 100;
-    padding: 1.5rem 3rem;
+    padding: 1.25rem 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -75,7 +75,40 @@ const currentPath = Astro.url.pathname;
         transition: opacity 0.2s ease;
       ">Me contacter</a>
     </div>
+
+    <button id="menu-toggle" style="
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    " aria-label="Menu">
+      <span style="width: 24px; height: 1.5px; background: var(--color-text); display: block; transition: all 0.3s ease;"></span>
+      <span style="width: 24px; height: 1.5px; background: var(--color-text); display: block; transition: all 0.3s ease;"></span>
+      <span style="width: 24px; height: 1.5px; background: var(--color-text); display: block; transition: all 0.3s ease;"></span>
+    </button>
   </nav>
+
+  <div id="mobile-menu" style="
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--color-bg);
+    z-index: 99;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+  ">
+    <a href="/clients" style="font-family: var(--font-display); font-size: 2rem; color: var(--color-text);">Clients</a>
+    <a href="/experimentations" style="font-family: var(--font-display); font-size: 2rem; color: var(--color-text);">Expérimentations</a>
+    <a href="/#contact" style="font-family: var(--font-display); font-size: 2rem; color: var(--color-accent);">Me contacter</a>
+  </div>
 
   <!-- Page content -->
   <main>
@@ -163,6 +196,33 @@ const currentPath = Astro.url.pathname;
         (link as HTMLElement).style.color = 'var(--color-accent)';
       }
     });
+
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (menuToggle && mobileMenu) {
+      menuToggle.addEventListener('click', () => {
+        const isOpen = mobileMenu.style.display === 'flex';
+        mobileMenu.style.display = isOpen ? 'none' : 'flex';
+      });
+
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.style.display = 'none';
+        });
+      });
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right')
+      .forEach(el => observer.observe(el));
   </script>
 
 </body>

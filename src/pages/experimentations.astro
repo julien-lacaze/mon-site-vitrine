@@ -42,7 +42,7 @@ const experiments = [
 <Layout title="Expérimentations" description="Ce que je construis avec Claude — Julien Lacaze">
 
   <!-- Header -->
-  <section style="
+  <section id="experimentations-header" style="
     padding: 12rem 3rem 6rem;
     max-width: 1400px;
     margin: 0 auto;
@@ -78,7 +78,7 @@ const experiments = [
   ">
 
     {experiments.map((exp) => (
-      <article id={exp.id} style="
+      <article id={exp.id} class="case-study" style="
         padding: 6rem 0;
         border-bottom: 1px solid var(--color-border);
         display: grid;
@@ -87,7 +87,7 @@ const experiments = [
         align-items: start;
       ">
         <!-- Left -->
-        <div style="position: sticky; top: 8rem;">
+        <div class="case-study-left reveal-left" style="position: sticky; top: 8rem;">
           <div style="
             font-family: var(--font-display);
             font-size: 4rem;
@@ -117,7 +117,7 @@ const experiments = [
         </div>
 
         <!-- Right -->
-        <div>
+        <div class="reveal">
           {exp.mockup && (
             <div style="
               margin-bottom: 3rem;
@@ -130,7 +130,7 @@ const experiments = [
           )}
 
           {!exp.mockup && (
-            <div style="
+            <div class="mockup-placeholder" style="
               margin-bottom: 3rem;
               background: var(--color-surface);
               border: 1px solid var(--color-border);
@@ -174,7 +174,7 @@ const experiments = [
   </section>
 
   <!-- CTA -->
-  <section style="
+  <section id="experimentations-cta" style="
     padding: 8rem 3rem;
     text-align: center;
     border-top: 1px solid var(--color-border);

@@ -5,7 +5,7 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="Clients" description="Missions et cas clients — Julien Lacaze, CMO Freelance B2B">
 
   <!-- Header -->
-  <section style="
+  <section id="clients-header" style="
     padding: 12rem 3rem 6rem;
     max-width: 1400px;
     margin: 0 auto;
@@ -41,7 +41,7 @@ import Layout from '../layouts/Layout.astro';
   ">
 
     <!-- Case 1 : Noé -->
-    <article id="noe" style="
+    <article id="noe" class="case-study" style="
       padding: 6rem 0;
       border-bottom: 1px solid var(--color-border);
       display: grid;
@@ -49,7 +49,7 @@ import Layout from '../layouts/Layout.astro';
       gap: 6rem;
       align-items: start;
     ">
-      <div style="position: sticky; top: 8rem;">
+      <div class="case-study-left reveal-left" style="position: sticky; top: 8rem;">
         <div style="
           font-family: var(--font-display);
           font-size: 4rem;
@@ -71,7 +71,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
 
-      <div>
+      <div class="reveal">
         <div style="margin-bottom: 3rem;">
           <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">Le contexte</p>
           <p style="font-size: 1.05rem; line-height: 1.8; color: var(--color-muted);">
@@ -120,7 +120,7 @@ import Layout from '../layouts/Layout.astro';
 
 
     <!-- Case 2 : SNCF -->
-    <article id="sncf" style="
+    <article id="sncf" class="case-study" style="
       padding: 6rem 0;
       border-bottom: 1px solid var(--color-border);
       display: grid;
@@ -128,7 +128,7 @@ import Layout from '../layouts/Layout.astro';
       gap: 6rem;
       align-items: start;
     ">
-      <div style="position: sticky; top: 8rem;">
+      <div class="case-study-left reveal-left" style="position: sticky; top: 8rem;">
         <div style="
           font-family: var(--font-display);
           font-size: 4rem;
@@ -154,7 +154,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
 
-      <div>
+      <div class="reveal">
         <div style="margin-bottom: 3rem;">
           <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">Le contexte</p>
           <p style="font-size: 1.05rem; line-height: 1.8; color: var(--color-muted);">
@@ -188,7 +188,7 @@ import Layout from '../layouts/Layout.astro';
 
 
     <!-- Case 3 : Coédis Impact -->
-    <article id="coedis" style="
+    <article id="coedis" class="case-study" style="
       padding: 6rem 0;
       border-bottom: 1px solid var(--color-border);
       display: grid;
@@ -196,7 +196,7 @@ import Layout from '../layouts/Layout.astro';
       gap: 6rem;
       align-items: start;
     ">
-      <div style="position: sticky; top: 8rem;">
+      <div class="case-study-left reveal-left" style="position: sticky; top: 8rem;">
         <div style="
           font-family: var(--font-display);
           font-size: 4rem;
@@ -226,7 +226,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
 
-      <div>
+      <div class="reveal">
         <div style="margin-bottom: 3rem;">
           <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">Le contexte</p>
           <p style="font-size: 1.05rem; line-height: 1.8; color: var(--color-muted);">
@@ -263,7 +263,7 @@ import Layout from '../layouts/Layout.astro';
 
 
     <!-- Case 3 : Alexia.fr -->
-    <article id="alexia" style="
+    <article id="alexia" class="case-study" style="
       padding: 6rem 0;
       border-bottom: 1px solid var(--color-border);
       display: grid;
@@ -271,7 +271,7 @@ import Layout from '../layouts/Layout.astro';
       gap: 6rem;
       align-items: start;
     ">
-      <div style="position: sticky; top: 8rem;">
+      <div class="case-study-left reveal-left" style="position: sticky; top: 8rem;">
         <div style="
           font-family: var(--font-display);
           font-size: 4rem;
@@ -297,7 +297,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
 
-      <div>
+      <div class="reveal">
         <div style="margin-bottom: 3rem;">
           <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">Le contexte</p>
           <p style="font-size: 1.05rem; line-height: 1.8; color: var(--color-muted);">
@@ -336,7 +336,7 @@ import Layout from '../layouts/Layout.astro';
 
 
     <!-- Case 4 : Geev -->
-    <article id="geev" style="
+    <article id="geev" class="case-study" style="
       padding: 6rem 0;
       border-bottom: 1px solid var(--color-border);
       display: grid;
@@ -344,7 +344,7 @@ import Layout from '../layouts/Layout.astro';
       gap: 6rem;
       align-items: start;
     ">
-      <div style="position: sticky; top: 8rem;">
+      <div class="case-study-left reveal-left" style="position: sticky; top: 8rem;">
         <div style="
           font-family: var(--font-display);
           font-size: 4rem;
@@ -370,7 +370,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
 
-      <div>
+      <div class="reveal">
         <div style="margin-bottom: 3rem;">
           <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">Le contexte</p>
           <p style="font-size: 1.05rem; line-height: 1.8; color: var(--color-muted);">
@@ -411,7 +411,7 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <!-- CTA -->
-  <section style="
+  <section id="clients-cta" style="
     padding: 8rem 3rem;
     text-align: center;
     border-top: 1px solid var(--color-border);
