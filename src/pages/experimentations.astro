@@ -24,7 +24,7 @@ const experiments = [
     number: '02',
     title: 'Cursus',
     subtitle: 'App de running B2C',
-    tag: 'SaaS · B2C · Claude Code',
+    tag: 'React · Mapbox · Strava',
     status: 'En développement',
     year: '2026',
     description: "Application mobile de running en développement — de l'idée au produit, construit avec Claude Code. L'objectif : aller le plus loin possible dans le développement d'un produit réel sans équipe tech, en utilisant l'IA comme partenaire de développement.",
@@ -106,6 +106,13 @@ const experiments = [
               <p style="font-size: 0.9rem;">{exp.status}</p>
             </div>
           </div>
+
+          {exp.id === 'cursus' && (
+            <div style="margin-top: 1.5rem;">
+              <p style="font-size: 0.75rem; color: var(--color-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem;">Livraison prévue</p>
+              <p style="font-size: 0.9rem;">30 avril 2026</p>
+            </div>
+          )}
 
           {exp.link && (
             <div style="margin-top: 1.5rem;">
