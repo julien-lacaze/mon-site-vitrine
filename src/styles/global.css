@@ -227,3 +227,7 @@ button:hover ~ #cursor { transform: scale(2); }
   #experimentations-cta { padding: 4rem 1.5rem !important; }
   #carousel-track { grid-template-columns: 1fr !important; padding: 0 1.5rem !important; }
 }
+
+p {
+  text-align: justify;
+}
