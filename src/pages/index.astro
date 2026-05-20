@@ -28,7 +28,7 @@ import { disponibilite } from '../config/dispo.js';
         color: var(--color-text);
       ">
         Structurer.<br/>
-        <em style="color: var(--color-accent); font-style: italic;">Accélérer.</em><br/>
+        <em id="rotating-word" style="color: var(--color-accent); font-style: italic; display: inline-block; transition: opacity 0.35s ease, transform 0.35s ease;">Accélérer.</em><br/>
         Mesurer.
       </h1>
       <p class="fade-up fade-up-delay-3" style="
@@ -74,11 +74,11 @@ import { disponibilite } from '../config/dispo.js';
         border-top: 1px solid var(--color-border);
       ">
         <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 4px; padding: 1.5rem;">
-          <p style="font-family: var(--font-display); font-size: 3rem; color: var(--color-text);">10+</p>
+          <p id="counter-exp" data-target="10" data-suffix="+" style="font-family: var(--font-display); font-size: 3rem; color: var(--color-text);">10+</p>
           <p style="font-size: 0.75rem; color: var(--color-text); letter-spacing: 0.05em; text-transform: uppercase;">ans d'expérience</p>
         </div>
         <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 4px; padding: 1.5rem;">
-          <p style="font-family: var(--font-display); font-size: 3rem; color: var(--color-text);">15+</p>
+          <p id="counter-clients" data-target="15" data-suffix="+" style="font-family: var(--font-display); font-size: 3rem; color: var(--color-text);">15+</p>
           <p style="font-size: 0.75rem; color: var(--color-text); letter-spacing: 0.05em; text-transform: uppercase;">clients accompagnés</p>
         </div>
         <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 4px; padding: 1.5rem;">
@@ -142,6 +142,21 @@ import { disponibilite } from '../config/dispo.js';
       </div>
     </div>
   </section>
+
+
+  <!-- ═══════════════════════════════════════
+       MARQUEE
+  ═══════════════════════════════════════ -->
+  <div style="overflow: hidden; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); padding: 0.85rem 0; background: var(--color-surface);">
+    <div class="marquee-track">
+      <span style="white-space: nowrap; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-muted); padding-right: 3rem;">
+        Go-to-Market &nbsp;·&nbsp; CMO Part-time &nbsp;·&nbsp; Acquisition B2B &nbsp;·&nbsp; LinkedIn Ads &nbsp;·&nbsp; Email Marketing &nbsp;·&nbsp; Stratégie &nbsp;·&nbsp; No-code &nbsp;·&nbsp; Positionnement &nbsp;·&nbsp; Startups &nbsp;·&nbsp; SaaS &nbsp;·&nbsp; PME &nbsp;·&nbsp; SEO &nbsp;·&nbsp; Automatisation &nbsp;·&nbsp;
+      </span>
+      <span style="white-space: nowrap; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-muted); padding-right: 3rem;">
+        Go-to-Market &nbsp;·&nbsp; CMO Part-time &nbsp;·&nbsp; Acquisition B2B &nbsp;·&nbsp; LinkedIn Ads &nbsp;·&nbsp; Email Marketing &nbsp;·&nbsp; Stratégie &nbsp;·&nbsp; No-code &nbsp;·&nbsp; Positionnement &nbsp;·&nbsp; Startups &nbsp;·&nbsp; SaaS &nbsp;·&nbsp; PME &nbsp;·&nbsp; SEO &nbsp;·&nbsp; Automatisation &nbsp;·&nbsp;
+      </span>
+    </div>
+  </div>
 
 
   <!-- ═══════════════════════════════════════
@@ -535,6 +550,49 @@ import { disponibilite } from '../config/dispo.js';
         (card as HTMLElement).style.borderColor = 'var(--color-border)';
       });
     });
+
+    // Rotating hero word
+    const rotatingWords = ['Accélérer.', 'Convertir.', 'Piloter.', 'Performer.'];
+    let wordIndex = 0;
+    const rotatingEl = document.getElementById('rotating-word') as HTMLElement | null;
+    if (rotatingEl) {
+      setInterval(() => {
+        rotatingEl.style.opacity = '0';
+        rotatingEl.style.transform = 'translateY(-6px)';
+        setTimeout(() => {
+          wordIndex = (wordIndex + 1) % rotatingWords.length;
+          rotatingEl.textContent = rotatingWords[wordIndex];
+          rotatingEl.style.opacity = '1';
+          rotatingEl.style.transform = 'translateY(0)';
+        }, 350);
+      }, 2500);
+    }
+
+    // Animated counters
+    function animateCounter(el: HTMLElement) {
+      const target = parseInt(el.dataset.target ?? '0');
+      const suffix = el.dataset.suffix ?? '';
+      const duration = 1200;
+      const startTime = performance.now();
+      const update = (now: number) => {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(eased * target) + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+      };
+      requestAnimationFrame(update);
+    }
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target as HTMLElement);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('[data-target]').forEach(el => counterObserver.observe(el));
 
   </script>
 
