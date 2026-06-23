@@ -1,0 +1,159 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
+);
+
+function readingTime(body: string): number {
+  const words = body.split(/\s+/).filter(w => w.length > 0).length;
+  return Math.max(1, Math.ceil(words / 200));
+}
+
+const categories = ['Marketing', 'IA', 'No-code', 'Productivité'] as const;
+---
+
+<Layout
+  title="Blog"
+  description="Articles sur le marketing B2B, l'IA, le no-code et la productivité — Julien Lacaze, CMO Freelance"
+>
+
+  <!-- Header -->
+  <section id="blog-header" style="
+    padding: 12rem 3rem 6rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--color-border);
+  ">
+    <span class="tag fade-up fade-up-delay-1">Blog</span>
+    <h1 class="fade-up fade-up-delay-2" style="
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      margin-top: 1.5rem;
+      max-width: 700px;
+      line-height: 1.05;
+    ">
+      Ce que je pense.<br/>
+      <em style="color: var(--color-accent); font-style: italic;">Ce qui marche.</em>
+    </h1>
+    <p class="fade-up fade-up-delay-3" style="
+      color: var(--color-muted);
+      max-width: 520px;
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.8;
+    ">
+      Marketing B2B, IA appliquée, no-code et productivité. Des articles pratiques
+      pour les entrepreneurs et équipes marketing qui veulent aller plus loin.
+    </p>
+  </section>
+
+  <!-- Filtres + Grille -->
+  <section id="blog-articles" style="
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 4rem 3rem 8rem;
+  ">
+
+    <!-- Filtres -->
+    <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 3.5rem;">
+      <button class="filter-btn active" data-filter="tous">Tous</button>
+      {categories.map(cat => (
+        <button class="filter-btn" data-filter={cat}>{cat}</button>
+      ))}
+    </div>
+
+    <!-- Grille articles -->
+    <div id="articles-grid" style="
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    ">
+      {posts.map((post, i) => {
+        const rt = readingTime((post.body as string | undefined) ?? '');
+        const date = new Date(post.data.date).toLocaleDateString('fr-FR', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        });
+        return (
+          <article
+            class={`card reveal${i < 3 ? ` reveal-delay-${i + 1}` : ''}`}
+            data-category={post.data.category}
+            style="display: flex; flex-direction: column;"
+          >
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+              <span class="tag">{post.data.category}</span>
+              <span style="font-size: 0.75rem; color: var(--color-muted);">{date}</span>
+            </div>
+            <h2 style="
+              font-size: 1.2rem;
+              margin-bottom: 0.75rem;
+              line-height: 1.35;
+              font-family: var(--font-display);
+              font-weight: 400;
+            ">{post.data.title}</h2>
+            <p style="
+              font-size: 0.88rem;
+              color: var(--color-muted);
+              line-height: 1.7;
+              margin-bottom: 1.5rem;
+              flex: 1;
+              text-align: left;
+            ">{post.data.description}</p>
+            <div style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding-top: 1.25rem;
+              border-top: 1px solid var(--color-border);
+            ">
+              <span style="font-size: 0.75rem; color: var(--color-muted);">{rt} min de lecture</span>
+              <a
+                href={`/blog/${post.id}`}
+                style="font-size: 0.8rem; color: var(--color-accent); letter-spacing: 0.05em;"
+              >Lire l'article →</a>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+
+    <!-- État vide (caché par défaut) -->
+    <p id="empty-state" style="
+      display: none;
+      color: var(--color-muted);
+      font-size: 0.9rem;
+      padding: 3rem 0;
+    ">Aucun article dans cette catégorie pour l'instant.</p>
+
+  </section>
+
+  <script>
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+    const articles = document.querySelectorAll<HTMLElement>('#articles-grid article');
+    const emptyState = document.getElementById('empty-state');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter ?? 'tous';
+
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        let visible = 0;
+        articles.forEach(article => {
+          const cat = article.dataset.category ?? '';
+          const show = filter === 'tous' || cat === filter;
+          article.style.display = show ? 'flex' : 'none';
+          if (show) visible++;
+        });
+
+        if (emptyState) {
+          emptyState.style.display = visible === 0 ? 'block' : 'none';
+        }
+      });
+    });
+  </script>
+
+</Layout>
