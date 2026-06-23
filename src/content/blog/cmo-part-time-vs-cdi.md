@@ -3,6 +3,11 @@ title: "CMO part-time : pourquoi ça marche mieux qu'un directeur marketing en C
 description: "Pour une startup ou une PME, recruter un directeur marketing en CDI peut être prématuré et coûteux. Voici pourquoi le CMO part-time est souvent la meilleure option — et comment bien le choisir."
 date: 2026-06-23
 category: Marketing
+tldr:
+  - "Recruter un CMO en CDI trop tôt coûte entre 70 000 € et 120 000 €/an, avec 3 à 6 mois de recrutement — un pari risqué si vos canaux d'acquisition ne sont pas encore validés."
+  - "Le CMO part-time offre séniorité immédiate, coût maîtrisé (3 000–8 000 €/mois) et flexibilité, sans charges patronales."
+  - "Il est particulièrement adapté aux startups en go-to-market, PME sans fonction marketing et entreprises en transition."
+  - "Avant de recruter en CDI, posez-vous la question : est-ce que je sais déjà quels canaux fonctionnent pour moi ?"
 ---
 
 Vous avez une équipe commerciale qui commence à tourner, un produit qui plaît, et vous réalisez que le marketing est votre prochain levier de croissance. Réflexe naturel : recruter un directeur marketing.
