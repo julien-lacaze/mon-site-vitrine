@@ -1,5 +1,5 @@
 ---
-title: "CMO part-time : pourquoi ça marche mieux qu'un directeur marketing en CDI pour les startups"
+title: "CMO part-time : ce que ça coûte vraiment vs un CDI"
 description: "Pour une startup ou une PME, recruter un directeur marketing en CDI peut être prématuré et coûteux. Voici pourquoi le CMO part-time est souvent la meilleure option — et comment bien le choisir."
 date: 2026-06-23
 category: Marketing
@@ -61,4 +61,4 @@ C'est précisément le rôle du CMO part-time.
 
 ---
 
-*Je travaille avec des startups B2B et des PME à Bordeaux et en remote. Si vous cherchez à structurer votre marketing sans vous engager trop vite sur un CDI, [parlons-en](/#contact).*
+Je travaille avec des startups B2B et des PME à Bordeaux et en remote. Si vous cherchez à structurer votre marketing sans vous engager trop vite sur un CDI, [parlons-en](/#contact).
