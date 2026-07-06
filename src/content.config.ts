@@ -5,10 +5,12 @@ const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(),
+    metaTitle: z.string().optional(),
     description: z.string(),
     date: z.date(),
     category: z.enum(['Marketing', 'IA', 'No-code', 'Productivité', 'Entrepreneuriat']),
     tldr: z.array(z.string()).optional(),
+    draft: z.boolean().optional(),
   }),
 });
 

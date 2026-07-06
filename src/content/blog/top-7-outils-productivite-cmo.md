@@ -1,5 +1,6 @@
 ---
 title: "Top 7 des outils qui boostent ma productivité de CMO part-time"
+metaTitle: "Top 7 outils productivité CMO part-time freelance"
 description: "Notion, Claude Code, Calendly, Brevo, HubSpot, Canva, Lemlist. Voici les 7 outils que j'utilise au quotidien pour piloter mes missions et développer mon activité freelance."
 date: 2026-06-24
 category: Productivité

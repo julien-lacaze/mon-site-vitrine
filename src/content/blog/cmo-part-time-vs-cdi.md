@@ -1,5 +1,6 @@
 ---
 title: "CMO part-time : ce que ça coûte vraiment vs un CDI"
+metaTitle: "CMO part-time vs CDI : quel coût réel pour votre entreprise ?"
 description: "Pour une startup ou une PME, recruter un directeur marketing en CDI peut être prématuré et coûteux. Voici pourquoi le CMO part-time est souvent la meilleure option — et comment bien le choisir."
 date: 2026-06-23
 category: Marketing
