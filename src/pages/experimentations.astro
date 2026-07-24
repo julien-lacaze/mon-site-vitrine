@@ -8,6 +8,7 @@ const experiments = [
     title: 'Ce site web',
     subtitle: 'Site vitrine codé avec Claude',
     tag: 'Astro · Tailwind · Claude',
+    color: 'var(--color-accent)',
     status: 'En ligne',
     year: '2026',
     description: "Ce que vous lisez en ce moment. Un site vitrine entièrement pensé, architecturé et codé avec Claude — sans toucher à une ligne de code manuellement. Architecture Astro + Tailwind, hébergé sur Netlify, formulaire Tally. Une façon de montrer ce qu'on peut faire en no code / low code avec les bons outils.",
@@ -25,6 +26,7 @@ const experiments = [
     title: 'Cursus',
     subtitle: 'App de running B2C',
     tag: 'React · Mapbox · Strava',
+    color: 'var(--color-accent2)',
     status: 'En développement',
     year: '2026',
     description: "Application mobile de running en développement — de l'idée au produit, construit avec Claude Code. L'objectif : aller le plus loin possible dans le développement d'un produit réel sans équipe tech, en utilisant l'IA comme partenaire de développement.",
@@ -97,9 +99,9 @@ const experiments = [
           ">{exp.number}</div>
           <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">{exp.title}</h2>
           <p style="color: var(--color-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">{exp.subtitle}</p>
-          <span class="tag">{exp.tag}</span>
+          <span class="tag" style={`color: ${exp.color}; border-color: ${exp.color};`}>{exp.tag}</span>
 
-          <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--color-border);">
+          <div style={`margin-top: 2rem; padding-top: 2rem; border-top: 1px solid ${exp.color};`}>
             <p style="font-size: 0.75rem; color: var(--color-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem;">Statut</p>
             <div style="display: flex; align-items: center; gap: 0.5rem;">
               <span style={`width: 7px; height: 7px; border-radius: 50%; background: ${exp.status === 'En ligne' ? '#4ade80' : 'var(--color-accent)'}; display: inline-block;`}></span>
@@ -274,7 +276,7 @@ const experiments = [
         Parlons-en lors d'un rendez-vous de 15 min.
       </p>
       <div class="calendly-inline-widget"
-        data-url="https://calendly.com/julien-lacaze-pro/rdv-business?hide_event_type_details=1&hide_gdpr_banner=1&background_color=EDE8DF&text_color=1C1916&primary_color=8B6F47"
+        data-url="https://calendly.com/julien-lacaze-pro/cafe-virtuel?hide_event_type_details=1&hide_gdpr_banner=1&background_color=EDE8DF&text_color=1C1916&primary_color=8B6F47"
         style="min-width:320px; height:700px;">
       </div>
       <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>

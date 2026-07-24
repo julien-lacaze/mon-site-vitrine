@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { categoryColor } from '../../config/categoryColors.js';
 
 const posts = (await getCollection('blog'))
   .filter(post => !post.data.draft)
@@ -60,7 +61,7 @@ const categories = ['Marketing', 'IA', 'No-code', 'Productivité', 'Entrepreneur
     <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 3.5rem;">
       <button class="filter-btn active" data-filter="tous">Tous</button>
       {categories.map(cat => (
-        <button class="filter-btn" data-filter={cat}>{cat}</button>
+        <button class="filter-btn" data-filter={cat} style={`--filter-accent: ${categoryColor(cat)};`}>{cat}</button>
       ))}
     </div>
 
@@ -84,10 +85,10 @@ const categories = ['Marketing', 'IA', 'No-code', 'Productivité', 'Entrepreneur
             rel="noopener noreferrer"
             class={`card reveal${i < 3 ? ` reveal-delay-${i + 1}` : ''}`}
             data-category={post.data.category}
-            style="display: flex; flex-direction: column; text-decoration: none;"
+            style={`display: flex; flex-direction: column; text-decoration: none; --card-accent: ${categoryColor(post.data.category)};`}
           >
             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
-              <span class="tag">{post.data.category}</span>
+              <span class="tag" style={`color: ${categoryColor(post.data.category)}; border-color: ${categoryColor(post.data.category)};`}>{post.data.category}</span>
               <span style="font-size: 0.75rem; color: var(--color-muted);">{date}</span>
             </div>
             <h2 style="

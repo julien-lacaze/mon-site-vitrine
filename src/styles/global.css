@@ -10,6 +10,8 @@
   --color-muted: #7A7168;
   --color-accent: #8B6F47;
   --color-accent-dim: rgba(139, 111, 71, 0.1);
+  --color-accent2: #A6503F;
+  --color-accent3: #5C6B47;
 
   --font-display: 'Lora', Georgia, serif;
   --font-body: 'DM Sans', sans-serif;
@@ -118,7 +120,7 @@ a {
   margin-bottom: 2rem;
 }
 
-/* Card */
+/* Card — --card-accent lets each instance pick its own hover color, falls back to the default accent */
 .card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -127,12 +129,37 @@ a {
   transition: border-color 0.3s ease, transform 0.3s ease;
 }
 .card:hover {
-  border-color: var(--color-accent);
+  border-color: var(--card-accent, var(--color-accent));
   transform: translateY(-2px);
 }
 
-/* Cursor custom */
-* { cursor: none; }
+.mission-card {
+  transition: border-color 0.3s ease;
+}
+.mission-card:hover {
+  border-color: var(--card-accent, var(--color-accent));
+}
+
+/* Screen-reader-only text: kept in the DOM for assistive tech, hidden visually */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Cursor custom — only active once JS confirms a fine pointer + no reduced-motion preference (see Layout.astro) */
+.custom-cursor-active,
+.custom-cursor-active * { cursor: none; }
+
+@media (pointer: coarse) {
+  #cursor, #cursor-ring { display: none !important; }
+}
 
 #cursor {
   width: 10px;
@@ -208,6 +235,14 @@ button:hover ~ #cursor { transform: scale(2); }
     transform: none !important;
     transition: none !important;
   }
+  #tw-cursor { animation: none !important; }
+  .marquee-track { animation: none !important; }
+  #cursor, #cursor-ring { display: none !important; }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
 }
 
 @keyframes marquee {
@@ -265,8 +300,8 @@ p {
 }
 .filter-btn:hover,
 .filter-btn.active {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
+  background: var(--filter-accent, var(--color-accent));
+  border-color: var(--filter-accent, var(--color-accent));
   color: var(--color-bg);
 }
 

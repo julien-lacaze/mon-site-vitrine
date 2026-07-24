@@ -28,7 +28,7 @@ import { disponibilite } from '../config/dispo.js';
         color: var(--color-text);
       ">
         Structurer.<br/>
-        <em id="rotating-word" style="color: var(--color-accent); font-style: italic; display: inline-block; transition: opacity 0.35s ease, transform 0.35s ease;">Accélérer.</em><br/>
+        <em id="typewriter-word" aria-hidden="true" style="color: var(--color-accent); font-style: italic; display: inline-block;">Accélérer.</em><span id="tw-cursor" aria-hidden="true" style="display:inline-block; width: 3px; height: 0.75em; background: var(--color-accent); margin-left: 4px; vertical-align: middle; animation: blink 0.8s step-end infinite;"></span><span class="sr-only">Accélérer, convertir, piloter, performer.</span><br/>
         Mesurer.
       </h1>
       <p class="fade-up fade-up-delay-3" style="
@@ -64,12 +64,19 @@ import { disponibilite } from '../config/dispo.js';
         ">Voir mes missions →</a>
       </div>
 
+      <!-- Bandeau signature tricolore -->
+      <div class="fade-up fade-up-delay-4" style="display: flex; margin-top: 4rem; border-radius: 3px; overflow: hidden; height: 10px; max-width: 420px;">
+        <div style="flex: 1; background: var(--color-accent);"></div>
+        <div style="flex: 1; background: var(--color-accent2);"></div>
+        <div style="flex: 1; background: var(--color-accent3);"></div>
+      </div>
+
       <!-- Chiffres clés -->
       <div class="fade-up fade-up-delay-4" style="
         display: flex;
         flex-wrap: wrap;
         gap: 1.5rem;
-        margin-top: 4rem;
+        margin-top: 2rem;
         padding-top: 2rem;
         border-top: 1px solid var(--color-border);
       ">
@@ -187,7 +194,7 @@ import { disponibilite } from '../config/dispo.js';
     ">
 
       <!-- Service 1 -->
-      <div class="card reveal reveal-delay-1">
+      <div class="card reveal reveal-delay-1" style="--card-accent: var(--color-accent);">
         <div style="color: var(--color-accent); font-size: 1.5rem; margin-bottom: 1.2rem;">01</div>
         <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">CMO Part-time</h3>
         <p style="color: var(--color-muted); font-size: 0.9rem; line-height: 1.7;">
@@ -197,8 +204,8 @@ import { disponibilite } from '../config/dispo.js';
       </div>
 
       <!-- Service 2 -->
-      <div class="card reveal reveal-delay-2">
-        <div style="color: var(--color-accent); font-size: 1.5rem; margin-bottom: 1.2rem;">02</div>
+      <div class="card reveal reveal-delay-2" style="--card-accent: var(--color-accent2);">
+        <div style="color: var(--color-accent2); font-size: 1.5rem; margin-bottom: 1.2rem;">02</div>
         <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">Stratégie Go-to-Market</h3>
         <p style="color: var(--color-muted); font-size: 0.9rem; line-height: 1.7;">
           Segmentation, positionnement, canaux d'acquisition, message.<br/>
@@ -207,8 +214,8 @@ import { disponibilite } from '../config/dispo.js';
       </div>
 
       <!-- Service 3 -->
-      <div class="card reveal reveal-delay-3">
-        <div style="color: var(--color-accent); font-size: 1.5rem; margin-bottom: 1.2rem;">03</div>
+      <div class="card reveal reveal-delay-3" style="--card-accent: var(--color-accent3);">
+        <div style="color: var(--color-accent3); font-size: 1.5rem; margin-bottom: 1.2rem;">03</div>
         <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">Acquisition digitale</h3>
         <p style="color: var(--color-muted); font-size: 0.9rem; line-height: 1.7;">
           SEO, SEA, LinkedIn Ads, email marketing, automation.<br/>
@@ -217,7 +224,7 @@ import { disponibilite } from '../config/dispo.js';
       </div>
 
       <!-- Service 4 -->
-      <div class="card reveal reveal-delay-4" style="background: var(--color-accent-dim); border-color: rgba(212, 168, 83, 0.2);">
+      <div class="card reveal reveal-delay-4" style="background: var(--color-accent-dim); border-color: rgba(212, 168, 83, 0.2); --card-accent: var(--color-accent);">
         <div style="color: var(--color-accent); font-size: 1.5rem; margin-bottom: 1.2rem;">04</div>
         <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">No code</h3>
         <p style="color: var(--color-muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem;">
@@ -271,6 +278,7 @@ import { disponibilite } from '../config/dispo.js';
         transition: border-color 0.3s ease;
         display: flex;
         flex-direction: column;
+        --card-accent: var(--color-accent);
       " class="mission-card reveal reveal-delay-1">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
           <span class="tag">CMO Part-time</span>
@@ -294,9 +302,10 @@ import { disponibilite } from '../config/dispo.js';
         transition: border-color 0.3s ease;
         display: flex;
         flex-direction: column;
+        --card-accent: var(--color-accent2);
       " class="mission-card reveal reveal-delay-2">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
-          <span class="tag">Conseil</span>
+          <span class="tag" style="color: var(--color-accent2); border-color: var(--color-accent2);">Conseil</span>
           <span style="font-size: 0.75rem; color: var(--color-muted);">2025–2026</span>
         </div>
         <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">SNCF</h3>
@@ -316,9 +325,10 @@ import { disponibilite } from '../config/dispo.js';
         transition: border-color 0.3s ease;
         display: flex;
         flex-direction: column;
+        --card-accent: var(--color-accent3);
       " class="mission-card reveal reveal-delay-3">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
-          <span class="tag">Email marketing</span>
+          <span class="tag" style="color: var(--color-accent3); border-color: var(--color-accent3);">Email marketing</span>
           <span style="font-size: 0.75rem; color: var(--color-muted);">2026</span>
         </div>
         <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Coédis</h3>
@@ -338,9 +348,10 @@ import { disponibilite } from '../config/dispo.js';
         transition: border-color 0.3s ease;
         display: flex;
         flex-direction: column;
+        --card-accent: var(--color-accent2);
       " class="mission-card">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
-          <span class="tag">Copywriter</span>
+          <span class="tag" style="color: var(--color-accent2); border-color: var(--color-accent2);">Copywriter</span>
           <span style="font-size: 0.75rem; color: var(--color-muted);">2025</span>
         </div>
         <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Alexia.fr</h3>
@@ -360,9 +371,10 @@ import { disponibilite } from '../config/dispo.js';
         transition: border-color 0.3s ease;
         display: flex;
         flex-direction: column;
+        --card-accent: var(--color-accent3);
       " class="mission-card">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
-          <span class="tag">Marketing B2B</span>
+          <span class="tag" style="color: var(--color-accent3); border-color: var(--color-accent3);">Marketing B2B</span>
           <span style="font-size: 0.75rem; color: var(--color-muted);">2024–2025</span>
         </div>
         <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Geev</h3>
@@ -534,38 +546,55 @@ import { disponibilite } from '../config/dispo.js';
 
     <!-- Calendly inline widget -->
     <div class="calendly-inline-widget reveal-right"
-      data-url="https://calendly.com/julien-lacaze-pro/rdv-business?hide_event_type_details=1&hide_gdpr_banner=1&background_color=EDE8DF&text_color=1C1916&primary_color=8B6F47"
+      data-url="https://calendly.com/julien-lacaze-pro/cafe-virtuel?hide_event_type_details=1&hide_gdpr_banner=1&background_color=EDE8DF&text_color=1C1916&primary_color=8B6F47"
       style="min-width:320px;height:700px;">
     </div>
     <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
   </section>
 
   <script>
-    // Mission card hover
-    document.querySelectorAll('.mission-card').forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        (card as HTMLElement).style.borderColor = 'var(--color-accent)';
-      });
-      card.addEventListener('mouseleave', () => {
-        (card as HTMLElement).style.borderColor = 'var(--color-border)';
-      });
-    });
+    // Typewriter hero word — skipped entirely for prefers-reduced-motion (static text already in the HTML)
+    const typewriterWords = [
+      { text: 'Accélérer.', color: 'var(--color-accent)' },
+      { text: 'Convertir.', color: 'var(--color-accent2)' },
+      { text: 'Piloter.', color: 'var(--color-accent3)' },
+      { text: 'Performer.', color: 'var(--color-accent)' },
+    ];
+    let twWordIndex = 0;
+    let twCharIndex = 0;
+    let twDeleting = false;
+    const twEl = document.getElementById('typewriter-word') as HTMLElement | null;
+    const twCursor = document.getElementById('tw-cursor') as HTMLElement | null;
 
-    // Rotating hero word
-    const rotatingWords = ['Accélérer.', 'Convertir.', 'Piloter.', 'Performer.'];
-    let wordIndex = 0;
-    const rotatingEl = document.getElementById('rotating-word') as HTMLElement | null;
-    if (rotatingEl) {
-      setInterval(() => {
-        rotatingEl.style.opacity = '0';
-        rotatingEl.style.transform = 'translateY(-6px)';
-        setTimeout(() => {
-          wordIndex = (wordIndex + 1) % rotatingWords.length;
-          rotatingEl.textContent = rotatingWords[wordIndex];
-          rotatingEl.style.opacity = '1';
-          rotatingEl.style.transform = 'translateY(0)';
-        }, 350);
-      }, 2500);
+    function typewriterTick() {
+      if (!twEl) return;
+      const current = typewriterWords[twWordIndex];
+      twEl.style.color = current.color;
+      if (twCursor) twCursor.style.background = current.color;
+
+      if (!twDeleting) {
+        twCharIndex++;
+        twEl.textContent = current.text.slice(0, twCharIndex);
+        if (twCharIndex === current.text.length) {
+          twDeleting = true;
+          setTimeout(typewriterTick, 1400);
+          return;
+        }
+        setTimeout(typewriterTick, 65);
+      } else {
+        twCharIndex--;
+        twEl.textContent = current.text.slice(0, twCharIndex);
+        if (twCharIndex === 0) {
+          twDeleting = false;
+          twWordIndex = (twWordIndex + 1) % typewriterWords.length;
+          setTimeout(typewriterTick, 300);
+          return;
+        }
+        setTimeout(typewriterTick, 35);
+      }
+    }
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      typewriterTick();
     }
 
     // Animated counters
