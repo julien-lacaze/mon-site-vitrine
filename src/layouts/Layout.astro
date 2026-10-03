@@ -58,6 +58,13 @@ const pageTitle = metaTitle ?? `${title} — Julien Lacaze`;
         color: ${currentPath === '/clients' ? 'var(--color-accent)' : 'var(--color-muted)'};
         transition: color 0.2s ease;
       ">Clients</a>
+      <a href="/guide-claude" class="hover-accent" style="
+        font-size: 0.85rem;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        color: ${currentPath === '/guide-claude' ? 'var(--color-accent)' : 'var(--color-muted)'};
+        transition: color 0.2s ease;
+      ">Guide Claude</a>
       <a href="/experimentations" class="hover-accent" style="
         font-size: 0.85rem;
         font-weight: 400;
@@ -115,6 +122,7 @@ const pageTitle = metaTitle ?? `${title} — Julien Lacaze`;
     gap: 2.5rem;
   ">
     <a href="/clients" style="font-family: var(--font-display); font-size: 2rem; color: var(--color-text);">Clients</a>
+    <a href="/guide-claude" style="font-family: var(--font-display); font-size: 2rem; color: var(--color-text);">Guide Claude</a>
     <a href="/experimentations" style="font-family: var(--font-display); font-size: 2rem; color: var(--color-text);">Expérimentations</a>
     <a href="/blog" style="font-family: var(--font-display); font-size: 2rem; color: var(--color-text);">Blog</a>
     <a href="/#contact" style="font-family: var(--font-display); font-size: 2rem; color: var(--color-accent);">Me contacter</a>
