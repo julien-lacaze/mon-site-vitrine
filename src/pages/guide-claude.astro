@@ -2,45 +2,38 @@
 import Layout from '../layouts/Layout.astro';
 
 // Lien du formulaire Tally qui collecte les emails (formulaire publié sur Tally).
+// La page de remerciement du formulaire renvoie vers le guide complet.
 const TALLY_URL = 'https://tally.so/r/pb8aO8';
 
-const sections = [
-  {
-    num: '01',
-    title: "Faut-il utiliser l'IA pour cette tâche ?",
-    text: "Un arbre de décision en 5 questions et un code couleur vert, orange, rouge pour savoir quand y aller, quand rester vigilant, et quand s'abstenir.",
-    accent: 'var(--color-accent3)',
-  },
-  {
-    num: '02',
-    title: 'Vos 2 premiers réglages',
-    text: "Les instructions pour Claude, prêtes à copier, et le réglage de confidentialité à vérifier avant tout le reste.",
-    accent: 'var(--color-accent)',
-  },
-  {
-    num: '03',
-    title: 'Bien demander',
-    text: "Le réflexe n°1 qui transforme une réponse moyenne en réponse utile, et un exercice de 10 minutes pour le constater par vous-même.",
-    accent: 'var(--color-accent2)',
-  },
-  {
-    num: '04',
-    title: 'Les 3 choses à ne jamais coller dans Claude',
-    text: "Données personnelles, identifiants, documents confidentiels : ce que rappelle la CNIL aux TPE et PME, en clair.",
-    accent: 'var(--color-accent3)',
-  },
-  {
-    num: '05',
-    title: '5 gestes de sobriété',
-    text: "Le bon modèle pour la bonne tâche, une conversation par sujet, et les ordres de grandeur à connaître. Sans culpabilité.",
-    accent: 'var(--color-accent)',
-  },
-  {
-    num: '06',
-    title: 'Garder la main',
-    text: "Dépendance cognitive et libre arbitre : comment profiter de l'IA sans cesser de réfléchir par vous-même.",
-    accent: 'var(--color-accent2)',
-  },
+// Le guide express reste en accès libre, sans email : c'est l'avant-goût du guide complet.
+const EXPRESS_PDF = '/guides/guide-claude-les-bases-express.pdf';
+
+const programme = [
+  { num: '01', title: "Faut-il utiliser l'IA ?", text: 'Un arbre de décision en 5 questions, et 5 cas limites commentés.' },
+  { num: '02', title: 'Les trois portes', text: 'Claude, Cowork, Claude Code : lequel pour quel besoin.', exclusif: true },
+  { num: '03', title: 'Les modèles', text: 'Haiku, Sonnet, Opus : quel modèle pour quelle tâche.', exclusif: true },
+  { num: '04', title: 'Les tarifs', text: 'Quel plan pour quel profil, et quand ne pas payer plus.', exclusif: true },
+  { num: '05', title: 'Le setup', text: 'Les 9 réglages qui changent tout, avec des modèles à copier.' },
+  { num: '06', title: 'Bien demander', text: 'Les 4 réflexes pour obtenir de bonnes réponses.' },
+  { num: '07', title: 'Limites et vigilance', text: 'Hallucinations, injections de prompt, données personnelles, biais. Et une checklist RGPD en 7 points.' },
+  { num: '08', title: 'Sobriété', text: 'Des ordres de grandeur sourcés et 9 gestes concrets.' },
+  { num: '09', title: 'Garder la main', text: "Dépendance cognitive, flatterie de l'IA, la règle des 3 temps." },
+  { num: '10', title: 'Trois exercices', text: 'Setup, avant/après, tri et vérification. Avec votre vrai compte.', exclusif: true },
+  { num: '11', title: 'Aller plus loin', text: 'Glossaire, sources et ressources.', exclusif: true },
+];
+
+// Comparatif express / complet. Une cellule est soit un texte, soit une jauge [fait, total], soit absente (null).
+type Cell = string | [number, number] | null;
+const comparatif: { label: string; express: Cell; complet: Cell }[] = [
+  { label: 'Arbre de décision en 5 questions', express: 'Oui', complet: 'Oui, + 5 cas limites commentés' },
+  { label: 'Les trois portes : Claude, Cowork, Claude Code', express: null, complet: 'Oui' },
+  { label: 'Modèles et tarifs : quoi choisir', express: null, complet: 'Oui' },
+  { label: 'Réglages prêts à copier', express: [2, 9], complet: [9, 9] },
+  { label: 'Réflexes pour bien demander', express: [1, 4], complet: [4, 4] },
+  { label: 'Limites et vigilance', express: '3 choses à ne pas coller', complet: '4 risques + checklist RGPD' },
+  { label: 'Sobriété', express: '5 gestes', complet: '9 gestes + chiffres sourcés' },
+  { label: 'Exercices pratiques', express: [1, 3], complet: [3, 3] },
+  { label: 'Glossaire et sources', express: null, complet: 'Oui' },
 ];
 
 const faq = [
@@ -50,7 +43,11 @@ const faq = [
   },
   {
     q: 'Le guide est-il vraiment gratuit ?',
-    a: "Oui. Vous laissez votre email et vous téléchargez le PDF tout de suite. Rien à payer, aucune carte bancaire demandée.",
+    a: "Oui, les deux versions. Pour le guide complet, vous laissez votre email et vous le téléchargez tout de suite. La version express est en accès libre, sans email. Rien à payer, aucune carte bancaire demandée.",
+  },
+  {
+    q: 'Quelle différence entre la version express et le guide complet ?',
+    a: "La version express (9 pages) donne les premiers réflexes : quand utiliser l'IA, 2 réglages, le réflexe n°1 pour bien demander. Le guide complet (23 pages) couvre tout : les outils, les modèles, les tarifs, les 9 réglages, les 4 réflexes, les limites, les chiffres de sobriété sourcés, 3 exercices, un glossaire et les sources.",
   },
   {
     q: 'Que faites-vous de mon email ?',
@@ -58,7 +55,7 @@ const faq = [
   },
   {
     q: 'Et si je veux aller plus loin ?',
-    a: "Il existe une version complète du guide (tarifs, modèles, les 9 réglages, les limites à connaître, 3 exercices, un glossaire et toutes les sources), ainsi que des formations d'une demi-journée ou d'une journée pour vous ou votre équipe.",
+    a: "Je propose des formations d'une demi-journée ou d'une journée, l'accompagnement de votre équipe, et un audit de sobriété de vos usages de l'IA. Le plus simple : prenons un café virtuel.",
   },
 ];
 ---
@@ -66,7 +63,7 @@ const faq = [
 <Layout
   title="Guide Claude"
   metaTitle="Guide gratuit : Claude, les bases pour tout comprendre | Julien Lacaze"
-  description="Guide express gratuit pour démarrer avec Claude avec méthode, esprit critique et sobriété. 6 sections, des réglages prêts à copier, un exercice de 10 minutes. Sans jargon."
+  description="Guide complet gratuit pour démarrer avec Claude avec méthode, esprit critique et sobriété. 23 pages, 11 sections, 9 réglages prêts à copier, 3 exercices. Sans jargon."
 >
 
   <!-- Hero -->
@@ -80,7 +77,7 @@ const faq = [
     align-items: center;
   ">
     <div>
-      <span class="tag fade-up">Guide gratuit · PDF</span>
+      <span class="tag fade-up">Guide complet gratuit · PDF</span>
       <h1 class="fade-up fade-up-delay-1" style="
         font-size: clamp(2.8rem, 5.5vw, 5rem);
         margin-top: 1.5rem;
@@ -97,12 +94,12 @@ const faq = [
         line-height: 1.8;
         text-align: left;
       ">
-        Le guide express pour démarrer avec l'IA avec méthode, esprit critique et sobriété.
-        Ce qu'il faut régler, comment bien demander, et ce qu'il ne faut jamais coller dans Claude.
+        Le guide pour démarrer avec l'IA avec méthode, esprit critique et sobriété.
+        Quel outil choisir, comment le régler, comment bien demander, et ce qu'il ne faut jamais lui confier.
       </p>
 
       <div class="fade-up fade-up-delay-3" style="margin-top: 2.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem;">
-        <a href={TALLY_URL} class="guide-cta">Recevoir le guide gratuit</a>
+        <a href={TALLY_URL} class="guide-cta">Recevoir le guide complet</a>
         <span style="font-size: 0.85rem; color: var(--color-muted);">Téléchargement immédiat après inscription</span>
       </div>
 
@@ -117,21 +114,30 @@ const faq = [
         font-size: 0.85rem;
         color: var(--color-muted);
       ">
-        <li><strong style="font-weight: 500; color: var(--color-text);">9 pages</strong>, 6 sections</li>
-        <li><strong style="font-weight: 500; color: var(--color-text);">2 réglages</strong> prêts à copier</li>
-        <li><strong style="font-weight: 500; color: var(--color-text);">1 exercice</strong> de 10 minutes</li>
+        <li><strong style="font-weight: 500; color: var(--color-text);">23 pages</strong>, 11 sections</li>
+        <li><strong style="font-weight: 500; color: var(--color-text);">9 réglages</strong> prêts à copier</li>
+        <li><strong style="font-weight: 500; color: var(--color-text);">3 exercices</strong> pratiques</li>
         <li><strong style="font-weight: 500; color: var(--color-text);">0 jargon</strong></li>
       </ul>
+      <a href="#express-ou-complet" class="fade-up fade-up-delay-4 hover-accent" style="display: inline-block; margin-top: 1.5rem; font-size: 0.85rem; color: var(--color-accent);">
+        Pas encore prêt ? Découvrez d'abord la version express, sans email
+      </a>
     </div>
 
-    <div id="guide-cover" class="fade-up fade-up-delay-2" style="display: flex; justify-content: center;">
+    <div id="guide-cover" class="fade-up fade-up-delay-2">
       <img
         src="/guides/couverture-guide-claude.jpg"
-        alt="Couverture du guide express « Claude : les bases pour tout comprendre » par Julien Lacaze"
+        alt=""
         width="900"
         height="1272"
-        class="guide-cover-img"
-        style="width: 100%; max-width: 400px; height: auto;"
+        class="cover-back"
+      />
+      <img
+        src="/guides/couverture-guide-claude-complet.jpg"
+        alt="Couverture du guide complet « Claude : les bases pour tout comprendre » par Julien Lacaze"
+        width="900"
+        height="1272"
+        class="cover-front"
       />
     </div>
   </section>
@@ -155,25 +161,31 @@ const faq = [
     </div>
   </section>
 
-  <!-- Contenu du guide -->
+  <!-- Programme -->
   <section style="max-width: 1400px; margin: 0 auto; padding: 8rem 3rem 4rem;">
     <div class="reveal" style="max-width: 700px; margin-bottom: 4rem;">
       <div class="sep"></div>
-      <h2 style="font-size: clamp(2rem, 4vw, 3.2rem);">Ce que vous allez apprendre</h2>
+      <h2 style="font-size: clamp(2rem, 4vw, 3.2rem);">Au programme : 11 sections</h2>
       <p style="color: var(--color-muted); margin-top: 1.25rem; font-size: 1rem; line-height: 1.8; text-align: left;">
-        Six sections courtes, chacune terminée par un « réflexe responsable » : le bon geste éthique ou écologique à retenir.
+        Chaque section se termine par un « réflexe responsable » : le bon geste éthique ou écologique à retenir.
+        Celles marquées <span class="badge-exclusif">Complet</span> ne figurent pas du tout dans la version express.
       </p>
     </div>
 
-    <div id="guide-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
-      {sections.map((s, i) => (
-        <article class={`card reveal-pop reveal-delay-${(i % 3) + 1}`} style={`--card-accent: ${s.accent};`}>
-          <div style={`font-family: var(--font-display); font-size: 2.5rem; line-height: 1; color: ${s.accent}; margin-bottom: 1.5rem;`}>{s.num}</div>
-          <h3 style="font-size: 1.35rem; margin-bottom: 0.9rem; line-height: 1.25;">{s.title}</h3>
-          <p style="font-size: 0.92rem; color: var(--color-muted); line-height: 1.7; text-align: left;">{s.text}</p>
-        </article>
+    <ol id="guide-programme" style="list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 4rem;">
+      {programme.map((s) => (
+        <li class="programme-item reveal">
+          <span class="programme-num">{s.num}</span>
+          <div>
+            <h3 style="font-size: 1.25rem; line-height: 1.3; display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem;">
+              {s.title}
+              {s.exclusif && <span class="badge-exclusif">Complet</span>}
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--color-muted); line-height: 1.6; margin-top: 0.35rem; text-align: left;">{s.text}</p>
+          </div>
+        </li>
       ))}
-    </div>
+    </ol>
   </section>
 
   <!-- Extrait -->
@@ -197,31 +209,111 @@ const faq = [
       </div>
     </div>
     <p class="reveal" style="color: var(--color-muted); margin-top: 1.5rem; font-size: 0.95rem; text-align: left;">
-      Même outil, même minute passée. La différence tient en trois ingrédients, détaillés dans le guide avec un exercice pour les tester sur une vraie demande de votre semaine.
+      Même outil, même minute passée. Le guide complet détaille les 4 réflexes (contexte, format, questions, critique) et un exercice pour les tester sur une vraie demande de votre semaine.
     </p>
   </section>
 
-  <!-- Réflexe responsable -->
-  <section style="max-width: 1100px; margin: 0 auto; padding: 0 3rem 6rem;">
-    <div class="reveal" style="
-      background: var(--color-accent3);
-      color: var(--color-bg);
-      padding: 3.5rem;
-      border-radius: 2px;
-    ">
-      <p style="font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.25rem; opacity: 0.8;">Le fil rouge du guide</p>
-      <p style="font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.2rem); line-height: 1.3; text-align: left;">
-        « L'IA est un outil puissant. Elle ne décide pas à votre place. »
-      </p>
-      <p style="margin-top: 1.5rem; font-size: 1rem; line-height: 1.8; opacity: 0.9; text-align: left; max-width: 720px;">
-        Ni culpabilité, ni déni. Chaque section se termine par un réflexe concret pour protéger vos données,
-        limiter l'impact environnemental de vos usages et garder votre esprit critique.
+  <!-- Chiffres de sobriété -->
+  <section style="border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+    <div style="max-width: 1100px; margin: 0 auto; padding: 6rem 3rem;">
+      <div class="reveal" style="max-width: 700px; margin-bottom: 3rem;">
+        <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">Sobriété</p>
+        <h2 style="font-size: clamp(1.8rem, 3.5vw, 2.6rem);">Des ordres de grandeur sourcés, pas des impressions</h2>
+      </div>
+      <div id="guide-chiffres" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+        <div class="chiffre reveal-pop reveal-delay-1">
+          <p class="chiffre-valeur">4,4 %</p>
+          <p class="chiffre-label">de l'empreinte carbone de la France vient du numérique</p>
+          <p class="chiffre-source">ADEME et Arcep, 2022</p>
+        </div>
+        <div class="chiffre reveal-pop reveal-delay-2">
+          <p class="chiffre-valeur">0,03 à 1,14 g</p>
+          <p class="chiffre-label">de CO2e par requête texte, selon la méthode de mesure</p>
+          <p class="chiffre-source">Google et Mistral AI, 2025</p>
+        </div>
+        <div class="chiffre reveal-pop reveal-delay-3">
+          <p class="chiffre-valeur">8,2 t</p>
+          <p class="chiffre-label">d'empreinte carbone moyenne par Français et par an. Objectif : 2 t en 2050</p>
+          <p class="chiffre-source">SDES, 2024</p>
+        </div>
+      </div>
+      <p class="reveal" style="color: var(--color-muted); margin-top: 1.5rem; font-size: 0.95rem; text-align: left;">
+        Dans le guide complet : ce que ces chiffres veulent dire pour vous, le mini-calcul à faire vous-même et 9 gestes concrets. Ni culpabilité, ni déni.
       </p>
     </div>
   </section>
 
+  <!-- Express ou complet -->
+  <section id="express-ou-complet" class="guide-vert">
+    <div style="max-width: 1100px; margin: 0 auto; padding: 7rem 3rem;">
+      <div class="reveal" style="max-width: 760px; margin-bottom: 3.5rem;">
+        <span class="pill-jaune">Express ou complet ?</span>
+        <h2 style="font-size: clamp(2rem, 4vw, 3.2rem); margin-top: 1.5rem; color: #F9F4EE;">
+          L'express vous met le pied à l'étrier.<br/>
+          <span style="color: #F2B632;">Le complet vous rend autonome.</span>
+        </h2>
+        <p style="margin-top: 1.25rem; font-size: 1.02rem; line-height: 1.8; color: rgba(249, 244, 238, 0.8); text-align: left;">
+          La version express est en accès libre, sans email : 9 pages pour vos premiers réflexes.
+          Quand vous voudrez tout savoir, le guide complet vous attend.
+        </p>
+      </div>
+
+      <div class="reveal" style="overflow-x: auto;">
+        <table class="comparatif">
+          <thead>
+            <tr>
+              <th scope="col"><span class="sr-only">Contenu</span></th>
+              <th scope="col">
+                <img src="/guides/couverture-guide-claude.jpg" alt="" width="900" height="1272" class="comparatif-cover" />
+                <span class="comparatif-nom">Express</span>
+                <span class="comparatif-pages">9 pages · sans email</span>
+              </th>
+              <th scope="col" class="col-complet">
+                <img src="/guides/couverture-guide-claude-complet.jpg" alt="" width="900" height="1272" class="comparatif-cover" />
+                <span class="comparatif-nom">Complet</span>
+                <span class="comparatif-pages">23 pages · gratuit</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparatif.map((row) => (
+              <tr>
+                <th scope="row">{row.label}</th>
+                {[row.express, row.complet].map((cell, i) => (
+                  <td class={i === 1 ? 'col-complet' : ''}>
+                    {cell === null && <span class="cell-non" aria-label="Non inclus">—</span>}
+                    {typeof cell === 'string' && cell}
+                    {Array.isArray(cell) && (
+                      <span class="jauge" aria-label={`${cell[0]} sur ${cell[1]}`}>
+                        <span class="jauge-points" aria-hidden="true">
+                          {Array.from({ length: cell[1] }, (_, k) => <span class={k < cell[0] ? 'on' : ''}></span>)}
+                        </span>
+                        <span aria-hidden="true">{cell[0]} sur {cell[1]}</span>
+                      </span>
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row"><span class="sr-only">Télécharger</span></th>
+              <td>
+                <a href={EXPRESS_PDF} target="_blank" rel="noopener" class="cta-express">Lire l'express</a>
+              </td>
+              <td class="col-complet">
+                <a href={TALLY_URL} class="cta-complet">Recevoir le complet</a>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </section>
+
   <!-- Auteur -->
-  <section style="border-top: 1px solid var(--color-border);">
+  <section>
     <div id="guide-auteur" style="
       max-width: 1100px;
       margin: 0 auto;
@@ -280,9 +372,9 @@ const faq = [
         Démarrez avec Claude, <em style="color: var(--color-accent);">du bon pied</em>.
       </h2>
       <p style="color: var(--color-muted); max-width: 520px; margin: 0 auto 2.5rem; font-size: 1rem; text-align: center;">
-        9 pages, 15 minutes de lecture, et des réflexes que vous garderez longtemps.
+        23 pages, 11 sections, 3 exercices. Et des réflexes que vous garderez longtemps.
       </p>
-      <a href={TALLY_URL} class="guide-cta">Recevoir le guide gratuit</a>
+      <a href={TALLY_URL} class="guide-cta">Recevoir le guide complet</a>
       <p style="font-size: 0.8rem; color: var(--color-muted); margin-top: 1.25rem; text-align: center;">
         Gratuit · Téléchargement immédiat · Sans spam
       </p>
@@ -292,6 +384,14 @@ const faq = [
 </Layout>
 
 <style>
+  /* Couleurs de la charte du guide, utilisées seulement sur cette page */
+  #express-ou-complet {
+    --guide-vert: #1E4D3B;
+    --guide-orange: #D9622A;
+    --guide-jaune: #F2B632;
+    --guide-creme: #F9F4EE;
+  }
+
   .guide-cta {
     display: inline-block;
     background: var(--color-accent);
@@ -308,20 +408,230 @@ const faq = [
     background: var(--color-accent2);
     transform: translateY(-2px);
   }
-  .guide-cta:focus-visible {
-    outline: 2px solid var(--color-text);
+  .guide-cta:focus-visible,
+  .cta-express:focus-visible,
+  .cta-complet:focus-visible {
+    outline: 2px solid currentColor;
     outline-offset: 3px;
   }
 
-  .guide-cover-img {
-    transform: rotate(2deg);
+  /* Couvertures empilées : le complet devant, l'express derrière */
+  #guide-cover {
+    position: relative;
+    max-width: 420px;
+    width: 100%;
+    margin: 0 auto;
+    aspect-ratio: 900 / 1272;
+  }
+  .cover-front,
+  .cover-back {
+    position: absolute;
+    height: auto;
     box-shadow: 0 30px 60px -20px rgba(28, 25, 22, 0.35);
     transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .guide-cover-img:hover {
-    transform: rotate(0deg) scale(1.02);
+  .cover-front {
+    width: 88%;
+    right: 0;
+    top: 0;
+    transform: rotate(3deg);
+  }
+  .cover-back {
+    width: 70%;
+    left: 0;
+    bottom: -4%;
+    transform: rotate(-7deg);
+    opacity: 0.9;
+  }
+  #guide-cover:hover .cover-front { transform: rotate(0deg) translateY(-6px); }
+  #guide-cover:hover .cover-back { transform: rotate(-10deg) translateX(-8px); }
+
+  /* Programme */
+  .programme-item {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: 1rem;
+    padding: 1.6rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .programme-num {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    line-height: 1.1;
+    color: var(--color-accent);
+  }
+  .badge-exclusif {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #1E4D3B;
+    background: #F2B632;
+    padding: 2px 9px;
+    border-radius: 999px;
+    vertical-align: middle;
   }
 
+  /* Chiffres */
+  .chiffre {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 2rem;
+    border-radius: 2px;
+  }
+  .chiffre-valeur {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 2.6rem);
+    line-height: 1.1;
+    color: var(--color-accent2);
+    text-align: left;
+  }
+  .chiffre-label {
+    margin-top: 0.75rem;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    text-align: left;
+  }
+  .chiffre-source {
+    margin-top: 0.75rem;
+    font-size: 0.75rem;
+    color: var(--color-muted);
+    text-align: left;
+  }
+
+  /* Section express ou complet, aux couleurs du guide */
+  .guide-vert {
+    background: var(--guide-vert);
+    color: var(--guide-creme);
+  }
+  .pill-jaune {
+    display: inline-block;
+    background: var(--guide-jaune);
+    color: var(--guide-vert);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 999px;
+  }
+  .comparatif {
+    width: 100%;
+    min-width: 560px;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.92rem;
+  }
+  .comparatif th,
+  .comparatif td {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba(249, 244, 238, 0.12);
+  }
+  .comparatif tbody th {
+    font-weight: 400;
+    color: rgba(249, 244, 238, 0.85);
+    width: 40%;
+  }
+  .comparatif thead th {
+    vertical-align: bottom;
+    border-bottom: 1px solid rgba(249, 244, 238, 0.3);
+    padding-top: 1.5rem;
+  }
+  .comparatif td {
+    color: rgba(249, 244, 238, 0.7);
+    width: 30%;
+  }
+  .comparatif .col-complet {
+    background: rgba(249, 244, 238, 0.07);
+    color: var(--guide-creme);
+    font-weight: 500;
+    border-left: 2px solid var(--guide-jaune);
+    border-right: 2px solid var(--guide-jaune);
+  }
+  .comparatif thead .col-complet {
+    border-top: 2px solid var(--guide-jaune);
+    border-radius: 6px 6px 0 0;
+  }
+  .comparatif tfoot .col-complet {
+    border-bottom: 2px solid var(--guide-jaune);
+    border-radius: 0 0 6px 6px;
+  }
+  .comparatif tfoot th,
+  .comparatif tfoot td {
+    border-bottom-color: transparent;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  .comparatif-cover {
+    display: block;
+    width: 72px;
+    height: auto;
+    margin-bottom: 0.9rem;
+    box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.5);
+  }
+  .comparatif-nom {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--guide-creme);
+  }
+  .comparatif-pages {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: rgba(249, 244, 238, 0.65);
+    margin-top: 0.2rem;
+  }
+  .col-complet .comparatif-pages { color: var(--guide-jaune); }
+  .cell-non { color: rgba(249, 244, 238, 0.35); }
+  .jauge {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .jauge-points {
+    display: inline-flex;
+    gap: 3px;
+  }
+  .jauge-points span {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 1px solid rgba(249, 244, 238, 0.4);
+  }
+  .jauge-points span.on {
+    background: var(--guide-jaune);
+    border-color: var(--guide-jaune);
+  }
+  .cta-express,
+  .cta-complet {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.8rem 1.4rem;
+    border-radius: 999px;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .cta-express {
+    border: 1px solid rgba(249, 244, 238, 0.5);
+    color: var(--guide-creme);
+  }
+  .cta-express:hover { background: rgba(249, 244, 238, 0.1); }
+  .cta-complet {
+    background: var(--guide-orange);
+    color: #FFFFFF;
+  }
+  .cta-complet:hover { transform: translateY(-2px); }
+
+  /* FAQ */
   .guide-faq {
     border-bottom: 1px solid var(--color-border);
     padding: 1.5rem 0;
@@ -352,20 +662,20 @@ const faq = [
   }
 
   @media (max-width: 1024px) {
-    #guide-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    #guide-programme { grid-template-columns: 1fr !important; }
   }
 
   @media (max-width: 768px) {
     #guide-hero { grid-template-columns: 1fr !important; gap: 3rem !important; padding: 8rem 1.5rem 4rem !important; }
-    #guide-cover { order: -1; }
-    .guide-cover-img { max-width: 240px !important; }
-    #guide-grid { grid-template-columns: 1fr !important; }
+    #guide-cover { order: -1; max-width: 260px; }
     #guide-extrait { grid-template-columns: 1fr !important; }
+    #guide-chiffres { grid-template-columns: 1fr !important; }
     #guide-auteur { grid-template-columns: 1fr !important; gap: 2rem !important; padding: 4rem 1.5rem !important; }
     #guide-cta-final { padding: 5rem 1.5rem !important; }
+    .comparatif th, .comparatif td { padding: 0.8rem 0.7rem; font-size: 0.85rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .guide-cover-img, .guide-cta { transition: none; }
+    .cover-front, .cover-back, .guide-cta, .cta-complet { transition: none; }
   }
 </style>
