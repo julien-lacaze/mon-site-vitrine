@@ -8,37 +8,68 @@ const TALLY_URL = 'https://tally.so/r/pb8aO8';
 // Le guide express reste en accès libre, sans email : c'est l'avant-goût du guide complet.
 const EXPRESS_PDF = '/guides/guide-claude-les-bases-express.pdf';
 
+// Prise de rendez-vous (même lien que sur la page d'accueil).
+const CALENDLY_URL = 'https://calendly.com/julien-lacaze-pro/cafe-virtuel';
+
+// L'offre réelle : former les équipes sur place.
+const formats = [
+  {
+    duree: 'Une demi-journée',
+    titre: 'Les bases, ensemble',
+    texte: "Comprendre Claude et ses outils, régler les comptes de chacun, apprendre à bien demander. Pour démarrer toute l'équipe sur de bonnes bases.",
+    accent: 'var(--color-accent)',
+  },
+  {
+    duree: 'Une journée',
+    titre: 'De la théorie à vos cas réels',
+    texte: "Les bases, puis des exercices sur les vraies tâches de votre équipe. Et les règles d'usage à poser ensemble : données, RGPD, vérification.",
+    accent: 'var(--color-accent2)',
+  },
+  {
+    duree: 'Dans la durée',
+    titre: 'Accompagnement et audit',
+    texte: "Un suivi de votre équipe après la formation, et un audit de sobriété de vos usages de l'IA pour consommer moins et mieux.",
+    accent: 'var(--color-accent3)',
+  },
+];
+
 const programme = [
   { num: '01', title: "Faut-il utiliser l'IA ?", text: 'Un arbre de décision en 5 questions, et 5 cas limites commentés.' },
-  { num: '02', title: 'Les trois portes', text: 'Claude, Cowork, Claude Code : lequel pour quel besoin.', exclusif: true },
-  { num: '03', title: 'Les modèles', text: 'Haiku, Sonnet, Opus : quel modèle pour quelle tâche.', exclusif: true },
-  { num: '04', title: 'Les tarifs', text: 'Quel plan pour quel profil, et quand ne pas payer plus.', exclusif: true },
+  { num: '02', title: 'Les trois portes', text: 'Claude, Cowork, Claude Code : lequel pour quel besoin.' },
+  { num: '03', title: 'Les modèles', text: 'Haiku, Sonnet, Opus : quel modèle pour quelle tâche.' },
+  { num: '04', title: 'Les tarifs', text: 'Quel plan pour quel profil, et quand ne pas payer plus.' },
   { num: '05', title: 'Le setup', text: 'Les 9 réglages qui changent tout, avec des modèles à copier.' },
   { num: '06', title: 'Bien demander', text: 'Les 4 réflexes pour obtenir de bonnes réponses.' },
   { num: '07', title: 'Limites et vigilance', text: 'Hallucinations, injections de prompt, données personnelles, biais. Et une checklist RGPD en 7 points.' },
   { num: '08', title: 'Sobriété', text: 'Des ordres de grandeur sourcés et 9 gestes concrets.' },
   { num: '09', title: 'Garder la main', text: "Dépendance cognitive, flatterie de l'IA, la règle des 3 temps." },
-  { num: '10', title: 'Trois exercices', text: 'Setup, avant/après, tri et vérification. Avec votre vrai compte.', exclusif: true },
-  { num: '11', title: 'Aller plus loin', text: 'Glossaire, sources et ressources.', exclusif: true },
+  { num: '10', title: 'Trois exercices', text: 'Setup, avant/après, tri et vérification. Avec votre vrai compte.' },
+  { num: '11', title: 'Aller plus loin', text: 'Glossaire, sources et ressources.' },
 ];
 
-// Comparatif express / complet. Une cellule est soit un texte, soit une jauge [fait, total], soit absente (null).
-type Cell = string | [number, number] | null;
-const comparatif: { label: string; express: Cell; complet: Cell }[] = [
-  { label: 'Arbre de décision en 5 questions', express: 'Oui', complet: 'Oui, + 5 cas limites commentés' },
-  { label: 'Les trois portes : Claude, Cowork, Claude Code', express: null, complet: 'Oui' },
-  { label: 'Modèles et tarifs : quoi choisir', express: null, complet: 'Oui' },
-  { label: 'Réglages prêts à copier', express: [2, 9], complet: [9, 9] },
-  { label: 'Réflexes pour bien demander', express: [1, 4], complet: [4, 4] },
-  { label: 'Limites et vigilance', express: '3 choses à ne pas coller', complet: '4 risques + checklist RGPD' },
-  { label: 'Sobriété', express: '5 gestes', complet: '9 gestes + chiffres sourcés' },
-  { label: 'Exercices pratiques', express: [1, 3], complet: [3, 3] },
-  { label: 'Glossaire et sources', express: null, complet: 'Oui' },
+// Ce que contient le guide complet, en chiffres (tous tirés du PDF).
+const contenu = [
+  { chiffre: '3', titre: 'Outils comparés', texte: 'Claude, Cowork, Claude Code : lequel pour quel besoin, et la règle pour choisir.' },
+  { chiffre: '3', titre: 'Familles de modèles', texte: 'Haiku, Sonnet, Opus : quel modèle pour quelle tâche, sans gaspiller.' },
+  { chiffre: '5', titre: 'Plans décryptés', texte: 'De Free à Enterprise : quel plan pour quel profil, et quand ne pas payer plus.' },
+  { chiffre: '9', titre: 'Réglages pas à pas', texte: 'Instructions, mémoire, projets, connecteurs, skills, routines... avec des modèles à copier.' },
+  { chiffre: '4', titre: 'Réflexes pour bien demander', texte: 'Contexte, format, questions, critique : de la réponse correcte à la réponse utile.' },
+  { chiffre: '5', titre: 'Cas limites commentés', texte: 'Contrat, CV, TVA, avis client, bio : pour affiner votre jugement.' },
+  { chiffre: '7', titre: 'Points de checklist RGPD', texte: 'Et les 4 risques à connaître : hallucinations, injections de prompt, données, biais.' },
+  { chiffre: '9', titre: 'Gestes de sobriété', texte: 'Avec des chiffres sourcés (ADEME, Google, Mistral) et un mini-calcul à faire vous-même.' },
+];
+
+// Ce que le lecteur a en main après les 3 exercices du guide.
+const resultats = [
+  'Des instructions rédigées et une confidentialité maîtrisée',
+  'Un prompt réutilisable et le réflexe du contexte',
+  'Votre grille vert, orange, rouge et un réflexe de vérification',
+  'Un glossaire de 12 termes et toutes les sources',
 ];
 
 const faq = [
   {
-    q: "Je n'y connais rien en IA. Ce guide est-il pour moi ?",
+    q: "Je n'y connais rien en IA. Ce guide est-il fait pour moi ?",
     a: "Oui, c'est précisément pour vous. Il s'adresse aux indépendants, entrepreneurs et membres d'une équipe qui démarrent avec Claude. Pas besoin de savoir coder, ni de connaître l'IA.",
   },
   {
@@ -54,8 +85,8 @@ const faq = [
     a: "Il me permet de savoir qui lit le guide et, si vous l'acceptez, de vous recontacter avec des ressources sur l'IA utilisée avec méthode et sobriété. Il n'est ni vendu ni partagé. Un simple message suffit pour le faire supprimer.",
   },
   {
-    q: 'Et si je veux aller plus loin ?',
-    a: "Je propose des formations d'une demi-journée ou d'une journée, l'accompagnement de votre équipe, et un audit de sobriété de vos usages de l'IA. Le plus simple : prenons un café virtuel.",
+    q: 'Pouvez-vous former mon équipe ?',
+    a: "Oui, c'est mon métier. Je viens dans vos locaux pour une demi-journée ou une journée de formation, sur vos outils et vos vrais cas. Je propose aussi un accompagnement dans la durée et un audit de sobriété de vos usages de l'IA. Le plus simple pour en parler : réservez un café virtuel.",
   },
 ];
 ---
@@ -117,21 +148,16 @@ const faq = [
         <li><strong style="font-weight: 500; color: var(--color-text);">23 pages</strong>, 11 sections</li>
         <li><strong style="font-weight: 500; color: var(--color-text);">9 réglages</strong> prêts à copier</li>
         <li><strong style="font-weight: 500; color: var(--color-text);">3 exercices</strong> pratiques</li>
-        <li><strong style="font-weight: 500; color: var(--color-text);">0 jargon</strong></li>
+        <li><strong style="font-weight: 500; color: var(--color-text);">0 jargon</strong> inutile</li>
       </ul>
-      <a href="#express-ou-complet" class="fade-up fade-up-delay-4 hover-accent" style="display: inline-block; margin-top: 1.5rem; font-size: 0.85rem; color: var(--color-accent);">
-        Pas encore prêt ? Découvrez d'abord la version express, sans email
+      <a href="#formation" class="hero-formation fade-up fade-up-delay-4">
+        <span class="hero-formation-tag">Équipes</span>
+        Vous voulez former toute votre équipe ? Je viens dans vos locaux
+        <span aria-hidden="true">→</span>
       </a>
     </div>
 
     <div id="guide-cover" class="fade-up fade-up-delay-2">
-      <img
-        src="/guides/couverture-guide-claude.jpg"
-        alt=""
-        width="900"
-        height="1272"
-        class="cover-back"
-      />
       <img
         src="/guides/couverture-guide-claude-complet.jpg"
         alt="Couverture du guide complet « Claude : les bases pour tout comprendre » par Julien Lacaze"
@@ -168,7 +194,6 @@ const faq = [
       <h2 style="font-size: clamp(2rem, 4vw, 3.2rem);">Au programme : 11 sections</h2>
       <p style="color: var(--color-muted); margin-top: 1.25rem; font-size: 1rem; line-height: 1.8; text-align: left;">
         Chaque section se termine par un « réflexe responsable » : le bon geste éthique ou écologique à retenir.
-        Celles marquées <span class="badge-exclusif">Complet</span> ne figurent pas du tout dans la version express.
       </p>
     </div>
 
@@ -177,10 +202,7 @@ const faq = [
         <li class="programme-item reveal">
           <span class="programme-num">{s.num}</span>
           <div>
-            <h3 style="font-size: 1.25rem; line-height: 1.3; display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem;">
-              {s.title}
-              {s.exclusif && <span class="badge-exclusif">Complet</span>}
-            </h3>
+            <h3 style="font-size: 1.25rem; line-height: 1.3;">{s.title}</h3>
             <p style="font-size: 0.92rem; color: var(--color-muted); line-height: 1.6; margin-top: 0.35rem; text-align: left;">{s.text}</p>
           </div>
         </li>
@@ -192,24 +214,37 @@ const faq = [
   <section style="max-width: 1100px; margin: 0 auto; padding: 4rem 3rem 6rem;">
     <div class="reveal">
       <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">Un avant-goût</p>
-      <h2 style="font-size: clamp(1.8rem, 3.5vw, 2.6rem); margin-bottom: 2.5rem;">Le réflexe n°1, en action</h2>
+      <h2 style="font-size: clamp(1.8rem, 3.5vw, 2.6rem); margin-bottom: 2.5rem; max-width: 760px;">
+        Le réflexe n°1 : que Claude vous connaisse <em style="color: var(--color-accent);">avant même</em> de répondre
+      </h2>
     </div>
     <div id="guide-extrait" style="display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem;">
       <div class="reveal-left" style="border: 1px solid var(--color-border); padding: 2rem; border-radius: 2px;">
         <p style="font-size: 0.72rem; color: var(--color-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">Avant</p>
-        <p style="font-family: var(--font-display); font-size: 1.3rem; line-height: 1.4; text-align: left;">« Fais-moi un post LinkedIn. »</p>
+        <ul class="fichiers" aria-label="Contexte donné à Claude">
+          <li class="fichier fichier-vide">Claude ne sait rien de vous</li>
+        </ul>
+        <p style="font-family: var(--font-display); font-size: 1.3rem; line-height: 1.4; text-align: left;">« Écris-moi un post LinkedIn pour gagner des clients. »</p>
       </div>
       <div class="reveal-right" style="background: var(--color-text); color: var(--color-bg); padding: 2rem; border-radius: 2px;">
         <p style="font-size: 0.72rem; color: var(--color-border); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">Après</p>
+        <ul class="fichiers" aria-label="Fichiers lus par Claude avant de répondre">
+          {['Qui je suis', 'Mon entreprise', 'Ma voix', 'Mes règles'].map((f) => (
+            <li class="fichier">{f}</li>
+          ))}
+        </ul>
         <p style="font-family: var(--font-display); font-size: 1.15rem; line-height: 1.6; text-align: left;">
-          « Je suis [métier]. Écris un post LinkedIn de 120 mots pour des dirigeants de PME, sur [sujet].
-          Ton direct et chaleureux, pas de jargon. Termine par une question.
+          « Lis les 4 fichiers (qui je suis, mon entreprise, ma voix et mes règles) à la racine du projet.
+          Écris un post LinkedIn de 120 mots pour des dirigeants de PME, sur [sujet].
+          Ton direct et chaleureux, pas de jargon inutile. Termine par une question.
           Si tu as besoin d'informations, pose-moi 3 questions avant. »
         </p>
       </div>
     </div>
-    <p class="reveal" style="color: var(--color-muted); margin-top: 1.5rem; font-size: 0.95rem; text-align: left;">
-      Même outil, même minute passée. Le guide complet détaille les 4 réflexes (contexte, format, questions, critique) et un exercice pour les tester sur une vraie demande de votre semaine.
+    <p class="reveal" style="color: var(--color-muted); margin-top: 1.5rem; font-size: 0.95rem; line-height: 1.8; text-align: left; max-width: 820px;">
+      Même outil, même demande. La différence : 4 fichiers que Claude lit avant de vous répondre.
+      Rédigés une fois, ils servent à chaque conversation, et Claude écrit enfin comme vous.
+      Ce qu'on y met et comment les construire, c'est là que tout se joue.
     </p>
   </section>
 
@@ -218,7 +253,7 @@ const faq = [
     <div style="max-width: 1100px; margin: 0 auto; padding: 6rem 3rem;">
       <div class="reveal" style="max-width: 700px; margin-bottom: 3rem;">
         <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">Sobriété</p>
-        <h2 style="font-size: clamp(1.8rem, 3.5vw, 2.6rem);">Des ordres de grandeur sourcés, pas des impressions</h2>
+        <h2 style="font-size: clamp(1.8rem, 3.5vw, 2.6rem);">Des ordres de grandeur sourcés</h2>
       </div>
       <div id="guide-chiffres" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
         <div class="chiffre reveal-pop reveal-delay-1">
@@ -243,71 +278,98 @@ const faq = [
     </div>
   </section>
 
-  <!-- Express ou complet -->
-  <section id="express-ou-complet" class="guide-vert">
-    <div style="max-width: 1100px; margin: 0 auto; padding: 7rem 3rem;">
-      <div class="reveal" style="max-width: 760px; margin-bottom: 3.5rem;">
-        <span class="pill-jaune">Express ou complet ?</span>
+  <!-- Le guide complet -->
+  <section id="guide-complet" class="guide-vert">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 7rem 3rem;">
+      <div class="reveal" style="max-width: 780px; margin-bottom: 4rem;">
+        <span class="pill-jaune">Dans le guide complet</span>
         <h2 style="font-size: clamp(2rem, 4vw, 3.2rem); margin-top: 1.5rem; color: #F9F4EE;">
-          L'express vous met le pied à l'étrier.<br/>
-          <span style="color: #F2B632;">Le complet vous rend autonome.</span>
+          23 pages pour passer de la découverte<br/>
+          <span style="color: #F2B632;">à l'autonomie.</span>
         </h2>
         <p style="margin-top: 1.25rem; font-size: 1.02rem; line-height: 1.8; color: rgba(249, 244, 238, 0.8); text-align: left;">
-          La version express est en accès libre, sans email : 9 pages pour vos premiers réflexes.
-          Quand vous voudrez tout savoir, le guide complet vous attend.
+          Tout ce qu'il faut pour choisir le bon outil, le régler, bien lui parler et garder la main.
+          Concret, sourcé, et pensé pour être appliqué tout de suite.
         </p>
       </div>
 
-      <div class="reveal" style="overflow-x: auto;">
-        <table class="comparatif">
-          <thead>
-            <tr>
-              <th scope="col"><span class="sr-only">Contenu</span></th>
-              <th scope="col">
-                <img src="/guides/couverture-guide-claude.jpg" alt="" width="900" height="1272" class="comparatif-cover" />
-                <span class="comparatif-nom">Express</span>
-                <span class="comparatif-pages">9 pages · sans email</span>
-              </th>
-              <th scope="col" class="col-complet">
-                <img src="/guides/couverture-guide-claude-complet.jpg" alt="" width="900" height="1272" class="comparatif-cover" />
-                <span class="comparatif-nom">Complet</span>
-                <span class="comparatif-pages">23 pages · gratuit</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {comparatif.map((row) => (
-              <tr>
-                <th scope="row">{row.label}</th>
-                {[row.express, row.complet].map((cell, i) => (
-                  <td class={i === 1 ? 'col-complet' : ''}>
-                    {cell === null && <span class="cell-non" aria-label="Non inclus">—</span>}
-                    {typeof cell === 'string' && cell}
-                    {Array.isArray(cell) && (
-                      <span class="jauge" aria-label={`${cell[0]} sur ${cell[1]}`}>
-                        <span class="jauge-points" aria-hidden="true">
-                          {Array.from({ length: cell[1] }, (_, k) => <span class={k < cell[0] ? 'on' : ''}></span>)}
-                        </span>
-                        <span aria-hidden="true">{cell[0]} sur {cell[1]}</span>
-                      </span>
-                    )}
-                  </td>
-                ))}
-              </tr>
+      <div id="complet-grille" style="display: grid; grid-template-columns: 1.6fr 1fr; gap: 3rem; align-items: start;">
+        <ul class="complet-tuiles" style="list-style: none;">
+          {contenu.map((c, i) => (
+            <li class={`complet-tuile reveal-pop reveal-delay-${(i % 2) + 1}`}>
+              <p class="complet-chiffre">{c.chiffre}</p>
+              <div>
+                <h3 class="complet-titre">{c.titre}</h3>
+                <p class="complet-texte">{c.texte}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <aside class="complet-carte reveal">
+          <img src="/guides/couverture-guide-claude-complet.jpg" alt="" width="900" height="1272" class="complet-cover" />
+          <p class="complet-nom">Guide complet</p>
+          <p class="complet-pages">23 pages · 11 sections · gratuit</p>
+          <p class="complet-repartez">Vous repartez avec</p>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.8rem;">
+            {resultats.map((r) => (
+              <li class="complet-resultat">
+                <span class="complet-check" aria-hidden="true"></span>
+                {r}
+              </li>
             ))}
-          </tbody>
-          <tfoot>
-            <tr>
-              <th scope="row"><span class="sr-only">Télécharger</span></th>
-              <td>
-                <a href={EXPRESS_PDF} target="_blank" rel="noopener" class="cta-express">Lire l'express</a>
-              </td>
-              <td class="col-complet">
-                <a href={TALLY_URL} class="cta-complet">Recevoir le complet</a>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
+          </ul>
+          <a href={TALLY_URL} class="cta-complet">Recevoir le guide complet</a>
+          <a href={EXPRESS_PDF} target="_blank" rel="noopener" class="complet-express">
+            Pas encore prêt ? Lire la version express (9 pages, sans email)
+          </a>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Formation sur place -->
+  <section id="formation" style="border-bottom: 1px solid var(--color-border); background: var(--color-surface);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 7rem 3rem;">
+      <div class="reveal" style="max-width: 780px; margin-bottom: 3.5rem;">
+        <span class="tag">Formation sur place</span>
+        <h2 style="font-size: clamp(2rem, 4vw, 3.2rem); margin-top: 1.5rem;">
+          Les bases sont maîtrisées ?<br/>
+          <em style="color: var(--color-accent);">Faites passer votre équipe au niveau supérieur.</em>
+        </h2>
+        <p style="color: var(--color-muted); margin-top: 1.25rem; font-size: 1.05rem; line-height: 1.8; text-align: left;">
+          Je viens former vos équipes dans vos locaux, sur vos outils et vos vrais cas.
+          Même approche que le guide : méthode, esprit critique et sobriété. Chacun repart avec un Claude réglé et des réflexes qu'il applique dès le lendemain.
+        </p>
+      </div>
+
+      <div id="formation-formats" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+        {formats.map((f, i) => (
+          <article class={`card reveal-pop reveal-delay-${i + 1}`} style={`--card-accent: ${f.accent}; background: var(--color-bg);`}>
+            <p style={`font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: ${f.accent}; margin-bottom: 1rem;`}>{f.duree}</p>
+            <h3 style="font-size: 1.5rem; line-height: 1.2; margin-bottom: 1rem;">{f.titre}</h3>
+            <p style="font-size: 0.92rem; color: var(--color-muted); line-height: 1.7; text-align: left;">{f.texte}</p>
+          </article>
+        ))}
+      </div>
+
+      <div id="formation-preuves" class="reveal" style="
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin-top: 3rem;
+        padding: 2rem 0;
+        border-top: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--color-border);
+      ">
+        <div><p class="preuve-chiffre">70+</p><p class="preuve-label">ateliers 2 Tonnes animés depuis 2022</p></div>
+        <div><p class="preuve-chiffre">700+</p><p class="preuve-label">personnes sensibilisées en atelier</p></div>
+        <div><p class="preuve-chiffre">10 ans</p><p class="preuve-label">de marketing en startups et PME</p></div>
+      </div>
+
+      <div class="reveal" style="margin-top: 3rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem;">
+        <a href={CALENDLY_URL} target="_blank" rel="noopener" class="guide-cta">Parlons de votre équipe</a>
+        <a href="/#contact" class="hover-accent" style="font-size: 0.9rem; color: var(--color-accent);">Ou écrivez-moi</a>
       </div>
     </div>
   </section>
@@ -325,7 +387,7 @@ const faq = [
     ">
       <img
         src="/photo-profil.jpeg"
-        alt="Julien Lacaze"
+        alt="Julien LACAZE"
         width="200"
         height="200"
         class="reveal-left"
@@ -333,7 +395,7 @@ const faq = [
       />
       <div class="reveal">
         <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">L'auteur</p>
-        <h2 style="font-size: 2rem; margin-bottom: 1.25rem;">Julien Lacaze</h2>
+        <h2 style="font-size: 2rem; margin-bottom: 1.25rem;">Julien LACAZE</h2>
         <p style="color: var(--color-muted); font-size: 1rem; line-height: 1.8; text-align: left;">
           CMO freelance à Bordeaux, j'accompagne startups et PME dans leur marketing depuis plus de 10 ans.
           J'anime l'atelier 2 Tonnes depuis 2022 : plus de 70 ateliers et plus de 700 personnes sensibilisées
@@ -378,6 +440,10 @@ const faq = [
       <p style="font-size: 0.8rem; color: var(--color-muted); margin-top: 1.25rem; text-align: center;">
         Gratuit · Téléchargement immédiat · Sans spam
       </p>
+      <p style="margin-top: 2.5rem; font-size: 0.95rem; color: var(--color-muted); text-align: center;">
+        Vous préférez former votre équipe ?
+        <a href={CALENDLY_URL} target="_blank" rel="noopener" class="hover-accent" style="color: var(--color-accent);">Parlons-en autour d'un café virtuel</a>
+      </p>
     </div>
   </section>
 
@@ -385,7 +451,7 @@ const faq = [
 
 <style>
   /* Couleurs de la charte du guide, utilisées seulement sur cette page */
-  #express-ou-complet {
+  #guide-complet {
     --guide-vert: #1E4D3B;
     --guide-orange: #D9622A;
     --guide-jaune: #F2B632;
@@ -409,42 +475,27 @@ const faq = [
     transform: translateY(-2px);
   }
   .guide-cta:focus-visible,
-  .cta-express:focus-visible,
-  .cta-complet:focus-visible {
+  .cta-complet:focus-visible,
+  .complet-express:focus-visible {
     outline: 2px solid currentColor;
     outline-offset: 3px;
   }
 
-  /* Couvertures empilées : le complet devant, l'express derrière */
+  /* Couverture du guide complet */
   #guide-cover {
-    position: relative;
-    max-width: 420px;
+    max-width: 400px;
     width: 100%;
     margin: 0 auto;
-    aspect-ratio: 900 / 1272;
-  }
-  .cover-front,
-  .cover-back {
-    position: absolute;
-    height: auto;
-    box-shadow: 0 30px 60px -20px rgba(28, 25, 22, 0.35);
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .cover-front {
-    width: 88%;
-    right: 0;
-    top: 0;
-    transform: rotate(3deg);
+    display: block;
+    width: 100%;
+    height: auto;
+    box-shadow: 0 30px 60px -20px rgba(28, 25, 22, 0.35);
+    transform: rotate(2deg);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .cover-back {
-    width: 70%;
-    left: 0;
-    bottom: -4%;
-    transform: rotate(-7deg);
-    opacity: 0.9;
-  }
-  #guide-cover:hover .cover-front { transform: rotate(0deg) translateY(-6px); }
-  #guide-cover:hover .cover-back { transform: rotate(-10deg) translateX(-8px); }
+  #guide-cover:hover .cover-front { transform: rotate(0deg) scale(1.02); }
 
   /* Programme */
   .programme-item {
@@ -459,19 +510,6 @@ const faq = [
     font-size: 1.8rem;
     line-height: 1.1;
     color: var(--color-accent);
-  }
-  .badge-exclusif {
-    display: inline-block;
-    font-family: var(--font-body);
-    font-size: 0.62rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #1E4D3B;
-    background: #F2B632;
-    padding: 2px 9px;
-    border-radius: 999px;
-    vertical-align: middle;
   }
 
   /* Chiffres */
@@ -517,99 +555,122 @@ const faq = [
     padding: 5px 14px;
     border-radius: 999px;
   }
-  .comparatif {
-    width: 100%;
-    min-width: 560px;
-    border-collapse: separate;
-    border-spacing: 0;
-    font-size: 0.92rem;
+  .complet-tuiles {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
-  .comparatif th,
-  .comparatif td {
-    padding: 1rem 1.25rem;
-    text-align: left;
-    vertical-align: middle;
-    border-bottom: 1px solid rgba(249, 244, 238, 0.12);
+  .complet-tuile {
+    --card-accent: var(--guide-jaune);
+    display: grid;
+    grid-template-columns: 3.2rem 1fr;
+    gap: 1rem;
+    align-items: start;
+    padding: 1.5rem;
+    border: 1px solid rgba(249, 244, 238, 0.14);
+    border-radius: 6px;
+    background: rgba(249, 244, 238, 0.04);
   }
-  .comparatif tbody th {
-    font-weight: 400;
-    color: rgba(249, 244, 238, 0.85);
-    width: 40%;
-  }
-  .comparatif thead th {
-    vertical-align: bottom;
-    border-bottom: 1px solid rgba(249, 244, 238, 0.3);
-    padding-top: 1.5rem;
-  }
-  .comparatif td {
-    color: rgba(249, 244, 238, 0.7);
-    width: 30%;
-  }
-  .comparatif .col-complet {
-    background: rgba(249, 244, 238, 0.07);
-    color: var(--guide-creme);
-    font-weight: 500;
-    border-left: 2px solid var(--guide-jaune);
-    border-right: 2px solid var(--guide-jaune);
-  }
-  .comparatif thead .col-complet {
-    border-top: 2px solid var(--guide-jaune);
-    border-radius: 6px 6px 0 0;
-  }
-  .comparatif tfoot .col-complet {
-    border-bottom: 2px solid var(--guide-jaune);
-    border-radius: 0 0 6px 6px;
-  }
-  .comparatif tfoot th,
-  .comparatif tfoot td {
-    border-bottom-color: transparent;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-  }
-  .comparatif-cover {
-    display: block;
-    width: 72px;
-    height: auto;
-    margin-bottom: 0.9rem;
-    box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.5);
-  }
-  .comparatif-nom {
-    display: block;
+  .complet-chiffre {
     font-family: var(--font-display);
-    font-size: 1.35rem;
-    font-weight: 400;
+    font-size: 2.8rem;
+    line-height: 1;
+    color: var(--guide-jaune);
+    text-align: left;
+  }
+  .complet-titre {
+    font-size: 1.15rem;
+    line-height: 1.25;
     color: var(--guide-creme);
   }
-  .comparatif-pages {
+  .complet-texte {
+    margin-top: 0.4rem;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: rgba(249, 244, 238, 0.7);
+    text-align: left;
+  }
+  .complet-carte {
+    position: sticky;
+    top: 7rem;
+    padding: 2rem;
+    border: 2px solid var(--guide-jaune);
+    border-radius: 8px;
+    background: rgba(249, 244, 238, 0.07);
+  }
+  .complet-cover {
     display: block;
-    font-size: 0.75rem;
-    font-weight: 400;
+    width: 110px;
+    height: auto;
+    margin-bottom: 1.25rem;
+    transform: rotate(-3deg);
+    box-shadow: 0 16px 30px -12px rgba(0, 0, 0, 0.55);
+  }
+  .complet-nom {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    line-height: 1.2;
+    color: var(--guide-creme);
+    text-align: left;
+  }
+  .complet-pages {
+    margin-top: 0.25rem;
+    font-size: 0.8rem;
+    color: var(--guide-jaune);
+    text-align: left;
+  }
+  .complet-repartez {
+    margin: 1.75rem 0 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(249, 244, 238, 0.15);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     color: rgba(249, 244, 238, 0.65);
-    margin-top: 0.2rem;
+    text-align: left;
   }
-  .col-complet .comparatif-pages { color: var(--guide-jaune); }
-  .cell-non { color: rgba(249, 244, 238, 0.35); }
-  .jauge {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.6rem;
+  .complet-resultat {
+    display: grid;
+    grid-template-columns: 1.1rem 1fr;
+    gap: 0.7rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--guide-creme);
   }
-  .jauge-points {
-    display: inline-flex;
-    gap: 3px;
-  }
-  .jauge-points span {
-    width: 9px;
-    height: 9px;
+  .complet-check {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-top: 0.15rem;
     border-radius: 50%;
-    border: 1px solid rgba(249, 244, 238, 0.4);
-  }
-  .jauge-points span.on {
     background: var(--guide-jaune);
-    border-color: var(--guide-jaune);
+    position: relative;
   }
-  .cta-express,
+  .complet-check::after {
+    content: '';
+    position: absolute;
+    left: 0.38rem;
+    top: 0.2rem;
+    width: 0.3rem;
+    height: 0.55rem;
+    border: solid var(--guide-vert);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .complet-carte .cta-complet {
+    display: block;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  .complet-express {
+    display: block;
+    margin-top: 1rem;
+    font-size: 0.78rem;
+    text-align: center;
+    color: rgba(249, 244, 238, 0.65);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .complet-express:hover { color: var(--guide-creme); }
   .cta-complet {
     display: inline-block;
     font-size: 0.8rem;
@@ -620,16 +681,91 @@ const faq = [
     border-radius: 999px;
     transition: transform 0.2s ease, background 0.2s ease;
   }
-  .cta-express {
-    border: 1px solid rgba(249, 244, 238, 0.5);
-    color: var(--guide-creme);
-  }
-  .cta-express:hover { background: rgba(249, 244, 238, 0.1); }
   .cta-complet {
     background: var(--guide-orange);
     color: #FFFFFF;
   }
   .cta-complet:hover { transform: translateY(-2px); }
+
+  /* Pastilles de fichiers de l'avant/après */
+  .fichiers {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .fichier {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.3rem 0.7rem 0.3rem 0.55rem;
+    border-radius: 6px;
+    background: rgba(245, 240, 232, 0.12);
+    border: 1px solid rgba(245, 240, 232, 0.25);
+    color: var(--color-bg);
+  }
+  .fichier::before {
+    content: '';
+    width: 0.65rem;
+    height: 0.8rem;
+    border-radius: 1px;
+    background: linear-gradient(225deg, transparent 0.22rem, var(--color-accent) 0);
+    flex-shrink: 0;
+  }
+  .fichier-vide {
+    background: transparent;
+    border: 1px dashed var(--color-border);
+    color: var(--color-muted);
+    font-weight: 400;
+  }
+  .fichier-vide::before { display: none; }
+
+  /* Lien formation dans le hero */
+  .hero-formation {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 1.75rem;
+    padding: 0.7rem 1.1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    color: var(--color-text);
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .hero-formation:hover {
+    border-color: var(--color-accent);
+    background: var(--color-surface);
+  }
+  .hero-formation-tag {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-bg);
+    background: var(--color-accent);
+    padding: 2px 9px;
+    border-radius: 999px;
+  }
+
+  /* Preuves formation */
+  .preuve-chiffre {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 2.6rem);
+    line-height: 1.1;
+    color: var(--color-accent);
+    text-align: left;
+  }
+  .preuve-label {
+    margin-top: 0.4rem;
+    font-size: 0.88rem;
+    color: var(--color-muted);
+    text-align: left;
+  }
 
   /* FAQ */
   .guide-faq {
@@ -663,19 +799,23 @@ const faq = [
 
   @media (max-width: 1024px) {
     #guide-programme { grid-template-columns: 1fr !important; }
+    #complet-grille { grid-template-columns: 1fr !important; }
+    .complet-carte { position: static; }
   }
 
   @media (max-width: 768px) {
     #guide-hero { grid-template-columns: 1fr !important; gap: 3rem !important; padding: 8rem 1.5rem 4rem !important; }
-    #guide-cover { order: -1; max-width: 260px; }
+    #guide-cover { order: -1; max-width: 240px; }
     #guide-extrait { grid-template-columns: 1fr !important; }
     #guide-chiffres { grid-template-columns: 1fr !important; }
+    #formation-formats { grid-template-columns: 1fr !important; }
+    #formation-preuves { grid-template-columns: 1fr !important; }
     #guide-auteur { grid-template-columns: 1fr !important; gap: 2rem !important; padding: 4rem 1.5rem !important; }
     #guide-cta-final { padding: 5rem 1.5rem !important; }
-    .comparatif th, .comparatif td { padding: 0.8rem 0.7rem; font-size: 0.85rem; }
+    .complet-tuiles { grid-template-columns: 1fr; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .cover-front, .cover-back, .guide-cta, .cta-complet { transition: none; }
+    .cover-front, .guide-cta, .cta-complet { transition: none; }
   }
 </style>
