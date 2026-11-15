@@ -7,9 +7,9 @@ interface Props {
   description?: string;
 }
 
-const { title, metaTitle, description = "Julien Lacaze — CMO Freelance B2B, Bordeaux" } = Astro.props;
+const { title, metaTitle, description = "Julien Lacaze, CMO freelance B2B à Bordeaux" } = Astro.props;
 const currentPath = Astro.url.pathname;
-const pageTitle = metaTitle ?? `${title} — Julien Lacaze`;
+const pageTitle = metaTitle ?? `${title} | Julien Lacaze`;
 ---
 
 <!DOCTYPE html>
@@ -28,66 +28,30 @@ const pageTitle = metaTitle ?? `${title} — Julien Lacaze`;
   <div id="cursor-ring"></div>
 
   <!-- Navigation -->
-  <nav style="
+  <nav id="navbar" style="
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 100;
-    padding: 1.25rem 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.3s ease, background 0.3s ease;
-  " id="navbar">
-    <a href="/" style="display: flex; align-items: center;">
-      <svg width="44" height="44" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="40" cy="40" r="40" fill="#EDE8DF"/>
-        <circle cx="40" cy="40" r="40" fill="none" stroke="#D9D2C5" stroke-width="1"/>
-        <rect x="8" y="71" width="28" height="3" fill="#8B6F47" rx="0"/>
-        <text x="40" y="55" text-anchor="middle" font-family="Georgia, serif" font-size="36" font-weight="400" fill="#1C1916">JL</text>
-      </svg>
-    </a>
+    background: var(--color-dark);
+    color: var(--color-on-dark);
+  ">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 1rem 1.75rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+    <a href="/" style="font-family: var(--font-display); font-weight: 800; font-stretch: 112%; font-size: 1.15rem; letter-spacing: -0.01em; color: var(--color-on-dark);">Julien Lacaze</a>
 
-    <div style="display: flex; gap: 2.5rem; align-items: center;">
-      <a href="/clients" class="hover-accent" style="
-        font-size: 0.85rem;
-        font-weight: 400;
-        letter-spacing: 0.04em;
-        color: ${currentPath === '/clients' ? 'var(--color-accent)' : 'var(--color-muted)'};
-        transition: color 0.2s ease;
-      ">Clients</a>
-      <a href="/guide-claude" class="hover-accent" style="
-        font-size: 0.85rem;
-        font-weight: 400;
-        letter-spacing: 0.04em;
-        color: ${currentPath === '/guide-claude' ? 'var(--color-accent)' : 'var(--color-muted)'};
-        transition: color 0.2s ease;
-      ">Guide Claude</a>
-      <a href="/experimentations" class="hover-accent" style="
-        font-size: 0.85rem;
-        font-weight: 400;
-        letter-spacing: 0.04em;
-        color: ${currentPath === '/experimentations' ? 'var(--color-accent)' : 'var(--color-muted)'};
-        transition: color 0.2s ease;
-      ">Expérimentations</a>
-      <a href="/blog" class="hover-accent" style="
-        font-size: 0.85rem;
-        font-weight: 400;
-        letter-spacing: 0.04em;
-        color: ${currentPath.startsWith('/blog') ? 'var(--color-accent)' : 'var(--color-muted)'};
-        transition: color 0.2s ease;
-      ">Blog</a>
-      <a href="#contact" style="
-        font-size: 0.82rem;
-        font-weight: 500;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: var(--color-bg);
-        background: var(--color-accent);
-        padding: 0.5rem 1.2rem;
-        border-radius: 8px;
+    <div id="nav-links" style="display: flex; gap: 1.75rem; align-items: center; font-size: 0.9rem; font-weight: 500;">
+      <a href="/clients" class="nav-link" style={`color: ${currentPath === '/clients' ? 'var(--color-caramel)' : 'var(--color-on-dark)'};`}>Clients</a>
+      <a href="/guide-claude" class="nav-link" style={`color: ${currentPath === '/guide-claude' ? 'var(--color-caramel)' : 'var(--color-on-dark)'};`}>Guide Claude</a>
+      <a href="/experimentations" class="nav-link" style={`color: ${currentPath === '/experimentations' ? 'var(--color-caramel)' : 'var(--color-on-dark)'};`}>Expérimentations</a>
+      <a href="/blog" class="nav-link" style={`color: ${currentPath.startsWith('/blog') ? 'var(--color-caramel)' : 'var(--color-on-dark)'};`}>Blog</a>
+      <a href="/#contact" style="
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--color-dark);
+        background: var(--color-caramel);
+        padding: 0.6rem 1.1rem;
+        border-radius: 6px;
         transition: opacity 0.2s ease;
       ">Me contacter</a>
     </div>
@@ -99,12 +63,13 @@ const pageTitle = metaTitle ?? `${title} — Julien Lacaze`;
       background: none;
       border: none;
       cursor: pointer;
-      padding: 4px;
-    " aria-label="Menu">
-      <span style="width: 24px; height: 1.5px; background: var(--color-text); display: block; transition: all 0.3s ease;"></span>
-      <span style="width: 24px; height: 1.5px; background: var(--color-text); display: block; transition: all 0.3s ease;"></span>
-      <span style="width: 24px; height: 1.5px; background: var(--color-text); display: block; transition: all 0.3s ease;"></span>
+      padding: 12px 8px;
+    " aria-label="Ouvrir le menu" aria-expanded="false">
+      <span style="width: 24px; height: 2px; background: var(--color-on-dark); display: block;"></span>
+      <span style="width: 24px; height: 2px; background: var(--color-on-dark); display: block;"></span>
+      <span style="width: 24px; height: 2px; background: var(--color-on-dark); display: block;"></span>
     </button>
+    </div>
   </nav>
 
   <div id="mobile-menu" style="
@@ -114,18 +79,19 @@ const pageTitle = metaTitle ?? `${title} — Julien Lacaze`;
     left: 0;
     right: 0;
     bottom: 0;
-    background: var(--color-bg);
+    background: var(--color-dark);
     z-index: 99;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    gap: 2.5rem;
+    align-items: flex-start;
+    padding: 0 2rem;
+    gap: 1.5rem;
   ">
-    <a href="/clients" style="font-family: var(--font-display); font-size: 2rem; color: var(--color-text);">Clients</a>
-    <a href="/guide-claude" style="font-family: var(--font-display); font-size: 2rem; color: var(--color-text);">Guide Claude</a>
-    <a href="/experimentations" style="font-family: var(--font-display); font-size: 2rem; color: var(--color-text);">Expérimentations</a>
-    <a href="/blog" style="font-family: var(--font-display); font-size: 2rem; color: var(--color-text);">Blog</a>
-    <a href="/#contact" style="font-family: var(--font-display); font-size: 2rem; color: var(--color-accent);">Me contacter</a>
+    <a href="/clients" class="mobile-link">Clients</a>
+    <a href="/guide-claude" class="mobile-link">Guide Claude</a>
+    <a href="/experimentations" class="mobile-link">Expérimentations</a>
+    <a href="/blog" class="mobile-link">Blog</a>
+    <a href="/#contact" class="mobile-link" style="color: var(--color-caramel);">Me contacter</a>
   </div>
 
   <!-- Page content -->
@@ -134,32 +100,20 @@ const pageTitle = metaTitle ?? `${title} — Julien Lacaze`;
   </main>
 
   <!-- Footer -->
-  <footer style="
-    border-top: 1px solid var(--color-border);
-    padding: 3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 6rem;
-  ">
-    <p style="font-size: 0.8rem; color: var(--color-muted);">
-      © 2026 Julien Lacaze · Bordeaux
-    </p>
-    <p style="
-      font-size: 0.72rem;
-      color: var(--color-muted);
-      text-align: center;
-      opacity: 0.7;
-      margin: 0 auto;
-      max-width: 600px;
-    ">
-      Ce site a été développé avec Claude — empreinte carbone estimée au 12 avril 2026 : ~100g CO₂e
-      (≈ 150 requêtes LLM · ~0,3 kWh · mix énergétique mondial 2026).
-      Estimation indicative, incertitude ±50%.
-    </p>
-    <div style="display: flex; gap: 2rem;">
-      <a href="https://www.linkedin.com/in/julien-lacaze/" target="_blank" style="font-size: 0.8rem; color: var(--color-muted);" class="hover-accent">LinkedIn</a>
-      <a href="https://www.malt.fr/profile/julienlacaze" target="_blank" style="font-size: 0.8rem; color: var(--color-muted);" class="hover-accent">Malt</a>
+  <footer style="background: var(--color-dark); color: var(--color-muted-on-dark); margin-top: 6rem;">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 3rem 1.75rem; display: flex; flex-wrap: wrap; gap: 1.5rem 3rem; justify-content: space-between; align-items: center;">
+      <p style="font-size: 0.85rem; color: var(--color-on-dark); font-weight: 600;">
+        © 2026 Julien Lacaze · Bordeaux
+      </p>
+      <p style="font-size: 0.75rem; flex: 1 1 360px; max-width: 560px;">
+        Ce site a été développé avec Claude. Empreinte carbone estimée au 12 avril 2026 : environ 100 g CO₂e
+        (≈ 150 requêtes LLM · ~0,3 kWh · mix énergétique mondial 2026).
+        Estimation indicative, incertitude ±50 %.
+      </p>
+      <div style="display: flex; gap: 1.5rem; font-size: 0.85rem; font-weight: 600;">
+        <a href="https://www.linkedin.com/in/julien-lacaze/" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
+        <a href="https://www.malt.fr/profile/julienlacaze" target="_blank" rel="noopener" class="footer-link">Malt</a>
+      </div>
     </div>
   </footer>
 
@@ -199,31 +153,6 @@ const pageTitle = metaTitle ?? `${title} — Julien Lacaze`;
       animateRing();
     }
 
-    // Navbar scroll effect
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      if (navbar) {
-        if (window.scrollY > 60) {
-          navbar.style.borderBottomColor = 'var(--color-border)';
-          navbar.style.background = 'rgba(245, 240, 232, 0.92)';
-          navbar.style.backdropFilter = 'blur(12px)';
-        } else {
-          navbar.style.borderBottomColor = 'transparent';
-          navbar.style.background = 'transparent';
-          navbar.style.backdropFilter = 'none';
-        }
-      }
-    });
-
-    // Active nav link
-    const path = window.location.pathname;
-    document.querySelectorAll('nav a').forEach(link => {
-      const href = link.getAttribute('href');
-      if (href && href !== '#contact' && path === href) {
-        (link as HTMLElement).style.color = 'var(--color-accent)';
-      }
-    });
-
     const menuToggle = document.getElementById('menu-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
 
@@ -231,6 +160,8 @@ const pageTitle = metaTitle ?? `${title} — Julien Lacaze`;
       menuToggle.addEventListener('click', () => {
         const isOpen = mobileMenu.style.display === 'flex';
         mobileMenu.style.display = isOpen ? 'none' : 'flex';
+        menuToggle.setAttribute('aria-expanded', String(!isOpen));
+        menuToggle.setAttribute('aria-label', isOpen ? 'Ouvrir le menu' : 'Fermer le menu');
       });
 
       mobileMenu.querySelectorAll('a').forEach(link => {

@@ -1,614 +1,380 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { disponibilite } from '../config/dispo.js';
+
+const services = [
+  {
+    num: '01',
+    title: 'CMO part-time',
+    text: "Direction marketing opérationnelle, 2 à 3 jours par semaine. Je construis et j'anime votre équipe marketing de l'intérieur.",
+  },
+  {
+    num: '02',
+    title: 'Stratégie go-to-market',
+    text: "Segmentation, positionnement, canaux d'acquisition, message. Tester rapidement, mesurer, prendre des décisions rapides et itérer à nouveau.",
+  },
+  {
+    num: '03',
+    title: 'Acquisition digitale',
+    text: "SEO, SEA, LinkedIn Ads, email marketing, automation. Une vision sur l'ensemble des canaux.",
+  },
+  {
+    num: '04',
+    title: 'No code',
+    text: "Automatisations, création de systèmes d'opération.",
+    badge: 'Offre en construction',
+  },
+];
+
+const missions = [
+  { name: 'Noé', type: 'CMO part-time', years: '2025 à 2026', href: '/clients#noe', text: "Direction marketing à temps partagé pour une startup en phase d'amorçage. Stratégie, acquisition, coordination des prestataires." },
+  { name: 'SNCF', type: 'Conseil', years: '2025 à 2026', href: '/clients#sncf', text: 'Migration du bilan carbone de SNCF Numérique Responsable vers le logiciel SaaS de comptabilité carbone Sweep.' },
+  { name: 'Coédis', type: 'Email marketing', years: '2026', href: '/clients#coedis', text: "Déploiement d'une stratégie emailing B2B dans le cadre de la 1ère convention professionnelle de Coédis." },
+  { name: 'Alexia.fr', type: 'Copywriting', years: '2025', href: '/clients#alexia', text: "Copywriting du tunnel d'inscription et de la page d'accueil du site alexia.fr." },
+  { name: 'Geev', type: 'Marketing B2B', years: '2024 à 2025', href: '/clients#geev', text: 'Développement du marketing des offres B2B de Geev Pro : reprise par le don, comptes pro Geev.' },
+];
+
+const logos = [
+  { src: '/logos/sncf.png', alt: 'SNCF' },
+  { src: '/logos/alexia.png', alt: 'Alexia' },
+  { src: '/logos/geev.png', alt: 'Geev' },
+  { src: '/logos/noe.png', alt: 'Noé' },
+  { src: '/logos/coedis.png', alt: 'Coédis' },
+  { src: '/logos/2tonnes.png', alt: '2 Tonnes' },
+];
+
+const motsCles = ['Go-to-market', 'CMO part-time', 'Acquisition B2B', 'LinkedIn Ads', 'Email marketing', 'Stratégie', 'No code', 'Positionnement', 'Startups', 'SaaS', 'PME', 'SEO', 'Automatisation'];
 ---
 
 <Layout title="CMO Freelance B2B">
 
-  <!-- ═══════════════════════════════════════
-       HERO
-  ═══════════════════════════════════════ -->
-  <section id="hero-section" style="
-    min-height: 100vh;
-    padding: 10rem 3rem 6rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
-  ">
-    <!-- Left: texte -->
-    <div>
-      <span class="tag fade-up fade-up-delay-1">CMO Freelance · Bordeaux</span>
-      <h1 class="fade-up fade-up-delay-2" style="
-        font-size: clamp(3.2rem, 6vw, 6rem);
-        margin-top: 1.5rem;
-        margin-bottom: 1.5rem;
-        color: var(--color-text);
-      ">
-        Structurer.<br/>
-        <em id="typewriter-word" aria-hidden="true" style="color: var(--color-accent); font-style: italic; display: inline-block;">Accélérer.</em><span id="tw-cursor" aria-hidden="true" style="display:inline-block; width: 3px; height: 0.75em; background: var(--color-accent); margin-left: 4px; vertical-align: middle; animation: blink 0.8s step-end infinite;"></span><span class="sr-only">Accélérer, convertir, piloter, performer.</span><br/>
-        Mesurer.
-      </h1>
-      <p class="fade-up fade-up-delay-3" style="
-        font-size: 1.1rem;
-        color: var(--color-muted);
-        max-width: 640px;
-        line-height: 1.8;
-        margin-bottom: 2.5rem;
-      ">
-        J'aide les startups et PME à construire leur marketing de zéro.<br/>
-        Stratégie → acquisition → go-to-market → mesure des résultats.<br/>
-        Votre CMO externalisé, disponible rapidement.
-      </p>
-      <div class="fade-up fade-up-delay-4" style="display: flex; gap: 1rem; align-items: center;">
-        <a href="#contact" style="
-          background: var(--color-accent);
-          color: var(--color-bg);
-          padding: 0.85rem 2rem;
-          font-size: 0.85rem;
-          font-weight: 500;
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
-          border-radius: 8px;
-          transition: opacity 0.2s ease;
-        ">Travaillons ensemble</a>
-        <a href="/clients" style="
-          font-size: 0.85rem;
-          color: var(--color-muted);
-          letter-spacing: 0.04em;
-          border-bottom: 1px solid var(--color-border);
-          padding-bottom: 2px;
-          transition: color 0.2s ease, border-color 0.2s ease;
-        ">Voir mes missions →</a>
-      </div>
-
-      <!-- Bandeau signature tricolore -->
-      <div class="fade-up fade-up-delay-4" style="display: flex; margin-top: 4rem; border-radius: 3px; overflow: hidden; height: 10px; max-width: 420px;">
-        <div style="flex: 1; background: var(--color-accent);"></div>
-        <div style="flex: 1; background: var(--color-accent2);"></div>
-        <div style="flex: 1; background: var(--color-accent3);"></div>
-      </div>
-
-      <!-- Chiffres clés -->
-      <div class="fade-up fade-up-delay-4" style="
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1.5rem;
-        margin-top: 2rem;
-        padding-top: 2rem;
-        border-top: 1px solid var(--color-border);
-      ">
-        <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 4px; padding: 1.5rem;">
-          <p id="counter-exp" data-target="10" data-suffix="+" style="font-family: var(--font-display); font-size: 3rem; color: var(--color-text);">10+</p>
-          <p style="font-size: 0.75rem; color: var(--color-text); letter-spacing: 0.05em; text-transform: uppercase;">ans d'expérience</p>
-        </div>
-        <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 4px; padding: 1.5rem;">
-          <p id="counter-clients" data-target="15" data-suffix="+" style="font-family: var(--font-display); font-size: 3rem; color: var(--color-text);">15+</p>
-          <p style="font-size: 0.75rem; color: var(--color-text); letter-spacing: 0.05em; text-transform: uppercase;">clients accompagnés</p>
-        </div>
-        <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 4px; padding: 1.5rem;">
-          <p style="font-family: var(--font-display); font-size: 3rem; color: var(--color-text);">B2B</p>
-          <p style="font-size: 0.75rem; color: var(--color-text); letter-spacing: 0.05em; text-transform: uppercase;">SaaS · PME · Startups</p>
+  <!-- HERO (fond cacao) -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <p class="hero-kicker fade-up fade-up-delay-1">
+          <span class="dot" style={`background: ${disponibilite.disponible ? '#7BC48F' : '#E88A7A'};`} aria-hidden="true"></span>
+          CMO freelance à Bordeaux, {disponibilite.disponible
+            ? 'disponible'
+            : disponibilite.prochaine_dispo
+              ? `disponible à partir de ${disponibilite.prochaine_dispo}`
+              : 'actuellement en mission'}
+        </p>
+        <h1 class="hero-title fade-up fade-up-delay-2">
+          Structurer.<br/>
+          <span id="typewriter-word" aria-hidden="true" class="caramel">Accélérer.</span><span id="tw-cursor" aria-hidden="true"></span><span class="sr-only">Accélérer, convertir, piloter, performer.</span><br/>
+          Mesurer.
+        </h1>
+        <p class="hero-sub fade-up fade-up-delay-3">
+          J'aide les startups et PME à construire leur marketing de zéro.<br/>
+          Stratégie → acquisition → go-to-market → mesure des résultats.<br/>
+          Votre CMO externalisé, disponible rapidement.
+        </p>
+        <div class="hero-ctas fade-up fade-up-delay-4">
+          <a href="#contact" class="btn btn-caramel">Travaillons ensemble</a>
+          <a href="/clients" class="btn btn-outline-light">Voir mes missions</a>
         </div>
       </div>
-    </div>
-
-    <!-- Right: photo -->
-    <div id="hero-photo" style="
-      position: relative;
-      display: flex;
-      justify-content: flex-end;
-    ">
-      <div style="
-        width: 420px;
-        height: 520px;
-        background: var(--color-surface);
-        border: 1px solid var(--color-border);
-        border-radius: 2px;
-        overflow: hidden;
-        position: relative;
-      ">
-        <img
-          src="/photo-profil.jpeg"
-          alt="Julien Lacaze"
-          style="width: 100%; height: 100%; object-fit: cover; object-position: center top;"
-        />
-        <!-- Accent corner -->
-        <div style="
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 60px;
-          height: 3px;
-          background: var(--color-accent);
-        "></div>
-      </div>
-      <!-- Floating tag -->
-      <div style="
-        position: absolute;
-        bottom: 2rem;
-        right: -1rem;
-        background: var(--color-bg);
-        border: 1px solid var(--color-border);
-        padding: 1rem 1.5rem;
-        font-size: 0.8rem;
-        color: var(--color-muted);
-        max-width: 200px;
-        line-height: 1.5;
-      ">
-        <span style={`color: ${disponibilite.disponible ? '#4ade80' : '#f87171'}; display:block; margin-bottom:0.25rem; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase;`}>
-          {disponibilite.disponible ? '● Disponible' : '● Indisponible'}
-        </span>
-        {disponibilite.disponible
-          ? 'Missions CMO part-time & stratégie marketing'
-          : disponibilite.prochaine_dispo
-            ? `Prochaine disponibilité : ${disponibilite.prochaine_dispo}`
-            : 'Actuellement en mission'}
+      <div class="hero-photo fade-up fade-up-delay-3">
+        <img src="/photo-profil.jpeg" alt="Julien Lacaze" />
       </div>
     </div>
   </section>
 
+  <!-- CHIFFRES (bandeau caramel) -->
+  <section class="stats">
+    <div class="wrap stats-grid">
+      <div class="stat">
+        <span id="counter-exp" data-target="10" data-suffix="+" class="stat-num">10+</span>
+        <span class="stat-label">ans d'expérience</span>
+      </div>
+      <div class="stat">
+        <span id="counter-clients" data-target="15" data-suffix="+" class="stat-num">15+</span>
+        <span class="stat-label">clients accompagnés</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">B2B</span>
+        <span class="stat-label">SaaS, PME et startups</span>
+      </div>
+    </div>
+  </section>
 
-  <!-- ═══════════════════════════════════════
-       MARQUEE
-  ═══════════════════════════════════════ -->
-  <div style="overflow: hidden; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); padding: 0.85rem 0; background: var(--color-surface);">
+  <!-- MOTS-CLÉS -->
+  <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
-      <span style="white-space: nowrap; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-muted); padding-right: 3rem;">
-        Go-to-Market &nbsp;·&nbsp; CMO Part-time &nbsp;·&nbsp; Acquisition B2B &nbsp;·&nbsp; LinkedIn Ads &nbsp;·&nbsp; Email Marketing &nbsp;·&nbsp; Stratégie &nbsp;·&nbsp; No-code &nbsp;·&nbsp; Positionnement &nbsp;·&nbsp; Startups &nbsp;·&nbsp; SaaS &nbsp;·&nbsp; PME &nbsp;·&nbsp; SEO &nbsp;·&nbsp; Automatisation &nbsp;·&nbsp;
-      </span>
-      <span style="white-space: nowrap; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-muted); padding-right: 3rem;">
-        Go-to-Market &nbsp;·&nbsp; CMO Part-time &nbsp;·&nbsp; Acquisition B2B &nbsp;·&nbsp; LinkedIn Ads &nbsp;·&nbsp; Email Marketing &nbsp;·&nbsp; Stratégie &nbsp;·&nbsp; No-code &nbsp;·&nbsp; Positionnement &nbsp;·&nbsp; Startups &nbsp;·&nbsp; SaaS &nbsp;·&nbsp; PME &nbsp;·&nbsp; SEO &nbsp;·&nbsp; Automatisation &nbsp;·&nbsp;
-      </span>
+      {[0, 1].map(() => (
+        <span class="marquee-line">{motsCles.map((m) => <>{m}<span class="marquee-sep">·</span></>)}</span>
+      ))}
     </div>
   </div>
 
-
-  <!-- ═══════════════════════════════════════
-       CERTIFICATION
-       À publier uniquement une fois le résultat de l'examen RNCP confirmé.
-  ═══════════════════════════════════════ -->
-  <section class="reveal" style="max-width: 1400px; margin: 0 auto; padding: 3rem 3rem 0;">
-    <div style="
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 1.25rem 2.5rem;
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: 4px;
-      padding: 1.5rem 2rem;
-    ">
+  <!-- CERTIFICATION (à publier uniquement une fois le résultat de l'examen RNCP confirmé) -->
+  <section class="wrap section-tight reveal">
+    <div class="certif">
       <span class="tag">Certification</span>
-      <p style="flex: 1 1 280px; font-size: 0.95rem; line-height: 1.7; color: var(--color-muted);">
-        <strong style="color: var(--color-text); font-weight: 500;">AI Product Builder, Le Wagon.</strong>
+      <p>
+        <strong>AI Product Builder, Le Wagon.</strong>
         Bloc de compétences RNCP39261BC01 validé : analyser les besoins utilisateur et concevoir une application web
         (titre « Concepteur Développeur d'Applications Web »).
       </p>
-      <a href="/experimentations#chatbot-karotte" style="
-        font-size: 0.85rem;
-        color: var(--color-muted);
-        letter-spacing: 0.04em;
-        border-bottom: 1px solid var(--color-border);
-        padding-bottom: 2px;
-        white-space: nowrap;
-      ">Voir mon projet final →</a>
+      <a href="/experimentations#chatbot-karotte" class="link-arrow">Voir mon projet final</a>
     </div>
   </section>
 
-
-  <!-- ═══════════════════════════════════════
-       CE QUE JE SAIS FAIRE
-  ═══════════════════════════════════════ -->
-  <section style="
-    padding: 6rem 3rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
-    box-sizing: border-box;
-  ">
-    <div class="reveal" style="margin-bottom: 4rem;">
-      <div class="sep"></div>
-      <h2 style="font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: 1rem;">Ce que j'apporte</h2>
-      <p style="color: var(--color-muted); max-width: 500px;">
+  <!-- CE QUE J'APPORTE -->
+  <section class="wrap section">
+    <div class="section-head reveal">
+      <h2 class="h2">Ce que j'apporte</h2>
+      <p class="lead">
         Stratégie et exécution ne vont pas l'un sans l'autre. Je m'adapte à votre
         contexte, votre niveau de maturité et vos ressources disponibles en interne.
       </p>
     </div>
-
-    <div style="
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-    ">
-
-      <!-- Service 1 -->
-      <div class="card reveal-pop reveal-delay-1" style="--card-accent: var(--color-accent);">
-        <div style="color: var(--color-accent); font-size: 1.5rem; margin-bottom: 1.2rem;">01</div>
-        <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">CMO Part-time</h3>
-        <p style="color: var(--color-muted); font-size: 0.9rem; line-height: 1.7;">
-          Direction marketing opérationnelle, 2 à 3 jours/semaine.<br/>
-          Je construis et j'anime votre équipe marketing de l'intérieur.
-        </p>
-      </div>
-
-      <!-- Service 2 -->
-      <div class="card reveal-pop reveal-delay-2" style="--card-accent: var(--color-accent2);">
-        <div style="color: var(--color-accent2); font-size: 1.5rem; margin-bottom: 1.2rem;">02</div>
-        <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">Stratégie Go-to-Market</h3>
-        <p style="color: var(--color-muted); font-size: 0.9rem; line-height: 1.7;">
-          Segmentation, positionnement, canaux d'acquisition, message.<br/>
-          Tester rapidement, mesurer, prendre des décisions rapides et itérer à nouveau.
-        </p>
-      </div>
-
-      <!-- Service 3 -->
-      <div class="card reveal-pop reveal-delay-3" style="--card-accent: var(--color-accent3);">
-        <div style="color: var(--color-accent3); font-size: 1.5rem; margin-bottom: 1.2rem;">03</div>
-        <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">Acquisition digitale</h3>
-        <p style="color: var(--color-muted); font-size: 0.9rem; line-height: 1.7;">
-          SEO, SEA, LinkedIn Ads, email marketing, automation.<br/>
-          Une vision sur l'ensemble des canaux.
-        </p>
-      </div>
-
-      <!-- Service 4 -->
-      <div class="card reveal-pop reveal-delay-4" style="background: var(--color-accent-dim); border-color: rgba(212, 168, 83, 0.2); --card-accent: var(--color-accent);">
-        <div style="color: var(--color-accent); font-size: 1.5rem; margin-bottom: 1.2rem;">04</div>
-        <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">No code</h3>
-        <p style="color: var(--color-muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem;">
-          Automatisations, création de systèmes d'opération.
-        </p>
-        <span style="
-          font-size: 0.7rem;
-          font-weight: 500;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          color: var(--color-muted);
-          border: 1px solid var(--color-border);
-          padding: 3px 10px;
-          border-radius: 999px;
-        ">Offre en construction</span>
-      </div>
-
+    <div class="services-grid">
+      {services.map((s, i) => (
+        <div class={`service reveal-pop reveal-delay-${i + 1}`}>
+          <span class="service-num">{s.num}</span>
+          <h3 class="service-title">{s.title}</h3>
+          <p class="service-text">{s.text}</p>
+          {s.badge && <span class="tag tag-muted">{s.badge}</span>}
+        </div>
+      ))}
     </div>
   </section>
 
-
-  <!-- ═══════════════════════════════════════
-       PORTFOLIO CARROUSEL
-  ═══════════════════════════════════════ -->
-  <section style="
-    padding: 6rem 0;
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-    overflow: hidden;
-  ">
-    <div class="reveal" style="padding: 0 3rem; margin-bottom: 3rem;">
-      <div class="sep"></div>
-      <h2 style="font-size: clamp(2rem, 4vw, 3.2rem);">Missions récentes</h2>
+  <!-- MISSIONS RÉCENTES -->
+  <section class="wrap section" style="padding-top: 0;">
+    <div class="section-head section-head-row reveal">
+      <h2 class="h2">Missions récentes</h2>
+      <a href="/clients" class="link-arrow">Toutes les missions</a>
     </div>
-
-    <!-- Grille missions -->
-    <div id="carousel-track" style="
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-      padding: 0 3rem;
-    ">
-
-      <!-- Carte mission 1 — à personnaliser -->
-      <div style="
-        width: 100%;
-        background: var(--color-surface);
-        border: 1px solid var(--color-border);
-        border-radius: 2px;
-        padding: 2rem;
-        transition: border-color 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        --card-accent: var(--color-accent);
-      " class="mission-card reveal-pop reveal-delay-1">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
-          <span class="tag">CMO Part-time</span>
-          <span style="font-size: 0.75rem; color: var(--color-muted);">2025–2026</span>
-        </div>
-        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Noé</h3>
-        <p style="font-size: 0.88rem; color: var(--color-muted); line-height: 1.7; margin-bottom: 1.5rem;">
-          Direction marketing à temps partagé pour une startup en phase d'amorçage.
-          Stratégie, acquisition, coordination des prestataires.
-        </p>
-        <a href="/clients#noe" style="font-size: 0.8rem; color: var(--color-accent); letter-spacing: 0.05em; margin-top: auto; display: block;">Voir la mission →</a>
-      </div>
-
-      <!-- Carte mission 2 — SNCF -->
-      <div style="
-        width: 100%;
-        background: var(--color-surface);
-        border: 1px solid var(--color-border);
-        border-radius: 2px;
-        padding: 2rem;
-        transition: border-color 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        --card-accent: var(--color-accent2);
-      " class="mission-card reveal-pop reveal-delay-2">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
-          <span class="tag" style="color: var(--color-accent2); border-color: var(--color-accent2);">Conseil</span>
-          <span style="font-size: 0.75rem; color: var(--color-muted);">2025–2026</span>
-        </div>
-        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">SNCF</h3>
-        <p style="font-size: 0.88rem; color: var(--color-muted); line-height: 1.7; margin-bottom: 1.5rem;">
-          Migration du bilan carbone de SNCF Numérique Responsable vers le logiciel SaaS de comptabilité carbone Sweep.
-        </p>
-        <a href="/clients#sncf" style="font-size: 0.8rem; color: var(--color-accent); letter-spacing: 0.05em; margin-top: auto; display: block;">Voir la mission →</a>
-      </div>
-
-      <!-- Carte mission 3 -->
-      <div style="
-        width: 100%;
-        background: var(--color-surface);
-        border: 1px solid var(--color-border);
-        border-radius: 2px;
-        padding: 2rem;
-        transition: border-color 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        --card-accent: var(--color-accent3);
-      " class="mission-card reveal-pop reveal-delay-3">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
-          <span class="tag" style="color: var(--color-accent3); border-color: var(--color-accent3);">Email marketing</span>
-          <span style="font-size: 0.75rem; color: var(--color-muted);">2026</span>
-        </div>
-        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Coédis</h3>
-        <p style="font-size: 0.88rem; color: var(--color-muted); line-height: 1.7; margin-bottom: 1.5rem;">
-          Déploiement d'une stratégie emailing B2B dans le cadre de la 1ère convention professionnelle de Coédis.
-        </p>
-        <a href="/clients#coedis" style="font-size: 0.8rem; color: var(--color-accent); letter-spacing: 0.05em; margin-top: auto; display: block;">Voir la mission →</a>
-      </div>
-
-      <!-- Carte mission 3 — Alexia.fr -->
-      <div style="
-        width: 100%;
-        background: var(--color-surface);
-        border: 1px solid var(--color-border);
-        border-radius: 2px;
-        padding: 2rem;
-        transition: border-color 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        --card-accent: var(--color-accent2);
-      " class="mission-card reveal-pop reveal-delay-4">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
-          <span class="tag" style="color: var(--color-accent2); border-color: var(--color-accent2);">Copywriter</span>
-          <span style="font-size: 0.75rem; color: var(--color-muted);">2025</span>
-        </div>
-        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Alexia.fr</h3>
-        <p style="font-size: 0.88rem; color: var(--color-muted); line-height: 1.7; margin-bottom: 1.5rem;">
-          Copywriting du tunnel d'inscription et de la page d'accueil du site alexia.fr.
-        </p>
-        <a href="/clients#alexia" style="font-size: 0.8rem; color: var(--color-accent); letter-spacing: 0.05em; margin-top: auto; display: block;">Voir la mission →</a>
-      </div>
-
-      <!-- Carte mission 4 — Geev -->
-      <div style="
-        width: 100%;
-        background: var(--color-surface);
-        border: 1px solid var(--color-border);
-        border-radius: 2px;
-        padding: 2rem;
-        transition: border-color 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        --card-accent: var(--color-accent3);
-      " class="mission-card reveal-pop reveal-delay-4">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
-          <span class="tag" style="color: var(--color-accent3); border-color: var(--color-accent3);">Marketing B2B</span>
-          <span style="font-size: 0.75rem; color: var(--color-muted);">2024–2025</span>
-        </div>
-        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Geev</h3>
-        <p style="font-size: 0.88rem; color: var(--color-muted); line-height: 1.7; margin-bottom: 1.5rem;">
-          Développement du marketing des offres B2B de Geev Pro : reprise par le don, comptes pro Geev.
-        </p>
-        <a href="/clients#geev" style="font-size: 0.8rem; color: var(--color-accent); letter-spacing: 0.05em; margin-top: auto; display: block;">Voir la mission →</a>
-      </div>
-
+    <div class="missions-grid">
+      {missions.map((m, i) => (
+        <a href={m.href} class={`mission reveal-pop reveal-delay-${Math.min(i + 1, 4)}`}>
+          <span class="mission-meta">{m.type}, {m.years}</span>
+          <span class="mission-name">{m.name}</span>
+          <span class="mission-text">{m.text}</span>
+          <span class="mission-link">Voir la mission</span>
+        </a>
+      ))}
     </div>
   </section>
 
-
-  <!-- ═══════════════════════════════════════
-       CLIENTS / LOGOS
-  ═══════════════════════════════════════ -->
-  <section class="reveal" style="
-    padding: 6rem 3rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    text-align: center;
-  ">
-    <p style="font-size: 1.1rem; font-family: var(--font-display); color: var(--color-text); margin-bottom: 3rem;">
-      Ils m'ont fait confiance
-    </p>
-    <div style="
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1.5rem 2.5rem;
-    " id="logos-grid">
-      <div style="width: 120px; height: 45px; display: flex; align-items: center; justify-content: center;">
-        <img src="/logos/sncf.png" alt="SNCF" style="max-width: 100%; max-height: 100%; object-fit: contain; opacity: 0.85; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.85'" />
-      </div>
-      <div style="width: 120px; height: 45px; display: flex; align-items: center; justify-content: center;">
-        <img src="/logos/alexia.png" alt="Alexia" style="max-width: 100%; max-height: 100%; object-fit: contain; opacity: 0.85; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.85'" />
-      </div>
-      <div style="width: 120px; height: 45px; display: flex; align-items: center; justify-content: center;">
-        <img src="/logos/geev.png" alt="Geev" style="max-width: 100%; max-height: 100%; object-fit: contain; opacity: 0.85; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.85'" />
-      </div>
-      <div style="width: 120px; height: 45px; display: flex; align-items: center; justify-content: center;">
-        <img src="/logos/noe.png" alt="Noé" style="max-width: 100%; max-height: 100%; object-fit: contain; opacity: 0.85; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.85'" />
-      </div>
-      <div style="width: 120px; height: 45px; display: flex; align-items: center; justify-content: center;">
-        <img src="/logos/coedis.png" alt="Coédis" style="max-width: 100%; max-height: 100%; object-fit: contain; opacity: 0.85; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.85'" />
-      </div>
-      <div style="width: 120px; height: 45px; display: flex; align-items: center; justify-content: center;">
-        <img src="/logos/2tonnes.png" alt="2 Tonnes" style="max-width: 100%; max-height: 100%; object-fit: contain; opacity: 0.85; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.85'" />
-      </div>
+  <!-- CLIENTS / LOGOS -->
+  <section class="wrap section-tight reveal" style="text-align: center;">
+    <p class="logos-title">Ils m'ont fait confiance</p>
+    <div class="logos" id="logos-grid">
+      {logos.map((l) => (
+        <div class="logo"><img src={l.src} alt={l.alt} /></div>
+      ))}
     </div>
   </section>
 
-
-  <!-- ═══════════════════════════════════════
-       2 TONNES
-  ═══════════════════════════════════════ -->
-  <section id="section-2tonnes" style="
-    padding: 6rem 3rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: 6rem;
-    align-items: center;
-    border-top: 1px solid var(--color-border);
-  ">
+  <!-- 2 TONNES -->
+  <section class="wrap section two-cols" id="section-2tonnes">
     <div class="reveal-left">
-      <div class="sep"></div>
-      <h2 style="font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: 1.5rem;">
-        Au-delà du marketing
-      </h2>
-      <p style="color: var(--color-muted); line-height: 1.8; margin-bottom: 1rem;">
+      <h2 class="h2" style="margin-bottom: 1.25rem;">Au-delà du marketing</h2>
+      <p class="lead" style="margin-bottom: 1rem;">
         Depuis 2022, j'anime l'atelier 2 Tonnes (devenu nHability),
         un atelier de sensibilisation qui aide les individus, les entreprises
         et les collectivités à comprendre leur rôle dans la décarbonation
         de notre société.
       </p>
-      <p style="color: var(--color-muted); line-height: 1.8;">
+      <p class="lead">
         Un atelier ludique et immersif qui donne envie aux gens d'agir
         tout en leur donnant les bons ordres de grandeur sur la
         transition écologique.
       </p>
     </div>
 
-    <div class="reveal-right" style="
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: 2px;
-      padding: 2.5rem;
-    ">
-      <img src="/logos/2tonnes.png" alt="2 Tonnes" style="height: 36px; width: auto; margin-bottom: 2rem; opacity: 0.9;" />
-
-      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+    <div class="reveal-right panel">
+      <img src="/logos/2tonnes.png" alt="2 Tonnes" style="height: 36px; width: auto; margin-bottom: 2rem;" />
+      <div class="mini-stats">
         <div>
-          <p style="font-family: var(--font-display); font-size: 2.5rem; color: var(--color-text); line-height: 1;">70</p>
-          <p style="font-size: 0.75rem; color: var(--color-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.25rem;">ateliers animés</p>
+          <p class="mini-num">70</p>
+          <p class="mini-label">ateliers animés</p>
         </div>
         <div>
-          <p style="font-family: var(--font-display); font-size: 2.5rem; color: var(--color-text); line-height: 1;">700+</p>
-          <p style="font-size: 0.75rem; color: var(--color-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.25rem;">personnes sensibilisées</p>
+          <p class="mini-num">700+</p>
+          <p class="mini-label">personnes sensibilisées</p>
         </div>
         <div>
-          <p style="font-family: var(--font-display); font-size: 2.5rem; color: var(--color-text); line-height: 1;">2022</p>
-          <p style="font-size: 0.75rem; color: var(--color-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.25rem;">depuis</p>
+          <p class="mini-num">2022</p>
+          <p class="mini-label">depuis</p>
         </div>
       </div>
-
       <div style="border-top: 1px solid var(--color-border); padding-top: 1.5rem; margin-bottom: 1.5rem;">
-        <p style="font-size: 0.75rem; color: var(--color-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem;">Références</p>
-        <p style="font-size: 0.85rem; color: var(--color-muted); line-height: 1.8;">
+        <p style="font-weight: 700; margin-bottom: 0.5rem;">Références</p>
+        <p style="font-size: 0.9rem; color: var(--color-muted); line-height: 1.7;">
           France Travail Nouvelle-Aquitaine · Agglomération d'Agen ·
           Mairie de Bègles · Mairie de Bruges · CNFPT ·
           Agence de Développement et d'Innovation de Nouvelle-Aquitaine ·
           Agropole · APEC Bordeaux
         </p>
       </div>
-
-      <a href="https://www.2tonnes.org" target="_blank" style="
-        font-size: 0.8rem;
-        color: var(--color-accent);
-        letter-spacing: 0.05em;
-      ">En savoir plus sur l'atelier 2 Tonnes →</a>
+      <a href="https://www.2tonnes.org" target="_blank" rel="noopener" class="link-arrow">En savoir plus sur l'atelier 2 Tonnes</a>
     </div>
   </section>
 
-
-  <!-- ═══════════════════════════════════════
-       CONTACT
-  ═══════════════════════════════════════ -->
-  <section id="contact" style="
-    padding: 8rem 3rem;
-    border-top: 1px solid var(--color-border);
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: start;
-  ">
-    <div class="reveal-left">
-      <div class="sep"></div>
-      <h2 style="font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: 1.5rem;">
-        On en parle ?
-      </h2>
-      <p style="color: var(--color-muted); line-height: 1.8; margin-bottom: 2rem;">
-        Vous avez un problème de croissance, de positionnement ou d'acquisition.
-        Vous cherchez une personne opérationnelle tout de suite, capable de créer et déployer une stratégie
-        autant que mettre les mains dedans.
-      </p>
-      <p style="color: var(--color-muted); line-height: 1.8; margin-bottom: 2.5rem;">
-        Je vous réponds sous 48h.
-      </p>
-      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-        <a href="https://www.linkedin.com/in/julien-lacaze/" target="_blank" style="display:flex; align-items:center; gap:0.75rem; font-size:1.05rem; color:var(--color-text);">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-          </svg>
-          LinkedIn
-        </a>
-        <a href="https://www.malt.fr/profile/julienlacaze" target="_blank" style="display:flex; align-items:center; gap:0.75rem; font-size:1.05rem; color:var(--color-text); margin-top:0.75rem;">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M13.547 10.453L8.493 5.4C7.02 3.927 5.08 3.927 3.607 5.4L2.56 6.447c-1.474 1.473-1.474 3.413 0 4.886l2.047 2.047-2.047 2.047c-1.474 1.473-1.474 3.413 0 4.886l1.047 1.047c1.473 1.473 3.413 1.473 4.886 0l5.054-5.054 3.493 3.494c.347.346.347.906 0 1.253l-.747.747c-.346.346-.906.346-1.253 0l-.747-.747-1.413 1.413.747.747c1.12 1.12 2.946 1.12 4.066 0l.747-.747c1.12-1.12 1.12-2.946 0-4.066l-3.493-3.494 3.493-3.493c1.12-1.12 1.12-2.947 0-4.067l-.747-.747c-1.12-1.12-2.946-1.12-4.066 0l-.747.747 1.413 1.413.747-.747c.347-.346.907-.346 1.253 0l.747.747c.347.346.347.906 0 1.253l-3.493 3.494z"/>
-          </svg>
-          Malt
-        </a>
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="wrap two-cols contact-grid">
+      <div class="reveal-left">
+        <h2 class="h2" style="margin-bottom: 1.25rem;">On en parle ?</h2>
+        <p class="contact-text">
+          Vous avez un problème de croissance, de positionnement ou d'acquisition.
+          Vous cherchez une personne opérationnelle tout de suite, capable de créer et déployer une stratégie
+          autant que mettre les mains dedans.
+        </p>
+        <p class="contact-text" style="margin-top: 1rem; font-weight: 600;">Je vous réponds sous 48h.</p>
+        <div class="contact-links">
+          <a href="https://www.linkedin.com/in/julien-lacaze/" target="_blank" rel="noopener">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            LinkedIn
+          </a>
+          <a href="https://www.malt.fr/profile/julienlacaze" target="_blank" rel="noopener">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M13.547 10.453L8.493 5.4C7.02 3.927 5.08 3.927 3.607 5.4L2.56 6.447c-1.474 1.473-1.474 3.413 0 4.886l2.047 2.047-2.047 2.047c-1.474 1.473-1.474 3.413 0 4.886l1.047 1.047c1.473 1.473 3.413 1.473 4.886 0l5.054-5.054 3.493 3.494c.347.346.347.906 0 1.253l-.747.747c-.346.346-.906.346-1.253 0l-.747-.747-1.413 1.413.747.747c1.12 1.12 2.946 1.12 4.066 0l.747-.747c1.12-1.12 1.12-2.946 0-4.066l-3.493-3.494 3.493-3.493c1.12-1.12 1.12-2.947 0-4.067l-.747-.747c-1.12-1.12-2.946-1.12-4.066 0l-.747.747 1.413 1.413.747-.747c.347-.346.907-.346 1.253 0l.747.747c.347.346.347.906 0 1.253l-3.493 3.494z"/>
+            </svg>
+            Malt
+          </a>
+        </div>
       </div>
-    </div>
 
-    <!-- Calendly inline widget -->
-    <div class="calendly-inline-widget reveal-right"
-      data-url="https://calendly.com/julien-lacaze-pro/cafe-virtuel?hide_event_type_details=1&hide_gdpr_banner=1&background_color=EDE8DF&text_color=1C1916&primary_color=8B6F47"
-      style="min-width:320px;height:700px;">
+      <div class="calendly-inline-widget reveal-right"
+        data-url="https://calendly.com/julien-lacaze-pro/cafe-virtuel?hide_event_type_details=1&hide_gdpr_banner=1&background_color=ffffff&text_color=2b1f19&primary_color=8b5e34"
+        style="min-width: 300px; height: 700px; border-radius: 6px; overflow: hidden;">
+      </div>
+      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
     </div>
-    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
   </section>
+
+  <style>
+    .wrap { max-width: 1240px; margin: 0 auto; padding-left: 1.75rem; padding-right: 1.75rem; }
+    .section { padding-top: 6rem; padding-bottom: 6rem; }
+    .section-tight { padding-top: 3.5rem; padding-bottom: 1rem; }
+    .caramel { color: var(--color-caramel); }
+
+    /* Hero */
+    .hero { background: var(--color-dark); color: var(--color-on-dark); padding-top: 7.5rem; overflow: hidden; }
+    .hero-grid { display: flex; flex-wrap: wrap; gap: 3rem; align-items: flex-end; }
+    .hero-text { flex: 3 1 560px; min-width: 0; padding-bottom: 4.5rem; display: flex; flex-direction: column; gap: 1.6rem; }
+    .hero-kicker { display: flex; align-items: center; gap: 0.6rem; font-weight: 600; color: var(--color-caramel); font-size: 0.95rem; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+    .hero-title { font-size: clamp(2.4rem, 7vw, 6.4rem); color: var(--color-on-dark); }
+    #typewriter-word { display: inline-block; }
+    #tw-cursor { display: inline-block; width: 0.08em; height: 0.75em; background: var(--color-caramel); margin-left: 0.06em; vertical-align: baseline; animation: blink 0.8s step-end infinite; }
+    .hero-sub { font-size: 1.15rem; line-height: 1.6; color: var(--color-muted-on-dark); max-width: 34em; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+    .hero-photo { flex: 1 1 300px; min-width: 0; max-width: 440px; align-self: flex-end; }
+    .hero-photo img { width: 100%; aspect-ratio: 4 / 5; max-height: 540px; object-fit: cover; object-position: center top; display: block; border-radius: 6px 6px 0 0; }
+
+    /* Boutons */
+    .btn { display: inline-block; font-weight: 700; font-size: 1rem; padding: 0.95rem 1.6rem; border-radius: 6px; transition: opacity 0.2s ease, background 0.2s ease, color 0.2s ease; }
+    .btn-caramel { background: var(--color-caramel); color: var(--color-dark); }
+    .btn-caramel:hover { opacity: 0.88; }
+    .btn-outline-light { border: 2px solid var(--color-on-dark); color: var(--color-on-dark); padding: calc(0.95rem - 2px) calc(1.6rem - 2px); }
+    .btn-outline-light:hover { background: var(--color-on-dark); color: var(--color-dark); }
+    .link-arrow { font-weight: 700; color: var(--color-accent); white-space: nowrap; }
+    .link-arrow::after { content: ' →'; }
+    .link-arrow:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+    /* Chiffres */
+    .stats { background: var(--color-caramel); color: var(--color-dark); }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .stat { padding: 1.8rem 0; display: flex; align-items: baseline; gap: 0.8rem; }
+    .stat-num { font-weight: 900; font-stretch: 115%; font-size: 3.1rem; line-height: 1; letter-spacing: -0.03em; }
+    .stat-label { font-weight: 600; font-size: 0.95rem; }
+
+    /* Mots-clés */
+    .marquee { overflow: hidden; border-bottom: 1px solid var(--color-border); padding: 0.9rem 0; background: var(--color-surface); }
+    .marquee-line { white-space: nowrap; font-weight: 600; font-size: 0.95rem; color: var(--color-muted); padding-right: 0.9rem; }
+    .marquee-sep { color: var(--color-caramel); padding: 0 0.9rem; }
+
+    /* Certification */
+    .certif { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; background: var(--color-surface); border-radius: 6px; padding: 1.5rem 1.75rem; }
+    .certif p { flex: 1 1 280px; font-size: 0.95rem; color: var(--color-muted); }
+    .certif strong { color: var(--color-text); font-weight: 700; }
+
+    /* Titres de section */
+    .h2 { font-size: clamp(2.1rem, 4.5vw, 3.6rem); }
+    .lead { color: var(--color-muted); font-size: 1.05rem; max-width: 36em; }
+    .section-head { margin-bottom: 2.5rem; display: flex; flex-direction: column; gap: 1rem; }
+    .section-head-row { flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: baseline; }
+
+    /* Services */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+    .service { background: var(--color-surface); border-radius: 6px; padding: 1.6rem; display: flex; flex-direction: column; gap: 0.7rem; align-items: flex-start; }
+    .service-num { font-weight: 900; font-stretch: 115%; font-size: 1.1rem; color: var(--color-accent); }
+    .service-title { font-size: 1.45rem; line-height: 1.15; }
+    .service-text { color: var(--color-muted); font-size: 0.95rem; }
+    .tag-muted { color: var(--color-muted); border-color: var(--color-border); margin-top: 0.3rem; }
+
+    /* Missions */
+    .missions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem; }
+    .mission { background: var(--color-dark); color: var(--color-on-dark); border-radius: 6px; padding: 1.6rem; display: flex; flex-direction: column; gap: 0.7rem; transition: transform 0.25s ease; }
+    .mission:hover { transform: translateY(-3px); }
+    .mission-meta { font-size: 0.85rem; font-weight: 600; color: var(--color-caramel); }
+    .mission-name { font-family: var(--font-display); font-weight: 900; font-stretch: 115%; font-size: 1.9rem; line-height: 1; letter-spacing: -0.02em; }
+    .mission-text { font-size: 0.95rem; color: var(--color-muted-on-dark); }
+    .mission-link { margin-top: auto; padding-top: 0.5rem; font-weight: 700; font-size: 0.9rem; color: var(--color-caramel); }
+    .mission-link::after { content: ' →'; }
+
+    /* Logos */
+    .logos-title { text-align: center; font-family: var(--font-display); font-weight: 800; font-stretch: 112%; font-size: 1.4rem; letter-spacing: -0.02em; margin-bottom: 2rem; }
+    .logos { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 1.5rem 2.5rem; }
+    .logo { width: 120px; height: 45px; display: flex; align-items: center; justify-content: center; }
+    .logo img { max-width: 100%; max-height: 100%; object-fit: contain; opacity: 0.85; transition: opacity 0.3s ease; }
+    .logo img:hover { opacity: 1; }
+
+    /* 2 Tonnes */
+    .two-cols { display: flex; flex-wrap: wrap; gap: 3rem 5rem; align-items: center; }
+    .two-cols > * { flex: 1 1 380px; min-width: 0; }
+    .panel { background: var(--color-surface); border-radius: 6px; padding: 2.2rem; }
+    .mini-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
+    .mini-num { font-family: var(--font-display); font-weight: 900; font-stretch: 115%; font-size: clamp(1.7rem, 3.2vw, 2.4rem); line-height: 1; letter-spacing: -0.03em; }
+    .mini-label { font-size: 0.85rem; color: var(--color-muted); margin-top: 0.35rem; }
+
+    /* Contact */
+    .contact { background: var(--color-surface); padding: 6rem 0; margin-bottom: -6rem; }
+    .contact-grid { align-items: flex-start; }
+    .contact-text { color: var(--color-muted); font-size: 1.05rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+    .contact-links a { display: inline-flex; align-items: center; gap: 0.75rem; font-weight: 700; color: var(--color-text); }
+    .contact-links a:hover { color: var(--color-accent); }
+
+    @media (max-width: 700px) {
+      .wrap { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+      .hero, .stats, .contact { padding-left: 0 !important; padding-right: 0 !important; }
+      .hero { padding-top: 6.5rem; }
+      .hero-title { font-size: clamp(2.2rem, 10.5vw, 3.4rem); font-stretch: 108%; }
+      .hero-text { padding-bottom: 2.5rem; }
+      .hero-photo { max-width: 260px; }
+      .section { padding-top: 4rem; padding-bottom: 4rem; }
+      .stat { padding: 1.1rem 0; }
+      .stat-num { font-size: 2.4rem; }
+      .panel { padding: 1.5rem; }
+      .contact { padding: 4rem 0; }
+    }
+  </style>
 
   <script>
-    // Typewriter hero word — skipped entirely for prefers-reduced-motion (static text already in the HTML)
-    const typewriterWords = [
-      { text: 'Accélérer.', color: 'var(--color-accent)' },
-      { text: 'Convertir.', color: 'var(--color-accent2)' },
-      { text: 'Piloter.', color: 'var(--color-accent3)' },
-      { text: 'Performer.', color: 'var(--color-accent)' },
-    ];
+    // Mot animé du hero (désactivé si l'utilisateur préfère réduire les animations)
+    const typewriterWords = ['Accélérer.', 'Convertir.', 'Piloter.', 'Performer.'];
     let twWordIndex = 0;
     let twCharIndex = 0;
     let twDeleting = false;
     const twEl = document.getElementById('typewriter-word') as HTMLElement | null;
-    const twCursor = document.getElementById('tw-cursor') as HTMLElement | null;
 
     function typewriterTick() {
       if (!twEl) return;
       const current = typewriterWords[twWordIndex];
-      twEl.style.color = current.color;
-      if (twCursor) twCursor.style.background = current.color;
-
       if (!twDeleting) {
         twCharIndex++;
-        twEl.textContent = current.text.slice(0, twCharIndex);
-        if (twCharIndex === current.text.length) {
+        twEl.textContent = current.slice(0, twCharIndex);
+        if (twCharIndex === current.length) {
           twDeleting = true;
           setTimeout(typewriterTick, 1400);
           return;
@@ -616,7 +382,7 @@ import { disponibilite } from '../config/dispo.js';
         setTimeout(typewriterTick, 65);
       } else {
         twCharIndex--;
-        twEl.textContent = current.text.slice(0, twCharIndex);
+        twEl.textContent = current.slice(0, twCharIndex);
         if (twCharIndex === 0) {
           twDeleting = false;
           twWordIndex = (twWordIndex + 1) % typewriterWords.length;
@@ -630,7 +396,7 @@ import { disponibilite } from '../config/dispo.js';
       typewriterTick();
     }
 
-    // Animated counters
+    // Compteurs animés
     function animateCounter(el: HTMLElement) {
       const target = parseInt(el.dataset.target ?? '0');
       const suffix = el.dataset.suffix ?? '';
@@ -655,7 +421,6 @@ import { disponibilite } from '../config/dispo.js';
     }, { threshold: 0.5 });
 
     document.querySelectorAll('[data-target]').forEach(el => counterObserver.observe(el));
-
   </script>
 
 </Layout>
