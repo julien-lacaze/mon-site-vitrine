@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-// Missions, de la plus récente à la plus ancienne.
+// Missions, de la plus récente à la plus ancienne (classées par date de fin).
 // `result` est optionnel : la ligne « Résultat » ne s'affiche que s'il est renseigné.
 type Mission = {
   id: string;
@@ -17,6 +17,21 @@ type Mission = {
 
 const missions: Mission[] = [
   {
+    id: 'noe',
+    name: 'Noé',
+    logo: '/logos/noe.png',
+    date: 'Mai 2025 à août 2026',
+    type: 'CMO part-time',
+    details: ['Formation, enseignement', '2 jours par semaine'],
+    context: "Noé est la formation n°1 de Product Manager en France. Un bootcamp de 4 semaines qui permet d'apprendre en profondeur le métier de Product Manager.",
+    actions: [
+      "Garant de la stratégie d'acquisition digitale : campagnes paid, SEO, contenu, email, social",
+      'Pilotage et collaboration avec les agences externes (SEO / SEA)',
+      "Lancement d'opérations growth",
+      "Management d'une personne",
+    ],
+  },
+  {
     id: 'coedis',
     name: 'Coédis',
     logo: '/logos/coedis.png',
@@ -25,19 +40,6 @@ const missions: Mission[] = [
     details: ['BTP, gros œuvre', 'Convention B2B, 500 personnes', 'Distanciel'],
     context: "Déploiement de la stratégie d'email marketing dans le cadre de la 1ère grande convention B2B (Coédis Impact) de la Fédération des Distributeurs professionnels spécialisés.",
     actions: ["Stratégie d'email marketing B2B"],
-  },
-  {
-    id: 'alexia',
-    name: 'Alexia.fr',
-    logo: '/logos/alexia.png',
-    date: 'Novembre 2025',
-    type: 'Copywriting',
-    details: ['Droit', 'Distanciel'],
-    context: 'Copywriting des pages business du site alexia.fr.',
-    actions: [
-      "Copywriting du funnel d'inscription du site alexia.fr, page d'accueil, page divorce à l'amiable",
-      'Collaboration avec la personne chargée de la refonte UX / UI',
-    ],
   },
   {
     id: 'sncf',
@@ -50,18 +52,16 @@ const missions: Mission[] = [
     actions: ['Migration du bilan carbone de SNCF Numérique Responsable vers le logiciel SaaS de comptabilité carbone Sweep'],
   },
   {
-    id: 'noe',
-    name: 'Noé',
-    logo: '/logos/noe.png',
-    date: '2025 à 2026',
-    type: 'CMO part-time',
-    details: ['Formation, enseignement', '2 jours par semaine'],
-    context: "Noé est la formation n°1 de Product Manager en France. Un bootcamp de 4 semaines qui permet d'apprendre en profondeur le métier de Product Manager.",
+    id: 'alexia',
+    name: 'Alexia.fr',
+    logo: '/logos/alexia.png',
+    date: 'Novembre 2025',
+    type: 'Copywriting',
+    details: ['Droit', 'Distanciel'],
+    context: 'Copywriting des pages business du site alexia.fr.',
     actions: [
-      "Garant de la stratégie d'acquisition digitale : campagnes paid, SEO, contenu, email, social",
-      'Pilotage et collaboration avec les agences externes (SEO / SEA)',
-      "Lancement d'opérations growth",
-      "Management d'une personne",
+      "Copywriting du funnel d'inscription du site alexia.fr, page d'accueil, page divorce à l'amiable",
+      'Collaboration avec la personne chargée de la refonte UX / UI',
     ],
   },
   {
