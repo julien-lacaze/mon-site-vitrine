@@ -10,6 +10,8 @@ interface Props {
 const { title, metaTitle, description = "Julien Lacaze, CMO freelance B2B à Bordeaux" } = Astro.props;
 const currentPath = Astro.url.pathname;
 const pageTitle = metaTitle ?? `${title} | Julien Lacaze`;
+// Adresse officielle de la page (toujours avec / final), pour éviter les doublons dans Google
+const canonicalURL = new URL(currentPath.endsWith('/') ? currentPath : `${currentPath}/`, Astro.site);
 ---
 
 <!DOCTYPE html>
@@ -19,6 +21,7 @@ const pageTitle = metaTitle ?? `${title} | Julien Lacaze`;
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
   <title>{pageTitle}</title>
+  <link rel="canonical" href={canonicalURL} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 </head>
 <body>
@@ -41,10 +44,10 @@ const pageTitle = metaTitle ?? `${title} | Julien Lacaze`;
     <a href="/" style="font-family: var(--font-display); font-weight: 800; font-stretch: 112%; font-size: 1.15rem; letter-spacing: -0.01em; color: var(--color-on-dark);">Julien Lacaze</a>
 
     <div id="nav-links" style="display: flex; gap: 1.75rem; align-items: center; font-size: 0.9rem; font-weight: 500;">
-      <a href="/clients" class="nav-link" style={`color: ${currentPath === '/clients' ? 'var(--color-caramel)' : 'var(--color-on-dark)'};`}>Clients</a>
-      <a href="/guide-claude" class="nav-link" style={`color: ${currentPath === '/guide-claude' ? 'var(--color-caramel)' : 'var(--color-on-dark)'};`}>Guide Claude</a>
-      <a href="/experimentations" class="nav-link" style={`color: ${currentPath === '/experimentations' ? 'var(--color-caramel)' : 'var(--color-on-dark)'};`}>Expérimentations</a>
-      <a href="/blog" class="nav-link" style={`color: ${currentPath.startsWith('/blog') ? 'var(--color-caramel)' : 'var(--color-on-dark)'};`}>Blog</a>
+      <a href="/clients/" class="nav-link" style={`color: ${currentPath.startsWith('/clients') ? 'var(--color-caramel)' : 'var(--color-on-dark)'};`}>Clients</a>
+      <a href="/guide-claude/" class="nav-link" style={`color: ${currentPath.startsWith('/guide-claude') ? 'var(--color-caramel)' : 'var(--color-on-dark)'};`}>Guide Claude</a>
+      <a href="/experimentations/" class="nav-link" style={`color: ${currentPath.startsWith('/experimentations') ? 'var(--color-caramel)' : 'var(--color-on-dark)'};`}>Expérimentations</a>
+      <a href="/blog/" class="nav-link" style={`color: ${currentPath.startsWith('/blog') ? 'var(--color-caramel)' : 'var(--color-on-dark)'};`}>Blog</a>
       <a href="/#contact" style="
         font-size: 0.9rem;
         font-weight: 700;
@@ -87,10 +90,10 @@ const pageTitle = metaTitle ?? `${title} | Julien Lacaze`;
     padding: 0 2rem;
     gap: 1.5rem;
   ">
-    <a href="/clients" class="mobile-link">Clients</a>
-    <a href="/guide-claude" class="mobile-link">Guide Claude</a>
-    <a href="/experimentations" class="mobile-link">Expérimentations</a>
-    <a href="/blog" class="mobile-link">Blog</a>
+    <a href="/clients/" class="mobile-link">Clients</a>
+    <a href="/guide-claude/" class="mobile-link">Guide Claude</a>
+    <a href="/experimentations/" class="mobile-link">Expérimentations</a>
+    <a href="/blog/" class="mobile-link">Blog</a>
     <a href="/#contact" class="mobile-link" style="color: var(--color-caramel);">Me contacter</a>
   </div>
 

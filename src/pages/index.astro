@@ -1,6 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { disponibilite } from '../config/dispo.js';
+import { getCollection } from 'astro:content';
+import { categoryColor } from '../config/categoryColors.js';
+
+// Les 3 derniers articles publiés, pour relier l'accueil au blog
+const derniersArticles = (await getCollection('blog'))
+  .filter(post => !post.data.draft)
+  .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf())
+  .slice(0, 3);
 
 const services = [
   {
@@ -27,11 +35,11 @@ const services = [
 ];
 
 const missions = [
-  { name: 'Noé', type: 'CMO part-time', years: '2025 à 2026', href: '/clients#noe', text: "Direction marketing à temps partagé pour une startup en phase d'amorçage. Stratégie, acquisition, coordination des prestataires." },
-  { name: 'Coédis', type: 'Email marketing', years: '2026', href: '/clients#coedis', text: "Déploiement d'une stratégie emailing B2B dans le cadre de la 1ère convention professionnelle de Coédis." },
-  { name: 'SNCF', type: 'Conseil', years: '2025 à 2026', href: '/clients#sncf', text: 'Migration du bilan carbone de SNCF Numérique Responsable vers le logiciel SaaS de comptabilité carbone Sweep.' },
-  { name: 'Alexia.fr', type: 'Copywriting', years: '2025', href: '/clients#alexia', text: "Copywriting du tunnel d'inscription et de la page d'accueil du site alexia.fr." },
-  { name: 'Geev', type: 'Marketing B2B', years: '2024 à 2025', href: '/clients#geev', text: 'Développement du marketing des offres B2B de Geev Pro : reprise par le don, comptes pro Geev.' },
+  { name: 'Noé', type: 'CMO part-time', years: '2025 à 2026', href: '/clients/#noe', text: "Direction marketing à temps partagé pour une startup en phase d'amorçage. Stratégie, acquisition, coordination des prestataires." },
+  { name: 'Coédis', type: 'Email marketing', years: '2026', href: '/clients/#coedis', text: "Déploiement d'une stratégie emailing B2B dans le cadre de la 1ère convention professionnelle de Coédis." },
+  { name: 'SNCF', type: 'Conseil', years: '2025 à 2026', href: '/clients/#sncf', text: 'Migration du bilan carbone de SNCF Numérique Responsable vers le logiciel SaaS de comptabilité carbone Sweep.' },
+  { name: 'Alexia.fr', type: 'Copywriting', years: '2025', href: '/clients/#alexia', text: "Copywriting du tunnel d'inscription et de la page d'accueil du site alexia.fr." },
+  { name: 'Geev', type: 'Marketing B2B', years: '2024 à 2025', href: '/clients/#geev', text: 'Développement du marketing des offres B2B de Geev Pro : reprise par le don, comptes pro Geev.' },
 ];
 
 const logos = [
@@ -72,7 +80,7 @@ const motsCles = ['Go-to-market', 'CMO part-time', 'Acquisition B2B', 'LinkedIn 
         </p>
         <div class="hero-ctas fade-up fade-up-delay-4">
           <a href="#contact" class="btn btn-caramel">Travaillons ensemble</a>
-          <a href="/clients" class="btn btn-outline-light">Voir mes missions</a>
+          <a href="/clients/" class="btn btn-outline-light">Voir mes missions</a>
         </div>
       </div>
       <div class="hero-photo fade-up fade-up-delay-3">
@@ -117,7 +125,7 @@ const motsCles = ['Go-to-market', 'CMO part-time', 'Acquisition B2B', 'LinkedIn 
         Bloc de compétences RNCP39261BC01 validé : analyser les besoins utilisateur et concevoir une application web
         (titre « Concepteur Développeur d'Applications Web »).
       </p>
-      <a href="/experimentations#chatbot-karotte" class="link-arrow">Voir mon projet final</a>
+      <a href="/experimentations/#chatbot-karotte" class="link-arrow">Voir mon projet final</a>
     </div>
   </section>
 
@@ -146,7 +154,7 @@ const motsCles = ['Go-to-market', 'CMO part-time', 'Acquisition B2B', 'LinkedIn 
   <section class="wrap section" style="padding-top: 0;">
     <div class="section-head section-head-row reveal">
       <h2 class="h2">Missions récentes</h2>
-      <a href="/clients" class="link-arrow">Toutes les missions</a>
+      <a href="/clients/" class="link-arrow">Toutes les missions</a>
     </div>
     <div class="missions-grid">
       {missions.map((m, i) => (
@@ -158,6 +166,19 @@ const motsCles = ['Go-to-market', 'CMO part-time', 'Acquisition B2B', 'LinkedIn 
         </a>
       ))}
     </div>
+  </section>
+
+  <!-- GUIDE CLAUDE -->
+  <section class="wrap section-tight reveal">
+    <a href="/guide-claude/" class="guide-band">
+      <img src="/guides/couverture-guide-claude-complet.jpg" alt="" width="900" height="1272" class="guide-cover" loading="lazy" />
+      <div class="guide-text">
+        <span class="guide-kicker">Guide gratuit</span>
+        <span class="guide-title">Claude : les bases pour tout comprendre</span>
+        <span class="guide-sub">23 pages pour démarrer avec l'IA avec méthode, esprit critique et sobriété. Et une formation sur place pour votre équipe.</span>
+      </div>
+      <span class="guide-btn">Découvrir le guide</span>
+    </a>
   </section>
 
   <!-- CLIENTS / LOGOS -->
@@ -213,6 +234,24 @@ const motsCles = ['Go-to-market', 'CMO part-time', 'Acquisition B2B', 'LinkedIn 
         </p>
       </div>
       <a href="https://www.2tonnes.org" target="_blank" rel="noopener" class="link-arrow">En savoir plus sur l'atelier 2 Tonnes</a>
+    </div>
+  </section>
+
+  <!-- DERNIERS ARTICLES -->
+  <section class="wrap section" style="padding-top: 2rem;">
+    <div class="section-head section-head-row reveal">
+      <h2 class="h2">Derniers articles</h2>
+      <a href="/blog/" class="link-arrow">Tous les articles</a>
+    </div>
+    <div class="articles-grid">
+      {derniersArticles.map((post, i) => (
+        <a href={`/blog/${post.id}/`} class={`article reveal-pop reveal-delay-${i + 1}`}>
+          <span class="article-cat" style={`background: ${categoryColor(post.data.category)};`}>{post.data.category}</span>
+          <span class="article-title">{post.data.title}</span>
+          <span class="article-desc">{post.data.description}</span>
+          <span class="article-link">Lire l'article</span>
+        </a>
+      ))}
     </div>
   </section>
 
@@ -336,6 +375,26 @@ const motsCles = ['Go-to-market', 'CMO part-time', 'Acquisition B2B', 'LinkedIn 
     .mini-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
     .mini-num { font-family: var(--font-display); font-weight: 900; font-stretch: 115%; font-size: clamp(1.7rem, 3.2vw, 2.4rem); line-height: 1; letter-spacing: -0.03em; }
     .mini-label { font-size: 0.85rem; color: var(--color-muted); margin-top: 0.35rem; }
+
+    /* Encart guide */
+    .guide-band { display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem 2rem; background: var(--color-dark); color: var(--color-on-dark); border-radius: 6px; padding: 1.6rem 2rem; transition: transform 0.25s ease; }
+    .guide-band:hover { transform: translateY(-3px); }
+    .guide-cover { width: 84px; height: auto; transform: rotate(-3deg); box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.6); flex-shrink: 0; }
+    .guide-text { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 0.35rem; }
+    .guide-kicker { font-weight: 700; font-size: 0.9rem; color: var(--color-caramel); }
+    .guide-title { font-family: var(--font-display); font-weight: 800; font-stretch: 112%; font-size: 1.5rem; line-height: 1.1; letter-spacing: -0.02em; }
+    .guide-sub { color: var(--color-muted-on-dark); font-size: 0.95rem; }
+    .guide-btn { background: var(--color-caramel); color: var(--color-dark); font-weight: 700; padding: 0.85rem 1.4rem; border-radius: 6px; }
+
+    /* Derniers articles */
+    .articles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+    .article { background: var(--color-surface); border-radius: 6px; padding: 1.6rem; display: flex; flex-direction: column; align-items: flex-start; gap: 0.7rem; transition: transform 0.25s ease; }
+    .article:hover { transform: translateY(-3px); }
+    .article-cat { color: #FFFFFF; font-size: 0.8rem; font-weight: 700; padding: 0.2rem 0.7rem; border-radius: 999px; }
+    .article-title { font-family: var(--font-display); font-weight: 800; font-stretch: 108%; font-size: 1.3rem; line-height: 1.15; letter-spacing: -0.02em; }
+    .article-desc { color: var(--color-muted); font-size: 0.92rem; flex: 1; }
+    .article-link { font-weight: 700; font-size: 0.9rem; color: var(--color-accent); }
+    .article-link::after { content: ' →'; }
 
     /* Contact */
     .contact { background: var(--color-surface); padding: 6rem 0; margin-bottom: -6rem; }

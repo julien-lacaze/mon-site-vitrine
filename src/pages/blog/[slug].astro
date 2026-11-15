@@ -27,6 +27,32 @@ const formattedDate = new Date(post.data.date).toLocaleDateString('fr-FR', {
 });
 
 const accentColor = categoryColor(post.data.category);
+
+// « À lire aussi » : les 2 autres articles les plus récents
+const autresArticles = (await getCollection('blog'))
+  .filter(p => !p.data.draft && p.id !== post.id)
+  .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf())
+  .slice(0, 2);
+
+// Fiche descriptive de l'article pour Google (données structurées)
+const pageURL = new URL(`/blog/${post.id}/`, Astro.site).href;
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: new Date(post.data.date).toISOString().slice(0, 10),
+  inLanguage: 'fr-FR',
+  mainEntityOfPage: pageURL,
+  url: pageURL,
+  author: {
+    '@type': 'Person',
+    name: 'Julien Lacaze',
+    jobTitle: 'CMO freelance B2B',
+    url: new URL('/', Astro.site).href,
+    sameAs: ['https://www.linkedin.com/in/julien-lacaze/', 'https://www.malt.fr/profile/julienlacaze'],
+  },
+};
 ---
 
 <Layout
@@ -35,10 +61,12 @@ const accentColor = categoryColor(post.data.category);
   description={post.data.description}
 >
 
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
   <!-- En-tête de l'article (fond cacao) -->
   <section class="head">
     <div class="narrow head-inner">
-      <a href="/blog" class="back fade-up fade-up-delay-1">← Blog</a>
+      <a href="/blog/" class="back fade-up fade-up-delay-1">← Blog</a>
       <span class="cat fade-up fade-up-delay-1" style={`background: ${accentColor};`}>{post.data.category}</span>
       <h1 class="title fade-up fade-up-delay-2">{post.data.title}</h1>
       <p class="meta fade-up fade-up-delay-3">{formattedDate} · {readingTime} min de lecture</p>
@@ -72,8 +100,22 @@ const accentColor = categoryColor(post.data.category);
       </a>
     </div>
 
+    {autresArticles.length > 0 && (
+      <nav class="related" aria-label="À lire aussi">
+        <p class="related-title">À lire aussi</p>
+        <div class="related-grid">
+          {autresArticles.map(a => (
+            <a href={`/blog/${a.id}/`} class="related-card">
+              <span class="related-cat">{a.data.category}</span>
+              <span class="related-name">{a.data.title}</span>
+            </a>
+          ))}
+        </div>
+      </nav>
+    )}
+
     <div class="back-bottom">
-      <a href="/blog">← Tous les articles</a>
+      <a href="/blog/">← Tous les articles</a>
     </div>
 
   </article>
@@ -102,6 +144,14 @@ const accentColor = categoryColor(post.data.category);
     .cta-text { color: var(--color-muted-on-dark); margin-bottom: 1.5rem; }
     .cta-btn { display: inline-block; background: var(--color-caramel); color: var(--color-dark); padding: 0.9rem 1.5rem; font-weight: 700; border-radius: 6px; transition: opacity 0.2s ease; }
     .cta-btn:hover { opacity: 0.88; }
+
+    .related { margin-top: 3.5rem; }
+    .related-title { font-family: var(--font-display); font-weight: 800; font-stretch: 108%; font-size: 1.3rem; margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+    .related-card { background: var(--color-surface); border-radius: 6px; padding: 1.2rem 1.3rem; display: flex; flex-direction: column; gap: 0.4rem; transition: transform 0.25s ease; }
+    .related-card:hover { transform: translateY(-3px); }
+    .related-cat { font-size: 0.85rem; font-weight: 700; color: var(--color-accent); }
+    .related-name { font-family: var(--font-display); font-weight: 800; font-stretch: 105%; font-size: 1.1rem; line-height: 1.2; }
 
     .back-bottom { margin-top: 2.5rem; text-align: center; }
     .back-bottom a { font-weight: 600; color: var(--color-muted); }
