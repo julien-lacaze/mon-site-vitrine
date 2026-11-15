@@ -17,60 +17,32 @@ const categories = ['Marketing', 'IA', 'No-code', 'Productivité', 'Entrepreneur
 
 <Layout
   title="Blog"
-  description="Articles sur le marketing B2B, l'IA, le no-code et la productivité — Julien Lacaze, CMO Freelance"
+  description="Articles sur le marketing B2B, l'IA, le no-code et la productivité, par Julien Lacaze, CMO freelance"
 >
 
-  <!-- Header -->
-  <section id="blog-header" style="
-    padding: 12rem 3rem 6rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    border-bottom: 1px solid var(--color-border);
-  ">
-    <span class="tag fade-up fade-up-delay-1">Blog</span>
-    <h1 class="fade-up fade-up-delay-2" style="
-      font-size: clamp(3rem, 6vw, 5.5rem);
-      margin-top: 1.5rem;
-      max-width: 700px;
-      line-height: 1.05;
-    ">
-      Carnet de marketeur.<br/>
-      <em style="color: var(--color-accent); font-style: italic;">Vu du terrain.</em>
-    </h1>
-    <p class="fade-up fade-up-delay-3" style="
-      color: var(--color-muted);
-      max-width: 520px;
-      margin-top: 1.5rem;
-      font-size: 1rem;
-      line-height: 1.8;
-    ">
-      Marketing BtoB, IA, No-code, productivité et entrepreneuriat. Des articles pratiques
-      autant pour les entrepreneurs qui se lancent que pour les équipes marketing
-      qui souhaitent accélérer.
-    </p>
+  <!-- En-tête (fond cacao) -->
+  <section class="head">
+    <div class="wrap head-inner">
+      <h1 class="head-title fade-up fade-up-delay-1">Carnet de marketeur. <span class="caramel">Vu du terrain.</span></h1>
+      <p class="head-sub fade-up fade-up-delay-2">
+        Marketing BtoB, IA, No-code, productivité et entrepreneuriat. Des articles pratiques
+        autant pour les entrepreneurs qui se lancent que pour les équipes marketing
+        qui souhaitent accélérer.
+      </p>
+    </div>
   </section>
 
-  <!-- Filtres + Grille -->
-  <section id="blog-articles" style="
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 4rem 3rem 8rem;
-  ">
+  <!-- Filtres + grille -->
+  <section class="wrap articles">
 
-    <!-- Filtres -->
-    <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 3.5rem;">
-      <button class="filter-btn active" data-filter="tous">Tous</button>
+    <div class="filters" role="group" aria-label="Filtrer par catégorie">
+      <button type="button" class="filter-btn active" data-filter="tous" aria-pressed="true">Tous</button>
       {categories.map(cat => (
-        <button class="filter-btn" data-filter={cat} style={`--filter-accent: ${categoryColor(cat)};`}>{cat}</button>
+        <button type="button" class="filter-btn" data-filter={cat} aria-pressed="false" style={`--filter-accent: ${categoryColor(cat)};`}>{cat}</button>
       ))}
     </div>
 
-    <!-- Grille articles -->
-    <div id="articles-grid" style="
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.5rem;
-    ">
+    <div id="articles-grid" class="grid">
       {posts.map((post, i) => {
         const rt = readingTime((post.body as string | undefined) ?? '');
         const date = new Date(post.data.date).toLocaleDateString('fr-FR', {
@@ -81,55 +53,59 @@ const categories = ['Marketing', 'IA', 'No-code', 'Productivité', 'Entrepreneur
         return (
           <a
             href={`/blog/${post.id}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            class={`card reveal${i < 3 ? ` reveal-delay-${i + 1}` : ''}`}
+            class={`post reveal${i < 3 ? ` reveal-delay-${i + 1}` : ''}`}
             data-category={post.data.category}
-            style={`display: flex; flex-direction: column; text-decoration: none; --card-accent: ${categoryColor(post.data.category)};`}
           >
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
-              <span class="tag" style={`color: ${categoryColor(post.data.category)}; border-color: ${categoryColor(post.data.category)};`}>{post.data.category}</span>
-              <span style="font-size: 0.75rem; color: var(--color-muted);">{date}</span>
+            <div class="post-top">
+              <span class="post-cat" style={`background: ${categoryColor(post.data.category)};`}>{post.data.category}</span>
+              <span class="post-date">{date}</span>
             </div>
-            <h2 style="
-              font-size: 1.2rem;
-              margin-bottom: 0.75rem;
-              line-height: 1.35;
-              font-family: var(--font-display);
-              font-weight: 400;
-            ">{post.data.title}</h2>
-            <p style="
-              font-size: 0.88rem;
-              color: var(--color-muted);
-              line-height: 1.7;
-              margin-bottom: 1.5rem;
-              flex: 1;
-              text-align: left;
-            ">{post.data.description}</p>
-            <div style="
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              padding-top: 1.25rem;
-              border-top: 1px solid var(--color-border);
-            ">
-              <span style="font-size: 0.75rem; color: var(--color-muted);">{rt} min de lecture</span>
-              <span style="font-size: 0.8rem; color: var(--color-accent); letter-spacing: 0.05em;">Lire l'article →</span>
+            <h2 class="post-title">{post.data.title}</h2>
+            <p class="post-desc">{post.data.description}</p>
+            <div class="post-foot">
+              <span>{rt} min de lecture</span>
+              <span class="post-link">Lire l'article</span>
             </div>
           </a>
         );
       })}
     </div>
 
-    <!-- État vide (caché par défaut) -->
-    <p id="empty-state" style="
-      display: none;
-      color: var(--color-muted);
-      font-size: 0.9rem;
-      padding: 3rem 0;
-    ">Aucun article dans cette catégorie pour l'instant.</p>
-
+    <p id="empty-state" class="empty">Aucun article dans cette catégorie pour l'instant.</p>
   </section>
+
+  <style>
+    .wrap { max-width: 1240px; margin: 0 auto; padding-left: 1.75rem; padding-right: 1.75rem; }
+    .caramel { color: var(--color-caramel); }
+
+    .head { background: var(--color-dark); color: var(--color-on-dark); padding: 8rem 0 4rem; }
+    .head-inner { display: flex; flex-direction: column; gap: 1.2rem; }
+    .head-title { font-size: clamp(2.4rem, 7vw, 5.4rem); max-width: 12em; }
+    .head-sub { font-size: 1.1rem; color: var(--color-muted-on-dark); max-width: 36em; }
+
+    .articles { padding-top: 3.5rem; padding-bottom: 5rem; }
+    .filters { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2.5rem; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+    .post { background: var(--color-surface); border-radius: 6px; padding: 1.6rem; display: flex; flex-direction: column; gap: 0.8rem; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+    .post:hover { transform: translateY(-3px); box-shadow: 0 12px 30px -18px rgba(43, 31, 25, 0.45); }
+    .post-top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .post-cat { color: #FFFFFF; font-size: 0.8rem; font-weight: 700; padding: 0.2rem 0.7rem; border-radius: 999px; }
+    .post-date { font-size: 0.85rem; color: var(--color-muted); }
+    .post-title { font-size: 1.45rem; line-height: 1.15; }
+    .post-desc { color: var(--color-muted); font-size: 0.95rem; flex: 1; }
+    .post-foot { display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid var(--color-border); font-size: 0.85rem; color: var(--color-muted); }
+    .post-link { font-weight: 700; color: var(--color-accent); }
+    .post-link::after { content: ' →'; }
+
+    .empty { display: none; color: var(--color-muted); padding: 3rem 0; }
+
+    @media (max-width: 700px) {
+      .wrap { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+      .head { padding: 7rem 0 3rem !important; }
+      .grid { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
 
   <script>
     const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
@@ -140,8 +116,12 @@ const categories = ['Marketing', 'IA', 'No-code', 'Productivité', 'Entrepreneur
       btn.addEventListener('click', () => {
         const filter = btn.dataset.filter ?? 'tous';
 
-        buttons.forEach(b => b.classList.remove('active'));
+        buttons.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        });
         btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
 
         let visible = 0;
         articles.forEach(article => {

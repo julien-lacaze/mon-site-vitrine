@@ -1,11 +1,11 @@
 ---
 title: "CMO part-time : ce que ça coûte vraiment vs un CDI"
 metaTitle: "CMO part-time vs CDI : quel coût réel pour votre entreprise ?"
-description: "Pour une startup ou une PME, recruter un directeur marketing en CDI peut être prématuré et coûteux. Voici pourquoi le CMO part-time est souvent la meilleure option — et comment bien le choisir."
+description: "Pour une startup ou une PME, recruter un directeur marketing en CDI peut être prématuré et coûteux. Voici pourquoi le CMO part-time est souvent la meilleure option, et comment bien le choisir."
 date: 2026-06-23
 category: Marketing
 tldr:
-  - "Recruter un CMO en CDI trop tôt coûte entre 70 000 € et 120 000 €/an, avec 3 à 6 mois de recrutement — un pari risqué si vos canaux d'acquisition ne sont pas encore validés."
+  - "Recruter un CMO en CDI trop tôt coûte entre 70 000 € et 120 000 €/an, avec 3 à 6 mois de recrutement : un pari risqué si vos canaux d'acquisition ne sont pas encore validés."
   - "Le CMO part-time offre séniorité immédiate, coût maîtrisé (3 000–8 000 €/mois) et flexibilité, sans charges patronales."
   - "Il est particulièrement adapté aux startups en go-to-market, PME sans fonction marketing et entreprises en transition."
   - "Avant de recruter en CDI, posez-vous la question : est-ce que je sais déjà quels canaux fonctionnent pour moi ?"
@@ -13,7 +13,7 @@ tldr:
 
 Vous avez une équipe commerciale qui commence à tourner, un produit qui plaît, et vous réalisez que le marketing est votre prochain levier de croissance. Réflexe naturel : recruter un directeur marketing.
 
-Mauvaise idée — du moins à ce stade.
+Mauvaise idée, du moins à ce stade.
 
 ## Le problème du CDI marketing trop tôt
 
@@ -25,7 +25,7 @@ Le pire scénario : recruter trop tôt, brûler du cash pendant 6 mois sur quelq
 
 ## Ce que le CMO part-time change
 
-Un CMO part-time intervient 1 à 3 jours par semaine, en mission, sur une durée définie. Ce n'est pas un consultant qui livre des slides — c'est quelqu'un qui s'implique dans l'exécution, qui pilote les prestataires, qui mesure les résultats.
+Un CMO part-time intervient 1 à 3 jours par semaine, en mission, sur une durée définie. Ce n'est pas un consultant qui livre des slides, c'est quelqu'un qui s'implique dans l'exécution, qui pilote les prestataires, qui mesure les résultats.
 
 Les avantages concrets :
 
@@ -38,7 +38,7 @@ Les avantages concrets :
 
 **La startup en phase de go-to-market.** Vous avez validé votre produit et cherchez vos premiers canaux d'acquisition. Vous avez besoin de quelqu'un pour tester vite, mesurer, et choisir où concentrer les efforts. Pas d'un chef de projet marketing qui attend qu'on lui dise quoi faire.
 
-**La PME sans fonction marketing.** Vous avez une belle boîte, des commerciaux, un bon produit, mais aucune stratégie marketing formalisée. Un CMO part-time peut poser les bases en 3 à 6 mois — stratégie, positionnement, premiers canaux — et vous aider à recruter le bon profil ensuite.
+**La PME sans fonction marketing.** Vous avez une belle boîte, des commerciaux, un bon produit, mais aucune stratégie marketing formalisée. Un CMO part-time peut poser les bases en 3 à 6 mois (stratégie, positionnement, premiers canaux) et vous aider à recruter le bon profil ensuite.
 
 **L'entreprise en transition.** Votre dernier directeur marketing vient de partir. Plutôt que de recruter dans la précipitation, un CMO part-time maintient le cap le temps du recrutement et vous évite de prendre une mauvaise décision sous pression.
 
@@ -46,7 +46,7 @@ Les avantages concrets :
 
 Quelques points de vigilance avant de signer :
 
-**Vérifiez l'orientation exécution.** Un bon CMO part-time doit être capable de faire lui-même — écrire un email, configurer une campagne, briifer un graphiste. Si son discours est uniquement stratégique, passez votre chemin.
+**Vérifiez l'orientation exécution.** Un bon CMO part-time doit être capable de faire lui-même : écrire un email, configurer une campagne, briifer un graphiste. Si son discours est uniquement stratégique, passez votre chemin.
 
 **Demandez des références récentes.** Le marketing change vite. Des références de 2019 ne vous disent rien sur la capacité à naviguer dans un écosystème où l'IA a tout bouleversé.
 
@@ -56,7 +56,7 @@ Quelques points de vigilance avant de signer :
 
 Avant de publier une annonce pour un directeur marketing en CDI, posez-vous cette question : *est-ce que je sais déjà quels canaux fonctionnent pour moi ?*
 
-Si la réponse est non, vous n'avez pas besoin d'un exécutant. Vous avez besoin de quelqu'un qui sait comment trouver la réponse — et qui ne vous coûtera pas 90 000 € par an pendant que vous l'attendez.
+Si la réponse est non, vous n'avez pas besoin d'un exécutant. Vous avez besoin de quelqu'un qui sait comment trouver la réponse, et qui ne vous coûtera pas 90 000 € par an pendant que vous l'attendez.
 
 C'est précisément le rôle du CMO part-time.
 

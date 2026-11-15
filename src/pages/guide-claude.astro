@@ -98,9 +98,10 @@ const faq = [
 >
 
   <!-- Hero -->
-  <section id="guide-hero" style="
-    padding: 10rem 3rem 6rem;
-    max-width: 1400px;
+  <section class="g-hero">
+  <div id="guide-hero" style="
+    padding: 9rem 1.75rem 5rem;
+    max-width: 1240px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1.2fr 1fr;
@@ -108,17 +109,16 @@ const faq = [
     align-items: center;
   ">
     <div>
-      <span class="tag fade-up">Guide complet gratuit · PDF</span>
+      <span class="tag tag-dark fade-up">Guide complet gratuit · PDF</span>
       <h1 class="fade-up fade-up-delay-1" style="
-        font-size: clamp(2.8rem, 5.5vw, 5rem);
+        font-size: clamp(2.4rem, 5.5vw, 4.8rem);
         margin-top: 1.5rem;
-        line-height: 1.05;
       ">
         Claude : les bases pour
-        <em style="color: var(--color-accent); font-style: italic;">tout</em> comprendre.
+        <span class="accent">tout</span> comprendre.
       </h1>
       <p class="fade-up fade-up-delay-2" style="
-        color: var(--color-muted);
+        color: var(--color-muted-on-dark);
         max-width: 540px;
         margin-top: 1.75rem;
         font-size: 1.1rem;
@@ -130,8 +130,8 @@ const faq = [
       </p>
 
       <div class="fade-up fade-up-delay-3" style="margin-top: 2.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem;">
-        <a href={TALLY_URL} class="guide-cta">Recevoir le guide complet</a>
-        <span style="font-size: 0.85rem; color: var(--color-muted);">Téléchargement immédiat après inscription</span>
+        <a href={TALLY_URL} class="guide-cta guide-cta-light">Recevoir le guide complet</a>
+        <span style="font-size: 0.9rem; color: var(--color-muted-on-dark);">Téléchargement immédiat après inscription</span>
       </div>
 
       <ul class="fade-up fade-up-delay-4" style="
@@ -141,14 +141,14 @@ const faq = [
         gap: 0.75rem 2rem;
         margin-top: 2.5rem;
         padding-top: 2rem;
-        border-top: 1px solid var(--color-border);
-        font-size: 0.85rem;
-        color: var(--color-muted);
+        border-top: 1px solid rgba(244, 238, 230, 0.2);
+        font-size: 0.95rem;
+        color: var(--color-muted-on-dark);
       ">
-        <li><strong style="font-weight: 500; color: var(--color-text);">23 pages</strong>, 11 sections</li>
-        <li><strong style="font-weight: 500; color: var(--color-text);">9 réglages</strong> prêts à copier</li>
-        <li><strong style="font-weight: 500; color: var(--color-text);">3 exercices</strong> pratiques</li>
-        <li><strong style="font-weight: 500; color: var(--color-text);">0 jargon</strong> inutile</li>
+        <li><strong style="font-weight: 700; color: var(--color-on-dark);">23 pages</strong>, 11 sections</li>
+        <li><strong style="font-weight: 700; color: var(--color-on-dark);">9 réglages</strong> prêts à copier</li>
+        <li><strong style="font-weight: 700; color: var(--color-on-dark);">3 exercices</strong> pratiques</li>
+        <li><strong style="font-weight: 700; color: var(--color-on-dark);">0 jargon</strong> inutile</li>
       </ul>
       <a href="#formation" class="hero-formation fade-up fade-up-delay-4">
         <span class="hero-formation-tag">Équipes</span>
@@ -166,19 +166,16 @@ const faq = [
         class="cover-front"
       />
     </div>
+  </div>
   </section>
 
   <!-- Pour qui -->
-  <section style="
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-    background: var(--color-surface);
-  ">
+  <section style="background: var(--color-surface);">
     <div style="max-width: 900px; margin: 0 auto; padding: 6rem 3rem; text-align: center;" class="reveal">
-      <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.5rem; text-align: center;">Pour qui ?</p>
+      <p style="font-size: 0.95rem; font-weight: 700; color: var(--color-accent); margin-bottom: 1.5rem; text-align: center;">Pour qui ?</p>
       <h2 style="font-size: clamp(1.8rem, 3.5vw, 2.8rem); line-height: 1.2;">
         Vous avez ouvert Claude, posé deux questions,
-        et vous vous demandez si vous l'utilisez <em style="color: var(--color-accent);">vraiment</em> bien ?
+        et vous vous demandez si vous l'utilisez <span class="accent">vraiment</span> bien ?
       </h2>
       <p style="color: var(--color-muted); margin-top: 2rem; font-size: 1.05rem; line-height: 1.8; text-align: center;">
         Ce guide s'adresse aux indépendants, entrepreneurs et membres d'une équipe qui démarrent avec l'IA.
@@ -213,27 +210,27 @@ const faq = [
   <!-- Extrait -->
   <section style="max-width: 1100px; margin: 0 auto; padding: 4rem 3rem 6rem;">
     <div class="reveal">
-      <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">Un avant-goût</p>
+      <p style="font-size: 0.95rem; font-weight: 700; color: var(--color-accent); margin-bottom: 1rem;">Un avant-goût</p>
       <h2 style="font-size: clamp(1.8rem, 3.5vw, 2.6rem); margin-bottom: 2.5rem; max-width: 760px;">
-        Le réflexe n°1 : que Claude vous connaisse <em style="color: var(--color-accent);">avant même</em> de répondre
+        Le réflexe n°1 : que Claude vous connaisse <span class="accent">avant même</span> de répondre
       </h2>
     </div>
     <div id="guide-extrait" style="display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem;">
-      <div class="reveal-left" style="border: 1px solid var(--color-border); padding: 2rem; border-radius: 2px;">
-        <p style="font-size: 0.72rem; color: var(--color-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">Avant</p>
+      <div class="reveal-left" style="background: var(--color-surface); padding: 2rem; border-radius: 6px;">
+        <p style="font-size: 0.95rem; font-weight: 700; color: var(--color-muted); margin-bottom: 1rem;">Avant</p>
         <ul class="fichiers" aria-label="Contexte donné à Claude">
           <li class="fichier fichier-vide">Claude ne sait rien de vous</li>
         </ul>
-        <p style="font-family: var(--font-display); font-size: 1.3rem; line-height: 1.4; text-align: left;">« Écris-moi un post LinkedIn pour gagner des clients. »</p>
+        <p style="font-size: 1.2rem; font-weight: 600; line-height: 1.45; text-align: left;">« Écris-moi un post LinkedIn pour gagner des clients. »</p>
       </div>
-      <div class="reveal-right" style="background: var(--color-text); color: var(--color-bg); padding: 2rem; border-radius: 2px;">
-        <p style="font-size: 0.72rem; color: var(--color-border); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">Après</p>
+      <div class="reveal-right" style="background: var(--color-dark); color: var(--color-on-dark); padding: 2rem; border-radius: 6px;">
+        <p style="font-size: 0.95rem; font-weight: 700; color: var(--color-caramel); margin-bottom: 1rem;">Après</p>
         <ul class="fichiers" aria-label="Fichiers lus par Claude avant de répondre">
           {['Qui je suis', 'Mon entreprise', 'Ma voix', 'Mes règles'].map((f) => (
             <li class="fichier">{f}</li>
           ))}
         </ul>
-        <p style="font-family: var(--font-display); font-size: 1.15rem; line-height: 1.6; text-align: left;">
+        <p style="font-size: 1.05rem; font-weight: 500; line-height: 1.6; text-align: left;">
           « Lis les 4 fichiers (qui je suis, mon entreprise, ma voix et mes règles) à la racine du projet.
           Écris un post LinkedIn de 120 mots pour des dirigeants de PME, sur [sujet].
           Ton direct et chaleureux, pas de jargon inutile. Termine par une question.
@@ -252,7 +249,7 @@ const faq = [
   <section style="border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
     <div style="max-width: 1100px; margin: 0 auto; padding: 6rem 3rem;">
       <div class="reveal" style="max-width: 700px; margin-bottom: 3rem;">
-        <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">Sobriété</p>
+        <p style="font-size: 0.95rem; font-weight: 700; color: var(--color-accent); margin-bottom: 1rem;">Sobriété</p>
         <h2 style="font-size: clamp(1.8rem, 3.5vw, 2.6rem);">Des ordres de grandeur sourcés</h2>
       </div>
       <div id="guide-chiffres" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
@@ -285,7 +282,7 @@ const faq = [
         <span class="pill-jaune">Dans le guide complet</span>
         <h2 style="font-size: clamp(2rem, 4vw, 3.2rem); margin-top: 1.5rem; color: #F9F4EE;">
           23 pages pour passer de la découverte<br/>
-          <span style="color: #F2B632;">à l'autonomie.</span>
+          <span style="color: var(--color-caramel);">à l'autonomie.</span>
         </h2>
         <p style="margin-top: 1.25rem; font-size: 1.02rem; line-height: 1.8; color: rgba(249, 244, 238, 0.8); text-align: left;">
           Tout ce qu'il faut pour choisir le bon outil, le régler, bien lui parler et garder la main.
@@ -329,13 +326,13 @@ const faq = [
   </section>
 
   <!-- Formation sur place -->
-  <section id="formation" style="border-bottom: 1px solid var(--color-border); background: var(--color-surface);">
+  <section id="formation" style="background: var(--color-surface);">
     <div style="max-width: 1200px; margin: 0 auto; padding: 7rem 3rem;">
       <div class="reveal" style="max-width: 780px; margin-bottom: 3.5rem;">
         <span class="tag">Formation sur place</span>
         <h2 style="font-size: clamp(2rem, 4vw, 3.2rem); margin-top: 1.5rem;">
           Les bases sont maîtrisées ?<br/>
-          <em style="color: var(--color-accent);">Faites passer votre équipe au niveau supérieur.</em>
+          <span class="accent">Faites passer votre équipe au niveau supérieur.</span>
         </h2>
         <p style="color: var(--color-muted); margin-top: 1.25rem; font-size: 1.05rem; line-height: 1.8; text-align: left;">
           Je viens former vos équipes dans vos locaux, sur vos outils et vos vrais cas.
@@ -345,8 +342,8 @@ const faq = [
 
       <div id="formation-formats" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
         {formats.map((f, i) => (
-          <article class={`card reveal-pop reveal-delay-${i + 1}`} style={`--card-accent: ${f.accent}; background: var(--color-bg);`}>
-            <p style={`font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: ${f.accent}; margin-bottom: 1rem;`}>{f.duree}</p>
+          <article class={`card reveal-pop reveal-delay-${i + 1}`} style="--card-accent: var(--color-accent); background: var(--color-bg);">
+            <p style="font-size: 0.95rem; font-weight: 700; color: var(--color-accent); margin-bottom: 0.8rem;">{f.duree}</p>
             <h3 style="font-size: 1.5rem; line-height: 1.2; margin-bottom: 1rem;">{f.titre}</h3>
             <p style="font-size: 0.92rem; color: var(--color-muted); line-height: 1.7; text-align: left;">{f.texte}</p>
           </article>
@@ -394,7 +391,7 @@ const faq = [
         style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%; border: 1px solid var(--color-border);"
       />
       <div class="reveal">
-        <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">L'auteur</p>
+        <p style="font-size: 0.95rem; font-weight: 700; color: var(--color-accent); margin-bottom: 1rem;">L'auteur</p>
         <h2 style="font-size: 2rem; margin-bottom: 1.25rem;">Julien LACAZE</h2>
         <p style="color: var(--color-muted); font-size: 1rem; line-height: 1.8; text-align: left;">
           CMO freelance à Bordeaux, j'accompagne startups et PME dans leur marketing depuis plus de 10 ans.
@@ -427,22 +424,23 @@ const faq = [
     padding: 8rem 3rem;
     text-align: center;
     border-top: 1px solid var(--color-border);
-    background: var(--color-surface);
+    background: var(--color-caramel);
+    margin-bottom: -6rem;
   ">
     <div class="reveal">
       <h2 style="font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 1.25rem;">
-        Démarrez avec Claude, <em style="color: var(--color-accent);">du bon pied</em>.
+        Démarrez avec Claude, du bon pied.
       </h2>
-      <p style="color: var(--color-muted); max-width: 520px; margin: 0 auto 2.5rem; font-size: 1rem; text-align: center;">
+      <p style="color: var(--color-dark); max-width: 520px; margin: 0 auto 2.5rem; font-size: 1rem; text-align: center;">
         23 pages, 11 sections, 3 exercices. Et des réflexes que vous garderez longtemps.
       </p>
       <a href={TALLY_URL} class="guide-cta">Recevoir le guide complet</a>
-      <p style="font-size: 0.8rem; color: var(--color-muted); margin-top: 1.25rem; text-align: center;">
+      <p style="font-size: 0.8rem; color: var(--color-dark); margin-top: 1.25rem; text-align: center;">
         Gratuit · Téléchargement immédiat · Sans spam
       </p>
-      <p style="margin-top: 2.5rem; font-size: 0.95rem; color: var(--color-muted); text-align: center;">
+      <p style="margin-top: 2.5rem; font-size: 0.95rem; color: var(--color-dark); text-align: center;">
         Vous préférez former votre équipe ?
-        <a href={CALENDLY_URL} target="_blank" rel="noopener" class="hover-accent" style="color: var(--color-accent);">Parlons-en autour d'un café virtuel</a>
+        <a href={CALENDLY_URL} target="_blank" rel="noopener" style="color: var(--color-dark); font-weight: 700; text-decoration: underline; text-underline-offset: 3px;">Parlons-en autour d'un café virtuel</a>
       </p>
     </div>
   </section>
@@ -452,28 +450,30 @@ const faq = [
 <style>
   /* Couleurs de la charte du guide, utilisées seulement sur cette page */
   #guide-complet {
-    --guide-vert: #1E4D3B;
-    --guide-orange: #D9622A;
-    --guide-jaune: #F2B632;
-    --guide-creme: #F9F4EE;
+    --guide-vert: var(--color-dark);
+    --guide-orange: var(--color-caramel);
+    --guide-jaune: var(--color-caramel);
+    --guide-creme: var(--color-on-dark);
   }
+
+  .g-hero { background: var(--color-dark); color: var(--color-on-dark); }
+  .g-hero h1 { color: var(--color-on-dark); }
+  .g-hero .accent { color: var(--color-caramel); }
+  .accent { color: var(--color-accent); }
+  .tag-dark { color: var(--color-caramel); border-color: var(--color-caramel); }
 
   .guide-cta {
     display: inline-block;
-    background: var(--color-accent);
-    color: var(--color-bg);
-    padding: 1.1rem 2.5rem;
-    font-size: 0.92rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    border-radius: 1px;
-    transition: background 0.2s ease, transform 0.2s ease;
+    background: var(--color-dark);
+    color: var(--color-on-dark);
+    padding: 0.95rem 1.6rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 6px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
   }
-  .guide-cta:hover {
-    background: var(--color-accent2);
-    transform: translateY(-2px);
-  }
+  .guide-cta:hover { opacity: 0.88; transform: translateY(-2px); }
+  .guide-cta-light { background: var(--color-caramel); color: var(--color-dark); }
   .guide-cta:focus-visible,
   .cta-complet:focus-visible,
   .complet-express:focus-visible {
@@ -491,7 +491,7 @@ const faq = [
     display: block;
     width: 100%;
     height: auto;
-    box-shadow: 0 30px 60px -20px rgba(28, 25, 22, 0.35);
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6);
     transform: rotate(2deg);
     transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -507,7 +507,9 @@ const faq = [
   }
   .programme-num {
     font-family: var(--font-display);
-    font-size: 1.8rem;
+    font-weight: 900;
+    font-stretch: 115%;
+    font-size: 1.7rem;
     line-height: 1.1;
     color: var(--color-accent);
   }
@@ -515,15 +517,17 @@ const faq = [
   /* Chiffres */
   .chiffre {
     background: var(--color-surface);
-    border: 1px solid var(--color-border);
     padding: 2rem;
-    border-radius: 2px;
+    border-radius: 6px;
   }
   .chiffre-valeur {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 3.5vw, 2.6rem);
+    font-weight: 900;
+    font-stretch: 112%;
+    letter-spacing: -0.03em;
+    font-size: clamp(1.9rem, 3.5vw, 2.5rem);
     line-height: 1.1;
-    color: var(--color-accent2);
+    color: var(--color-accent);
     text-align: left;
   }
   .chiffre-label {
@@ -548,10 +552,8 @@ const faq = [
     display: inline-block;
     background: var(--guide-jaune);
     color: var(--guide-vert);
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: 700;
     padding: 5px 14px;
     border-radius: 999px;
   }
@@ -573,7 +575,9 @@ const faq = [
   }
   .complet-chiffre {
     font-family: var(--font-display);
-    font-size: 2.8rem;
+    font-weight: 900;
+    font-stretch: 115%;
+    font-size: 2.6rem;
     line-height: 1;
     color: var(--guide-jaune);
     text-align: left;
@@ -608,7 +612,9 @@ const faq = [
   }
   .complet-nom {
     font-family: var(--font-display);
-    font-size: 1.6rem;
+    font-weight: 800;
+    font-stretch: 112%;
+    font-size: 1.5rem;
     line-height: 1.2;
     color: var(--guide-creme);
     text-align: left;
@@ -623,10 +629,9 @@ const faq = [
     margin: 1.75rem 0 1rem;
     padding-top: 1.5rem;
     border-top: 1px solid rgba(249, 244, 238, 0.15);
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(249, 244, 238, 0.65);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--guide-creme);
     text-align: left;
   }
   .complet-resultat {
@@ -673,17 +678,15 @@ const faq = [
   .complet-express:hover { color: var(--guide-creme); }
   .cta-complet {
     display: inline-block;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 0.8rem 1.4rem;
-    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.95rem 1.4rem;
+    border-radius: 6px;
     transition: transform 0.2s ease, background 0.2s ease;
   }
   .cta-complet {
     background: var(--guide-orange);
-    color: #FFFFFF;
+    color: var(--color-dark);
   }
   .cta-complet:hover { transform: translateY(-2px); }
 
@@ -731,23 +734,21 @@ const faq = [
     gap: 0.6rem;
     margin-top: 1.75rem;
     padding: 0.7rem 1.1rem;
-    border: 1px solid var(--color-border);
+    border: 1px solid rgba(244, 238, 230, 0.3);
     border-radius: 999px;
-    font-size: 0.85rem;
-    color: var(--color-text);
+    font-size: 0.95rem;
+    color: var(--color-on-dark);
     transition: border-color 0.2s ease, background 0.2s ease;
   }
   .hero-formation:hover {
-    border-color: var(--color-accent);
-    background: var(--color-surface);
+    border-color: var(--color-caramel);
+    background: rgba(244, 238, 230, 0.06);
   }
   .hero-formation-tag {
-    font-size: 0.65rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-bg);
-    background: var(--color-accent);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    background: var(--color-caramel);
     padding: 2px 9px;
     border-radius: 999px;
   }
@@ -755,7 +756,10 @@ const faq = [
   /* Preuves formation */
   .preuve-chiffre {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 3.5vw, 2.6rem);
+    font-weight: 900;
+    font-stretch: 112%;
+    letter-spacing: -0.03em;
+    font-size: clamp(1.9rem, 3.5vw, 2.5rem);
     line-height: 1.1;
     color: var(--color-accent);
     text-align: left;
@@ -774,7 +778,10 @@ const faq = [
   }
   .guide-faq summary {
     font-family: var(--font-display);
-    font-size: 1.2rem;
+    font-weight: 700;
+    font-stretch: 105%;
+    font-size: 1.15rem;
+    cursor: pointer;
     list-style: none;
     display: flex;
     justify-content: space-between;
@@ -804,7 +811,8 @@ const faq = [
   }
 
   @media (max-width: 768px) {
-    #guide-hero { grid-template-columns: 1fr !important; gap: 3rem !important; padding: 8rem 1.5rem 4rem !important; }
+    #guide-hero { grid-template-columns: 1fr !important; gap: 3rem !important; padding: 7rem 1.25rem 3.5rem !important; }
+    .g-hero { padding-left: 0 !important; padding-right: 0 !important; }
     #guide-cover { order: -1; max-width: 240px; }
     #guide-extrait { grid-template-columns: 1fr !important; }
     #guide-chiffres { grid-template-columns: 1fr !important; }
@@ -813,6 +821,10 @@ const faq = [
     #guide-auteur { grid-template-columns: 1fr !important; gap: 2rem !important; padding: 4rem 1.5rem !important; }
     #guide-cta-final { padding: 5rem 1.5rem !important; }
     .complet-tuiles { grid-template-columns: 1fr; }
+    section { padding-left: 0 !important; padding-right: 0 !important; }
+    section > div { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+    #formation-formats h3 { font-size: 1.3rem !important; overflow-wrap: anywhere; }
+    .card { padding: 1.4rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {

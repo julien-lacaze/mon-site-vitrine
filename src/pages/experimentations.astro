@@ -1,24 +1,43 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const experiments = [
+type Slide = { src: string; alt: string; caption: string };
+type Experiment = {
+  id: string;
+  number: string;
+  title: string;
+  subtitle: string;
+  tag: string;
+  status: string;
+  year: string;
+  facts?: { label: string; value: string }[];
+  description: string;
+  stack?: string[];
+  learnings: string[];
+  link: string | null;
+  image?: { src: string; alt: string };
+  slides?: Slide[];
+  slidesFit?: 'cover' | 'contain';
+  note?: string;
+};
+
+const experiments: Experiment[] = [
   {
     id: 'site-vitrine',
     number: '01',
     title: 'Ce site web',
     subtitle: 'Site vitrine codé avec Claude',
     tag: 'Astro · Tailwind · Claude',
-    color: 'var(--color-accent)',
     status: 'En ligne',
     year: '2026',
-    description: "Ce que vous lisez en ce moment. Un site vitrine entièrement pensé, architecturé et codé avec Claude — sans toucher à une ligne de code manuellement. Architecture Astro + Tailwind, hébergé sur Netlify, formulaire Tally. Une façon de montrer ce qu'on peut faire en no code / low code avec les bons outils.",
+    description: "Ce que vous lisez en ce moment. Un site vitrine entièrement pensé, architecturé et codé avec Claude, sans toucher à une ligne de code manuellement. Architecture Astro + Tailwind, hébergé sur Netlify, formulaire Tally. Une façon de montrer ce qu'on peut faire en no code / low code avec les bons outils.",
     learnings: [
       'Astro comme framework de choix pour les sites statiques en 2026',
       'La collaboration Claude Code + terminal rend le dev accessible sans être dev',
       'Le design system CSS variables > frameworks lourds pour des sites vitrines',
     ],
     link: null,
-    mockup: null,
+    image: { src: '/mockups/site-vitrine-mockup.png', alt: 'Mockup site vitrine Julien Lacaze' },
   },
   {
     id: 'chatbot-karotte',
@@ -26,23 +45,32 @@ const experiments = [
     title: 'Assistant IA pour DRH',
     subtitle: "Chatbot d'avant-vente, prototype non officiel pour Karotte",
     tag: 'n8n · Supabase · OpenAI · Softr',
-    color: 'var(--color-accent3)',
     status: 'POC terminé',
     year: '2026',
+    facts: [
+      { label: 'Contexte', value: 'Projet final, formation AI Product Builder du Wagon' },
+      { label: 'Jeu de test', value: '12 réponses conformes sur 15, aucun prix inventé' },
+    ],
     description: "Projet final de la formation AI Product Builder du Wagon, présenté au demo day du 30 octobre 2026. Un DRH qui découvre Karotte, l'application de pauses actives en entreprise, a des questions sur les offres, le RGPD ou la mise en place avant d'accepter un rendez-vous. Mon assistant répond tout de suite, uniquement à partir des contenus de Karotte, puis enregistre les questions restées sans réponse pour enrichir la FAQ. Prototype non officiel, réalisé dans le cadre de la formation.",
     stack: [
       "Softr pour la page d'accueil « Est-ce que Karotte est fait pour vous ? »",
       "n8n pour le chat et l'agent IA",
-      "Supabase pour la base de connaissances (RAG) : 57 extraits des documents de Karotte",
-      "Airtable pour le journal des questions restées sans réponse",
+      'Supabase pour la base de connaissances (RAG) : 57 extraits des documents de Karotte',
+      'Airtable pour le journal des questions restées sans réponse',
     ],
     learnings: [
       "Les garde-fous s'écrivent avant les écrans : aucun prix inventé, aucun conseil médical, renvoi vers l'équipe quand l'assistant ne sait pas",
-      'Les questions sans réponse sont une mine d\'or : elles montrent ce que les prospects se demandent vraiment',
+      "Les questions sans réponse sont une mine d'or : elles montrent ce que les prospects se demandent vraiment",
       "Une consigne ne suffit pas toujours : ce que l'IA oublie, un nœud de code le garantit",
     ],
     link: null,
-    mockup: null,
+    slidesFit: 'contain',
+    slides: [
+      { src: '/mockups/karotte-chat-desktop.png', alt: "Assistant IA Karotte sur ordinateur : un DRH d'une entreprise de 200 salariés demande si Karotte lui convient, l'assistant explique les bénéfices et lui demande son objectif prioritaire", caption: 'Une vraie question de DRH, sur ordinateur' },
+      { src: '/mockups/karotte-chat.png', alt: "Assistant IA Karotte : message d'accueil du chat, qui précise qu'il s'agit d'une IA", caption: 'Le chat vu par le DRH' },
+      { src: '/mockups/karotte-workflow-n8n.png', alt: "Workflow n8n de l'agent Karotte : chat, agent IA, base de connaissances Supabase, journal Airtable", caption: "Le workflow n8n de l'agent" },
+    ],
+    note: 'Prototype non officiel, réalisé dans le cadre de la formation AI Product Builder du Wagon.',
   },
   {
     id: 'cursus',
@@ -50,312 +78,227 @@ const experiments = [
     title: 'Cursus',
     subtitle: 'App de running B2C',
     tag: 'React · Mapbox · Strava',
-    color: 'var(--color-accent2)',
     status: 'En développement',
     year: '2026',
-    description: "Application mobile de running en développement — de l'idée au produit, construit avec Claude Code. L'objectif : aller le plus loin possible dans le développement d'un produit réel sans équipe tech, en utilisant l'IA comme partenaire de développement.",
+    description: "Application mobile de running en développement, de l'idée au produit, construite avec Claude Code. L'objectif : aller le plus loin possible dans le développement d'un produit réel sans équipe tech, en utilisant l'IA comme partenaire de développement.",
     learnings: [
       'Claude Code permet de prototyper des idées produit en quelques sessions',
       'Les mockups et la définition UX se font dans le même environnement',
-      'La limite n\'est plus technique — elle est dans la clarté du brief',
+      "La limite n'est plus technique : elle est dans la clarté du brief",
     ],
     link: null,
-    mockup: null, // Ajoute le chemin de ton mockup ici : '/mockups/cursus.png'
+    slidesFit: 'cover',
+    slides: [
+      { src: '/mockups/cursus-accueil.jpg', alt: "Page d'accueil de Cursus : les monuments ont leur histoire, écris la tienne", caption: "L'accueil, avant connexion" },
+      { src: '/mockups/cursus-monument-legend.jpg', alt: 'Page Monument Legend de Cursus : le titre des coureurs qui dominent les segments autour des monuments', caption: 'Monument Legend, la couronne à décrocher' },
+      { src: '/mockups/cursus-carte.jpg', alt: 'Carte de France de Cursus avec les monuments et les segments', caption: 'La carte des monuments, une fois connecté' },
+      { src: '/mockups/cursus-segments.jpg', alt: 'Liste des segments Cursus autour des monuments de Bordeaux', caption: 'Les segments autour des monuments' },
+      { src: '/mockups/cursus-profil.jpg', alt: 'Profil coureur dans Cursus : statistiques, badges et synchronisation Strava', caption: 'Le profil coureur' },
+    ],
   },
 ];
 ---
 
-<Layout title="Expérimentations" description="Ce que je construis avec Claude — Julien Lacaze">
+<Layout title="Expérimentations" description="Ce que je construis avec Claude, par Julien Lacaze">
 
-  <!-- Header -->
-  <section id="experimentations-header" style="
-    padding: 12rem 3rem 6rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    border-bottom: 1px solid var(--color-border);
-  ">
-    <span class="tag">Expérimentations</span>
-    <h1 style="
-      font-size: clamp(3rem, 6vw, 5.5rem);
-      margin-top: 1.5rem;
-      max-width: 800px;
-      line-height: 1.05;
-    ">
-      Ce que je construis<br/>
-      <em style="color: var(--color-accent); font-style: italic;">avec l'IA.</em>
-    </h1>
-    <p style="
-      color: var(--color-muted);
-      max-width: 560px;
-      margin-top: 1.5rem;
-      font-size: 1.05rem;
-      line-height: 1.8;
-    ">
-      Je ne fais pas que conseiller l'usage de l'IA à mes clients — je l'expérimente en direct.
-      Sites, applications, automatisations. Voilà ce que ça donne.
-    </p>
+  <!-- En-tête (fond cacao) -->
+  <section class="head">
+    <div class="wrap head-inner">
+      <h1 class="head-title fade-up fade-up-delay-1">Ce que je construis <span class="caramel">avec l'IA.</span></h1>
+      <p class="head-sub fade-up fade-up-delay-2">
+        Je ne fais pas que conseiller l'usage de l'IA à mes clients : je l'expérimente en direct.
+        Sites, applications, automatisations. Voilà ce que ça donne.
+      </p>
+      <nav class="jump fade-up fade-up-delay-3" aria-label="Aller à une expérimentation">
+        {experiments.map((e) => <a href={`#${e.id}`}>{e.title}</a>)}
+      </nav>
+    </div>
   </section>
 
   <!-- Expérimentations -->
-  <section style="
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 3rem;
-  ">
-
-    {experiments.map((exp) => (
-      <article id={exp.id} class="case-study" style="
-        padding: 6rem 0;
-        border-bottom: 1px solid var(--color-border);
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-        gap: 6rem;
-        align-items: start;
-      ">
-        <!-- Left -->
-        <div class="case-study-left reveal-left" style="position: sticky; top: 8rem;">
-          <div style="
-            font-family: var(--font-display);
-            font-size: 4rem;
-            color: var(--color-border);
-            margin-bottom: 2rem;
-            line-height: 1;
-          ">{exp.number}</div>
-          <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">{exp.title}</h2>
-          <p style="color: var(--color-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">{exp.subtitle}</p>
-          <span class="tag" style={`color: ${exp.color}; border-color: ${exp.color};`}>{exp.tag}</span>
-
-          <div style={`margin-top: 2rem; padding-top: 2rem; border-top: 1px solid ${exp.color};`}>
-            <p style="font-size: 0.75rem; color: var(--color-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem;">Statut</p>
-            <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <span style={`width: 7px; height: 7px; border-radius: 50%; background: ${exp.status === 'En ligne' ? '#4ade80' : 'var(--color-accent)'}; display: inline-block;`}></span>
-              <p style="font-size: 0.9rem;">{exp.status}</p>
+  {experiments.map((exp, i) => (
+    <section class={`exp ${i % 2 === 1 ? 'exp-alt' : ''}`} id={exp.id}>
+      <div class="wrap exp-grid">
+        <!-- Colonne gauche : fiche -->
+        <aside class="exp-side reveal-left">
+          <span class="exp-num">{exp.number}</span>
+          <h2 class="exp-title">{exp.title}</h2>
+          <p class="exp-subtitle">{exp.subtitle}</p>
+          <span class="tag">{exp.tag}</span>
+          <dl class="facts">
+            <div>
+              <dt>Statut</dt>
+              <dd><span class="status-dot" style={`background: ${exp.status === 'En ligne' ? '#3F8F5A' : 'var(--color-caramel)'};`} aria-hidden="true"></span>{exp.status}</dd>
             </div>
-          </div>
-
-          {exp.id === 'chatbot-karotte' && (
-            <>
-              <div style="margin-top: 1.5rem;">
-                <p style="font-size: 0.75rem; color: var(--color-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem;">Contexte</p>
-                <p style="font-size: 0.9rem;">Projet final, formation AI Product Builder du Wagon</p>
+            {exp.facts?.map((f) => (
+              <div>
+                <dt>{f.label}</dt>
+                <dd>{f.value}</dd>
               </div>
-              <div style="margin-top: 1.5rem;">
-                <p style="font-size: 0.75rem; color: var(--color-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem;">Jeu de test</p>
-                <p style="font-size: 0.9rem;">12 réponses conformes sur 15, aucun prix inventé</p>
-              </div>
-            </>
-          )}
-
+            ))}
+          </dl>
           {exp.link && (
-            <div style="margin-top: 1.5rem;">
-              <a href={exp.link} target="_blank" style="font-size: 0.8rem; color: var(--color-accent); letter-spacing: 0.05em;">
-                Voir le projet →
-              </a>
-            </div>
+            <a href={exp.link} target="_blank" rel="noopener" class="link-arrow">Voir le projet</a>
           )}
-        </div>
+        </aside>
 
-        <!-- Right -->
-        <div class="reveal">
-          {exp.mockup && (
-            <div style="
-              margin-bottom: 3rem;
-              border: 1px solid var(--color-border);
-              border-radius: 2px;
-              overflow: hidden;
-            ">
-              <img src={exp.mockup} alt={`Mockup ${exp.title}`} style="width: 100%; display: block;" />
+        <!-- Colonne droite : visuels et contenu -->
+        <div class="exp-main reveal">
+          {exp.image && (
+            <div class="visual">
+              <img src={exp.image.src} alt={exp.image.alt} loading="lazy" />
             </div>
           )}
 
-          {exp.id === 'site-vitrine' && (
-            <div style="margin-bottom: 3rem; border: 1px solid var(--color-border); border-radius: 2px; overflow: hidden;">
-              <img src="/mockups/site-vitrine-mockup.png"
-                alt="Mockup site vitrine Julien Lacaze"
-                style="width: 100%; display: block;" />
-            </div>
-          )}
-
-          {exp.id === 'cursus' && (
-            <div data-carousel style="margin-bottom: 3rem;">
-              <div id="cursus-carousel" style="
-                position: relative;
-                border: 1px solid var(--color-border);
-                border-radius: 2px;
-                overflow: hidden;
-              ">
-                <!-- Slides -->
-                {[
-                  { src: '/mockups/cursus-accueil.jpg', alt: "Page d'accueil de Cursus : les monuments ont leur histoire, écris la tienne", caption: "L'accueil, avant connexion" },
-                  { src: '/mockups/cursus-monument-legend.jpg', alt: 'Page Monument Legend de Cursus : le titre des coureurs qui dominent les segments autour des monuments', caption: 'Monument Legend, la couronne à décrocher' },
-                  { src: '/mockups/cursus-carte.jpg', alt: 'Carte de France de Cursus avec les monuments et les segments', caption: 'La carte des monuments, une fois connecté' },
-                  { src: '/mockups/cursus-segments.jpg', alt: 'Liste des segments Cursus autour des monuments de Bordeaux', caption: 'Les segments autour des monuments' },
-                  { src: '/mockups/cursus-profil.jpg', alt: 'Profil coureur dans Cursus : statistiques, badges et synchronisation Strava', caption: 'Le profil coureur' },
-                ].map((s, i) => (
-                  <div class="cursus-slide" data-slide style={`display: ${i === 0 ? 'block' : 'none'};`}>
-                    <img src={s.src} alt={s.alt} loading="lazy"
-                      style="width: 100%; display: block; border-radius: 2px;" />
-                    <div style="
-                      padding: 1rem 1.5rem;
-                      background: var(--color-surface);
-                      border-top: 1px solid var(--color-border);
-                      text-align: center;
-                    ">
-                      <p style="font-size: 0.85rem; color: var(--color-text);">{s.caption}</p>
+          {exp.slides && (
+            <div class="slider" data-carousel>
+              <div class="slider-frame">
+                {exp.slides.map((s, j) => (
+                  <figure data-slide style={`display: ${j === 0 ? 'block' : 'none'};`}>
+                    <div class={`slide-img ${exp.slidesFit === 'contain' ? 'slide-contain' : ''}`}>
+                      <img src={s.src} alt={s.alt} loading="lazy" />
                     </div>
-                  </div>
-                ))}
-
-                <!-- Contrôles -->
-                <button data-prev aria-label="Capture précédente" style="
-                  position: absolute;
-                  left: 1rem;
-                  top: 45%;
-                  transform: translateY(-50%);
-                  background: var(--color-bg);
-                  border: 1px solid var(--color-border);
-                  color: var(--color-text);
-                  width: 36px;
-                  height: 36px;
-                  border-radius: 50%;
-                  font-size: 1rem;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                ">←</button>
-                <button data-next aria-label="Capture suivante" style="
-                  position: absolute;
-                  right: 1rem;
-                  top: 45%;
-                  transform: translateY(-50%);
-                  background: var(--color-bg);
-                  border: 1px solid var(--color-border);
-                  color: var(--color-text);
-                  width: 36px;
-                  height: 36px;
-                  border-radius: 50%;
-                  font-size: 1rem;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                ">→</button>
-              </div>
-
-              <!-- Indicateurs -->
-              <div style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem;">
-                <span class="cursus-dot" data-dot style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-accent);"></span>
-                <span class="cursus-dot" data-dot style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-border);"></span>
-                <span class="cursus-dot" data-dot style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-border);"></span>
-                <span class="cursus-dot" data-dot style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-border);"></span>
-                <span class="cursus-dot" data-dot style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-border);"></span>
-              </div>
-            </div>
-          )}
-
-          {exp.id === 'chatbot-karotte' && (
-            <div data-carousel style="margin-bottom: 3rem;">
-              <div style="position: relative; border: 1px solid var(--color-border); border-radius: 2px; overflow: hidden;">
-                {[
-                  { src: '/mockups/karotte-chat-desktop.png', alt: "Assistant IA Karotte sur ordinateur : un DRH d'une entreprise de 200 salariés demande si Karotte lui convient, l'assistant explique les bénéfices et lui demande son objectif prioritaire", caption: "Une vraie question de DRH, sur ordinateur" },
-                  { src: '/mockups/karotte-chat.png', alt: "Assistant IA Karotte : message d'accueil du chat, qui précise qu'il s'agit d'une IA", caption: 'Le chat vu par le DRH' },
-                  { src: '/mockups/karotte-workflow-n8n.png', alt: "Workflow n8n de l'agent Karotte : chat, agent IA, base de connaissances Supabase, journal Airtable", caption: "Le workflow n8n de l'agent" },
-                ].map((s, i) => (
-                  <figure data-slide style={`margin: 0; display: ${i === 0 ? 'block' : 'none'};`}>
-                    <div style="height: clamp(320px, 55vw, 520px); display: flex; align-items: center; justify-content: center; padding: 1.5rem 3.5rem; background: var(--color-bg);">
-                      <img src={s.src} alt={s.alt} loading="lazy"
-                        style="max-width: 100%; max-height: 100%; object-fit: contain; display: block; border: 1px solid var(--color-border);" />
-                    </div>
-                    <figcaption style="padding: 1rem 1.5rem; background: var(--color-surface); border-top: 1px solid var(--color-border); text-align: center; font-size: 0.85rem; color: var(--color-text);">{s.caption}</figcaption>
+                    <figcaption>{s.caption}</figcaption>
                   </figure>
                 ))}
-                <button data-prev aria-label="Capture précédente" style="position: absolute; left: 1rem; top: 45%; transform: translateY(-50%); background: var(--color-bg); border: 1px solid var(--color-border); color: var(--color-text); width: 36px; height: 36px; border-radius: 50%; font-size: 1rem; display: flex; align-items: center; justify-content: center;">←</button>
-                <button data-next aria-label="Capture suivante" style="position: absolute; right: 1rem; top: 45%; transform: translateY(-50%); background: var(--color-bg); border: 1px solid var(--color-border); color: var(--color-text); width: 36px; height: 36px; border-radius: 50%; font-size: 1rem; display: flex; align-items: center; justify-content: center;">→</button>
+                <button type="button" class="slider-btn slider-prev" data-prev aria-label="Capture précédente">←</button>
+                <button type="button" class="slider-btn slider-next" data-next aria-label="Capture suivante">→</button>
               </div>
-              <div style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem;">
-                <span data-dot style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-accent);"></span>
-                <span data-dot style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-border);"></span>
-                <span data-dot style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-border);"></span>
+              <div class="dots">
+                {exp.slides.map((_, j) => (
+                  <span data-dot class="dot" style={`background: ${j === 0 ? 'var(--color-accent)' : 'var(--color-border)'};`}></span>
+                ))}
               </div>
-              <p style="font-size: 0.8rem; color: var(--color-muted); margin-top: 1rem;">Prototype non officiel, réalisé dans le cadre de la formation AI Product Builder du Wagon.</p>
+              {exp.note && <p class="note">{exp.note}</p>}
             </div>
           )}
 
-          <div style="margin-bottom: 3rem;">
-            <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">Le projet</p>
-            <p style="font-size: 1.05rem; line-height: 1.8; color: var(--color-muted);">{exp.description}</p>
+          <div class="block">
+            <h3 class="block-title">Le projet</h3>
+            <p class="block-text">{exp.description}</p>
           </div>
 
           {exp.stack && (
-            <div style="margin-bottom: 3rem;">
-              <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.25rem;">Sous le capot</p>
-              <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem;">
-                {exp.stack.map((s) => (
-                  <li style="display: flex; gap: 1rem; align-items: flex-start; font-size: 0.95rem; line-height: 1.4; color: var(--color-muted);">
-                    <span style="color: var(--color-accent); flex-shrink: 0; margin-top: 0.1rem;">—</span>
-                    {s}
-                  </li>
-                ))}
+            <div class="block">
+              <h3 class="block-title">Sous le capot</h3>
+              <ul class="bullets">
+                {exp.stack.map((s) => <li>{s}</li>)}
               </ul>
             </div>
           )}
 
-          <div>
-            <p style="font-size: 0.75rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.25rem;">Ce que j'en retiens</p>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem;">
-              {exp.learnings.map((l) => (
-                <li style="display: flex; gap: 1rem; align-items: flex-start; font-size: 0.95rem; line-height: 1.4; color: var(--color-muted);">
-                  <span style="color: var(--color-accent); flex-shrink: 0; margin-top: 0.1rem;">—</span>
-                  {l}
-                </li>
-              ))}
+          <div class="block">
+            <h3 class="block-title">Ce que j'en retiens</h3>
+            <ul class="bullets">
+              {exp.learnings.map((l) => <li>{l}</li>)}
             </ul>
           </div>
         </div>
-      </article>
-    ))}
+      </div>
+    </section>
+  ))}
 
-  </section>
-
-  <section style="
-    padding: 8rem 3rem;
-    text-align: center;
-    border-top: 1px solid var(--color-border);
-    max-width: 1400px;
-    margin: 0 auto;
-  ">
-    <div style="max-width: 600px; margin: 0 auto;">
-      <div class="sep" style="margin: 0 auto 2rem;"></div>
-      <h2 style="font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1.5rem;">
-        Besoin d'un accompagnement marketing ?
-      </h2>
-      <p style="color: var(--color-muted); line-height: 1.8; margin-bottom: 3rem;">
-        Parlons-en lors d'un rendez-vous de 15 min.
-      </p>
+  <!-- Contact -->
+  <section class="contact">
+    <div class="wrap contact-inner">
+      <h2 class="contact-title">Besoin d'un accompagnement marketing ?</h2>
+      <p class="contact-sub">Parlons-en lors d'un rendez-vous de 15 min.</p>
       <div class="calendly-inline-widget"
-        data-url="https://calendly.com/julien-lacaze-pro/cafe-virtuel?hide_event_type_details=1&hide_gdpr_banner=1&background_color=EDE8DF&text_color=1C1916&primary_color=8B6F47"
-        style="min-width:320px; height:700px;">
+        data-url="https://calendly.com/julien-lacaze-pro/cafe-virtuel?hide_event_type_details=1&hide_gdpr_banner=1&background_color=ffffff&text_color=2b1f19&primary_color=8b5e34"
+        style="min-width: 300px; height: 700px; border-radius: 6px; overflow: hidden;">
       </div>
       <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
     </div>
   </section>
 
-<script>
-  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
-    const slides = root.querySelectorAll<HTMLElement>('[data-slide]');
-    const dots = root.querySelectorAll<HTMLElement>('[data-dot]');
-    let current = 0;
+  <style>
+    .wrap { max-width: 1240px; margin: 0 auto; padding-left: 1.75rem; padding-right: 1.75rem; }
+    .caramel { color: var(--color-caramel); }
 
-    function goTo(index: number) {
-      slides[current].style.display = 'none';
-      if (dots[current]) dots[current].style.background = 'var(--color-border)';
-      current = (index + slides.length) % slides.length;
-      slides[current].style.display = 'block';
-      if (dots[current]) dots[current].style.background = 'var(--color-accent)';
+    .head { background: var(--color-dark); color: var(--color-on-dark); padding: 8rem 0 4rem; }
+    .head-inner { display: flex; flex-direction: column; gap: 1.2rem; }
+    .head-title { font-size: clamp(2.4rem, 7vw, 5.4rem); max-width: 12em; }
+    .head-sub { font-size: 1.1rem; color: var(--color-muted-on-dark); max-width: 36em; }
+    .jump { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.6rem; }
+    .jump a { border: 1.5px solid var(--color-caramel); color: var(--color-on-dark); border-radius: 999px; padding: 0.4rem 0.95rem; font-size: 0.9rem; font-weight: 600; transition: background 0.2s ease, color 0.2s ease; }
+    .jump a:hover { background: var(--color-caramel); color: var(--color-dark); }
+
+    .exp { padding: 5rem 0; scroll-margin-top: 4rem; }
+    .exp-alt { background: var(--color-surface); }
+    .exp-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 4rem; align-items: start; }
+    .exp-side { position: sticky; top: 7rem; display: flex; flex-direction: column; align-items: flex-start; gap: 0.7rem; }
+    .exp-num { font-family: var(--font-display); font-weight: 900; font-stretch: 115%; font-size: 3.4rem; line-height: 1; color: var(--color-caramel); }
+    .exp-title { font-size: clamp(1.9rem, 3vw, 2.5rem); }
+    .exp-subtitle { color: var(--color-muted); }
+    .facts { margin: 1rem 0 0; padding-top: 1.2rem; border-top: 2px solid var(--color-caramel); display: flex; flex-direction: column; gap: 1rem; width: 100%; }
+    .facts dt { font-weight: 700; font-size: 0.9rem; }
+    .facts dd { margin: 0.15rem 0 0; color: var(--color-muted); font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem; }
+    .status-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+    .link-arrow { font-weight: 700; color: var(--color-accent); margin-top: 0.5rem; }
+    .link-arrow::after { content: ' →'; }
+
+    .exp-main { display: flex; flex-direction: column; gap: 2.5rem; }
+    .visual { border-radius: 6px; overflow: hidden; border: 1px solid var(--color-border); }
+    .visual img { width: 100%; display: block; }
+
+    .slider-frame { position: relative; border-radius: 6px; overflow: hidden; border: 1px solid var(--color-border); background: var(--color-surface); }
+    .slider figure { margin: 0; }
+    .slide-img img { width: 100%; display: block; }
+    .slide-contain { height: clamp(300px, 50vw, 500px); display: flex; align-items: center; justify-content: center; padding: 1.5rem 3.5rem; background: var(--color-bg); }
+    .slide-contain img { width: auto; max-width: 100%; max-height: 100%; object-fit: contain; border: 1px solid var(--color-border); }
+    .slider figcaption { padding: 0.9rem 1.2rem; border-top: 1px solid var(--color-border); text-align: center; font-size: 0.9rem; font-weight: 600; background: var(--color-surface); }
+    .exp-alt .slider figcaption, .exp-alt .slider-frame { background: var(--color-bg); }
+    .slider-btn { position: absolute; top: 45%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; border: none; background: var(--color-dark); color: var(--color-on-dark); font-size: 1rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s ease, color 0.2s ease; }
+    .slider-btn:hover { background: var(--color-caramel); color: var(--color-dark); }
+    .slider-prev { left: 0.8rem; }
+    .slider-next { right: 0.8rem; }
+    .dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 0.9rem; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .note { font-size: 0.85rem; color: var(--color-muted); margin-top: 0.9rem; }
+
+    .block-title { font-size: 1.35rem; margin-bottom: 0.8rem; }
+    .block-text { color: #4A3F37; font-size: 1.05rem; }
+    .bullets { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+    .bullets li { position: relative; padding-left: 1.2rem; color: #4A3F37; }
+    .bullets li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 8px; height: 8px; border-radius: 2px; background: var(--color-caramel); }
+
+    .contact { background: var(--color-dark); color: var(--color-on-dark); padding: 5rem 0; margin-bottom: -6rem; }
+    .contact-inner { max-width: 760px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+    .contact-title { font-size: clamp(2rem, 4.5vw, 3.2rem); }
+    .contact-sub { color: var(--color-muted-on-dark); margin-bottom: 1.5rem; text-align: center; }
+    .contact .calendly-inline-widget { width: 100%; }
+
+    @media (max-width: 860px) {
+      .exp-grid { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+      .exp-side { position: relative; top: auto; }
     }
+    @media (max-width: 700px) {
+      .wrap { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+      .head, .exp, .contact { padding-left: 0 !important; padding-right: 0 !important; }
+      .head { padding-top: 7rem; padding-bottom: 3rem; }
+      .exp { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+      .slide-contain { padding: 1rem 3.2rem; }
+      .contact { padding-top: 4rem; padding-bottom: 4rem; }
+    }
+  </style>
 
-    root.querySelector('[data-prev]')?.addEventListener('click', () => goTo(current - 1));
-    root.querySelector('[data-next]')?.addEventListener('click', () => goTo(current + 1));
-  });
-</script>
+  <script>
+    document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+      const slides = root.querySelectorAll<HTMLElement>('[data-slide]');
+      const dots = root.querySelectorAll<HTMLElement>('[data-dot]');
+      let current = 0;
+
+      function goTo(index: number) {
+        slides[current].style.display = 'none';
+        if (dots[current]) dots[current].style.background = 'var(--color-border)';
+        current = (index + slides.length) % slides.length;
+        slides[current].style.display = 'block';
+        if (dots[current]) dots[current].style.background = 'var(--color-accent)';
+      }
+
+      root.querySelector('[data-prev]')?.addEventListener('click', () => goTo(current - 1));
+      root.querySelector('[data-next]')?.addEventListener('click', () => goTo(current + 1));
+    });
+  </script>
 
 </Layout>
