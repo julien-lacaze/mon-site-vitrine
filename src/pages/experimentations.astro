@@ -177,7 +177,7 @@ const experiments = [
           )}
 
           {exp.id === 'cursus' && (
-            <div style="margin-bottom: 3rem;">
+            <div data-carousel style="margin-bottom: 3rem;">
               <div id="cursus-carousel" style="
                 position: relative;
                 border: 1px solid var(--color-border);
@@ -185,47 +185,29 @@ const experiments = [
                 overflow: hidden;
               ">
                 <!-- Slides -->
-                <div class="cursus-slide" style="display: block;">
-                  <img src="/mockups/cursus-classement.png" alt="Classement Cursus"
-                    style="width: 100%; display: block; border-radius: 2px;" />
-                  <div style="
-                    padding: 1rem 1.5rem;
-                    background: var(--color-surface);
-                    border-top: 1px solid var(--color-border);
-                    text-align: center;
-                  ">
-                    <p style="font-size: 0.85rem; color: var(--color-text);">Classement Monument Legend</p>
+                {[
+                  { src: '/mockups/cursus-accueil.jpg', alt: "Page d'accueil de Cursus : les monuments ont leur histoire, écris la tienne", caption: "L'accueil, avant connexion" },
+                  { src: '/mockups/cursus-monument-legend.jpg', alt: 'Page Monument Legend de Cursus : le titre des coureurs qui dominent les segments autour des monuments', caption: 'Monument Legend, la couronne à décrocher' },
+                  { src: '/mockups/cursus-carte.jpg', alt: 'Carte de France de Cursus avec les monuments et les segments', caption: 'La carte des monuments, une fois connecté' },
+                  { src: '/mockups/cursus-segments.jpg', alt: 'Liste des segments Cursus autour des monuments de Bordeaux', caption: 'Les segments autour des monuments' },
+                  { src: '/mockups/cursus-profil.jpg', alt: 'Profil coureur dans Cursus : statistiques, badges et synchronisation Strava', caption: 'Le profil coureur' },
+                ].map((s, i) => (
+                  <div class="cursus-slide" data-slide style={`display: ${i === 0 ? 'block' : 'none'};`}>
+                    <img src={s.src} alt={s.alt} loading="lazy"
+                      style="width: 100%; display: block; border-radius: 2px;" />
+                    <div style="
+                      padding: 1rem 1.5rem;
+                      background: var(--color-surface);
+                      border-top: 1px solid var(--color-border);
+                      text-align: center;
+                    ">
+                      <p style="font-size: 0.85rem; color: var(--color-text);">{s.caption}</p>
+                    </div>
                   </div>
-                </div>
-
-                <div class="cursus-slide" style="display: none;">
-                  <img src="/mockups/cursus-segments.png" alt="Segments Cursus"
-                    style="width: 100%; display: block; border-radius: 2px;" />
-                  <div style="
-                    padding: 1rem 1.5rem;
-                    background: var(--color-surface);
-                    border-top: 1px solid var(--color-border);
-                    text-align: center;
-                  ">
-                    <p style="font-size: 0.85rem; color: var(--color-text);">Segments Cursus & segments Strava</p>
-                  </div>
-                </div>
-
-                <div class="cursus-slide" style="display: none;">
-                  <img src="/mockups/cursus-profil.png" alt="Profil Cursus"
-                    style="width: 100%; display: block; border-radius: 2px;" />
-                  <div style="
-                    padding: 1rem 1.5rem;
-                    background: var(--color-surface);
-                    border-top: 1px solid var(--color-border);
-                    text-align: center;
-                  ">
-                    <p style="font-size: 0.85rem; color: var(--color-text);">Profil utilisateur</p>
-                  </div>
-                </div>
+                ))}
 
                 <!-- Contrôles -->
-                <button id="cursus-prev" style="
+                <button data-prev aria-label="Capture précédente" style="
                   position: absolute;
                   left: 1rem;
                   top: 45%;
@@ -241,7 +223,7 @@ const experiments = [
                   align-items: center;
                   justify-content: center;
                 ">←</button>
-                <button id="cursus-next" style="
+                <button data-next aria-label="Capture suivante" style="
                   position: absolute;
                   right: 1rem;
                   top: 45%;
@@ -261,28 +243,38 @@ const experiments = [
 
               <!-- Indicateurs -->
               <div style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem;">
-                <span class="cursus-dot" style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-accent);"></span>
-                <span class="cursus-dot" style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-border);"></span>
-                <span class="cursus-dot" style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-border);"></span>
+                <span class="cursus-dot" data-dot style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-accent);"></span>
+                <span class="cursus-dot" data-dot style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-border);"></span>
+                <span class="cursus-dot" data-dot style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-border);"></span>
+                <span class="cursus-dot" data-dot style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-border);"></span>
+                <span class="cursus-dot" data-dot style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-border);"></span>
               </div>
             </div>
           )}
 
           {exp.id === 'chatbot-karotte' && (
-            <div style="margin-bottom: 3rem;">
-              <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start;">
-                <figure style="flex: 1 1 200px; margin: 0; border: 1px solid var(--color-border); border-radius: 2px; overflow: hidden;">
-                  <img src="/mockups/karotte-chat.png"
-                    alt="Assistant IA Karotte : message d'accueil du chat, qui précise qu'il s'agit d'une IA"
-                    style="width: 100%; display: block;" />
-                  <figcaption style="padding: 0.75rem 1rem; background: var(--color-surface); border-top: 1px solid var(--color-border); text-align: center; font-size: 0.85rem; color: var(--color-text);">Le chat vu par le DRH</figcaption>
-                </figure>
-                <figure style="flex: 2 1 320px; margin: 0; border: 1px solid var(--color-border); border-radius: 2px; overflow: hidden;">
-                  <img src="/mockups/karotte-workflow-n8n.png"
-                    alt="Workflow n8n de l'agent Karotte : chat, agent IA, base de connaissances Supabase, journal Airtable"
-                    style="width: 100%; display: block;" />
-                  <figcaption style="padding: 0.75rem 1rem; background: var(--color-surface); border-top: 1px solid var(--color-border); text-align: center; font-size: 0.85rem; color: var(--color-text);">Le workflow n8n de l'agent</figcaption>
-                </figure>
+            <div data-carousel style="margin-bottom: 3rem;">
+              <div style="position: relative; border: 1px solid var(--color-border); border-radius: 2px; overflow: hidden;">
+                {[
+                  { src: '/mockups/karotte-chat-desktop.png', alt: "Assistant IA Karotte sur ordinateur : un DRH d'une entreprise de 200 salariés demande si Karotte lui convient, l'assistant explique les bénéfices et lui demande son objectif prioritaire", caption: "Une vraie question de DRH, sur ordinateur" },
+                  { src: '/mockups/karotte-chat.png', alt: "Assistant IA Karotte : message d'accueil du chat, qui précise qu'il s'agit d'une IA", caption: 'Le chat vu par le DRH' },
+                  { src: '/mockups/karotte-workflow-n8n.png', alt: "Workflow n8n de l'agent Karotte : chat, agent IA, base de connaissances Supabase, journal Airtable", caption: "Le workflow n8n de l'agent" },
+                ].map((s, i) => (
+                  <figure data-slide style={`margin: 0; display: ${i === 0 ? 'block' : 'none'};`}>
+                    <div style="height: clamp(320px, 55vw, 520px); display: flex; align-items: center; justify-content: center; padding: 1.5rem 3.5rem; background: var(--color-bg);">
+                      <img src={s.src} alt={s.alt} loading="lazy"
+                        style="max-width: 100%; max-height: 100%; object-fit: contain; display: block; border: 1px solid var(--color-border);" />
+                    </div>
+                    <figcaption style="padding: 1rem 1.5rem; background: var(--color-surface); border-top: 1px solid var(--color-border); text-align: center; font-size: 0.85rem; color: var(--color-text);">{s.caption}</figcaption>
+                  </figure>
+                ))}
+                <button data-prev aria-label="Capture précédente" style="position: absolute; left: 1rem; top: 45%; transform: translateY(-50%); background: var(--color-bg); border: 1px solid var(--color-border); color: var(--color-text); width: 36px; height: 36px; border-radius: 50%; font-size: 1rem; display: flex; align-items: center; justify-content: center;">←</button>
+                <button data-next aria-label="Capture suivante" style="position: absolute; right: 1rem; top: 45%; transform: translateY(-50%); background: var(--color-bg); border: 1px solid var(--color-border); color: var(--color-text); width: 36px; height: 36px; border-radius: 50%; font-size: 1rem; display: flex; align-items: center; justify-content: center;">→</button>
+              </div>
+              <div style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem;">
+                <span data-dot style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-accent);"></span>
+                <span data-dot style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-border);"></span>
+                <span data-dot style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-border);"></span>
               </div>
               <p style="font-size: 0.8rem; color: var(--color-muted); margin-top: 1rem;">Prototype non officiel, réalisé dans le cadre de la formation AI Product Builder du Wagon.</p>
             </div>
@@ -348,20 +340,22 @@ const experiments = [
   </section>
 
 <script>
-  const slides = document.querySelectorAll('.cursus-slide');
-  const dots = document.querySelectorAll('.cursus-dot');
-  let current = 0;
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+    const slides = root.querySelectorAll<HTMLElement>('[data-slide]');
+    const dots = root.querySelectorAll<HTMLElement>('[data-dot]');
+    let current = 0;
 
-  function goTo(index: number) {
-    (slides[current] as HTMLElement).style.display = 'none';
-    (dots[current] as HTMLElement).style.background = 'var(--color-border)';
-    current = (index + slides.length) % slides.length;
-    (slides[current] as HTMLElement).style.display = 'block';
-    (dots[current] as HTMLElement).style.background = 'var(--color-accent)';
-  }
+    function goTo(index: number) {
+      slides[current].style.display = 'none';
+      if (dots[current]) dots[current].style.background = 'var(--color-border)';
+      current = (index + slides.length) % slides.length;
+      slides[current].style.display = 'block';
+      if (dots[current]) dots[current].style.background = 'var(--color-accent)';
+    }
 
-  document.getElementById('cursus-prev')?.addEventListener('click', () => goTo(current - 1));
-  document.getElementById('cursus-next')?.addEventListener('click', () => goTo(current + 1));
+    root.querySelector('[data-prev]')?.addEventListener('click', () => goTo(current - 1));
+    root.querySelector('[data-next]')?.addEventListener('click', () => goTo(current + 1));
+  });
 </script>
 
 </Layout>
